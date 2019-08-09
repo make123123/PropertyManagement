@@ -26,7 +26,9 @@ public class TestController {
 	@ResponseBody
 	public String testController() {
 		List<Test> list = ts.queryAll();
+		System.out.println("aaa");
 		return list.toString();
+		
 		
 	}
 }
