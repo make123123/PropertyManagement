@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.superMonkey.pm.mapper.EmployeesDeptMapper">
+ <resultMap id="BaseResultMap" type="EmployessDeptEntity">
+    <id column="DEPTNO" jdbcType="INTEGER" property="deptno" />
+    <result column="DEPTNAME" jdbcType="VARCHAR" property="deptname" />
+  </resultMap>
+  <!-- 增 -->
+  <insert id="insertSelective" parameterType="EmployessDeptEntity">
+    insert into Employees_dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deptno != null">
+        DEPTNO,
+      </if>
+      <if test="deptname != null">
+        DEPTNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deptno != null">
+        #{deptno,jdbcType=INTEGER},
+      </if>
+      <if test="deptname != null">
+        #{deptname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- 删 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Employees_dept
+    where DEPTNO = #{deptno,jdbcType=INTEGER}
+  </delete>
+  <!-- 改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="EmployessDeptEntity">
+    update Employees_dept
+    <set>
+      <if test="deptname != null">
+        DEPTNAME = #{deptname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DEPTNO = #{deptno,jdbcType=INTEGER}
+  </update>
+  <!-- 查 -->
+  <sql id="Base_Column_List">
+    DEPTNO, DEPTNAME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Employees_dept
+    where DEPTNO = #{deptno,jdbcType=INTEGER}
+  </select>
+  <select id="selectListByAll" resultMap="BaseResultMap">
+		select * from Employees_dept
+  </select>
+  </mapper>
+  
