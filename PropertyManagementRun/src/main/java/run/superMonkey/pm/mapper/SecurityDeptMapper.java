@@ -6,13 +6,13 @@ import org.apache.ibatis.annotations.Param;
 
 public interface SecurityDeptMapper {
 
-    int deleteByPrimaryKey(Double securityno);
+    int deleteByPrimaryKey(Integer securityno);
 
     int insert(SecurityDept record);
 
     int insertSelective(SecurityDept record);
 
-    SecurityDept selectByPrimaryKey(Double securityno);
+    SecurityDept selectByPrimaryKey(Integer securityno);
 
     int updateByPrimaryKeySelective(SecurityDept record);
 

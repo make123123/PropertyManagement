@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.e3mall.mapper.SecurityDeptMapper">
   <resultMap id="BaseResultMap" type="cn.e3mall.pojo.SecurityDept">
-    <id column="securityno" jdbcType="DOUBLE" property="securityno" />
+    <id column="securityno" jdbcType="INTEGER" property="securityno" />
     <result column="securityname" jdbcType="VARCHAR" property="securityname" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -80,15 +80,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Double" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from security_dept
-    where securityno = #{securityno,jdbcType=DOUBLE}
+    where securityno = #{securityno,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Double">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from security_dept
-    where securityno = #{securityno,jdbcType=DOUBLE}
+    where securityno = #{securityno,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="cn.e3mall.pojo.SecurityDeptExample">
     delete from security_dept
@@ -98,7 +98,7 @@
   </delete>
   <insert id="insert" parameterType="cn.e3mall.pojo.SecurityDept">
     insert into security_dept (securityno, securityname)
-    values (#{securityno,jdbcType=DOUBLE}, #{securityname,jdbcType=VARCHAR})
+    values (#{securityno,jdbcType=INTEGER}, #{securityname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.e3mall.pojo.SecurityDept">
     insert into security_dept
@@ -112,7 +112,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="securityno != null">
-        #{securityno,jdbcType=DOUBLE},
+        #{securityno,jdbcType=INTEGER},
       </if>
       <if test="securityname != null">
         #{securityname,jdbcType=VARCHAR},
@@ -129,7 +129,7 @@
     update security_dept
     <set>
       <if test="record.securityno != null">
-        securityno = #{record.securityno,jdbcType=DOUBLE},
+        securityno = #{record.securityno,jdbcType=INTEGER},
       </if>
       <if test="record.securityname != null">
         securityname = #{record.securityname,jdbcType=VARCHAR},
@@ -141,7 +141,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update security_dept
-    set securityno = #{record.securityno,jdbcType=DOUBLE},
+    set securityno = #{record.securityno,jdbcType=INTEGER},
       securityname = #{record.securityname,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -154,11 +154,11 @@
         securityname = #{securityname,jdbcType=VARCHAR},
       </if>
     </set>
-    where securityno = #{securityno,jdbcType=DOUBLE}
+    where securityno = #{securityno,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.e3mall.pojo.SecurityDept">
     update security_dept
     set securityname = #{securityname,jdbcType=VARCHAR}
-    where securityno = #{securityno,jdbcType=DOUBLE}
+    where securityno = #{securityno,jdbcType=INTEGER}
   </update>
 </mapper>

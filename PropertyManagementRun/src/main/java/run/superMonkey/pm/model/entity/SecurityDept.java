@@ -9,7 +9,7 @@ import lombok.Data;
 @Alias("SecurityDept")
 @Data
 public class SecurityDept implements Serializable{
-    private Double securityno;
+    private Integer securityno;
 
     private String securityname;
 
