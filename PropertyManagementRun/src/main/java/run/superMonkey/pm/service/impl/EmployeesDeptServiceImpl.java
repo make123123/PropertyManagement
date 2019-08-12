@@ -13,26 +13,20 @@ import run.superMonkey.pm.service.EmployeesDeptService;
 public class EmployeesDeptServiceImpl implements EmployeesDeptService {
     @Autowired
 	private EmployeesDeptMapper edm=null;
-    int cout=0;
+   
 	@Override
-	public int insert(EmployessDeptEntity record) throws Exception {
+	public void insert(EmployessDeptEntity record) throws Exception {
 		edm.insertSelective(record);
-		cout++;
-		return cout;
 	}
 
 	@Override
-	public int delete(Integer deptno) throws Exception {
-		edm.deleteByPrimaryKey(deptno);
-		cout++;
-		return cout;	
+	public void delete(Integer deptno) throws Exception {
+		edm.deleteByPrimaryKey(deptno);	
 	}
 
 	@Override
-	public int update(EmployessDeptEntity record) throws Exception {
+	public void update(EmployessDeptEntity record) throws Exception {
 	   edm.updateByPrimaryKeySelective(record);
-	   cout++;
-	   return cout;
 	}
 
 	@Override
