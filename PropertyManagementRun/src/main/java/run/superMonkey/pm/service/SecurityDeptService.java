@@ -10,7 +10,7 @@ public interface SecurityDeptService {
 	
 	
 	
-	public SecurityDept getByPrimaryKey(Integer securityno) throws Exception;
+	SecurityDept getByPrimaryKey(Integer securityno) throws Exception;
 	
 	
 	

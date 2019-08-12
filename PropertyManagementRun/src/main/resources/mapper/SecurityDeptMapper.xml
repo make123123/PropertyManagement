@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.e3mall.mapper.SecurityDeptMapper">
-  <resultMap id="BaseResultMap" type="cn.e3mall.pojo.SecurityDept">
+<mapper namespace="run.superMonkey.pm.mapper.SecurityDeptMapper">
+  <resultMap id="BaseResultMap" type="run.superMonkey.pm.model.entity.SecurityDept">
     <id column="securityno" jdbcType="INTEGER" property="securityno" />
     <result column="securityname" jdbcType="VARCHAR" property="securityname" />
   </resultMap>
@@ -66,20 +66,7 @@
   <sql id="Base_Column_List">
     securityno, securityname
   </sql>
-  <select id="selectByExample" parameterType="cn.e3mall.pojo.SecurityDeptExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from security_dept
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -90,17 +77,12 @@
     delete from security_dept
     where securityno = #{securityno,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.e3mall.pojo.SecurityDeptExample">
-    delete from security_dept
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="cn.e3mall.pojo.SecurityDept">
+
+  <insert id="insert" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
     insert into security_dept (securityno, securityname)
     values (#{securityno,jdbcType=INTEGER}, #{securityname,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.e3mall.pojo.SecurityDept">
+  <insert id="insertSelective" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
     insert into security_dept
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="securityno != null">
@@ -119,35 +101,9 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.e3mall.pojo.SecurityDeptExample" resultType="java.lang.Long">
-    select count(*) from security_dept
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update security_dept
-    <set>
-      <if test="record.securityno != null">
-        securityno = #{record.securityno,jdbcType=INTEGER},
-      </if>
-      <if test="record.securityname != null">
-        securityname = #{record.securityname,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update security_dept
-    set securityno = #{record.securityno,jdbcType=INTEGER},
-      securityname = #{record.securityname,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.e3mall.pojo.SecurityDept">
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
     update security_dept
     <set>
       <if test="securityname != null">
@@ -156,7 +112,7 @@
     </set>
     where securityno = #{securityno,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.e3mall.pojo.SecurityDept">
+  <update id="updateByPrimaryKey" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
     update security_dept
     set securityname = #{securityname,jdbcType=VARCHAR}
     where securityno = #{securityno,jdbcType=INTEGER}
