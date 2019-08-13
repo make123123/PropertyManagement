@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.superMonkey.pm.mapper.SecurityVisitRecordMapper">
+  <resultMap id="BaseResultMap" type="run.superMonkey.pm.model.entity.SecurityVisitRecord">
+    <id column="visitphoneno" jdbcType="DOUBLE" property="visitphoneno" />
+    <result column="visitname" jdbcType="VARCHAR" property="visitname" />
+    <result column="visittime" jdbcType="DATE" property="visittime" />
+    <result column="leavetime" jdbcType="DATE" property="leavetime" />
+    <result column="visitroomno" jdbcType="DOUBLE" property="visitroomno" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    visitphoneno, visitname, visittime, leavetime, visitroomno
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Double" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from security_visit_record
+    where visitphoneno = #{visitphoneno,jdbcType=DOUBLE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Double">
+    delete from security_visit_record
+    where visitphoneno = #{visitphoneno,jdbcType=DOUBLE}
+  </delete>
+  
+  <insert id="insert" parameterType="run.superMonkey.pm.model.entity.SecurityVisitRecord">
+    insert into security_visit_record (visitphoneno, visitname, visittime, 
+      leavetime, visitroomno)
+    values (#{visitphoneno,jdbcType=DOUBLE}, #{visitname,jdbcType=VARCHAR}, #{visittime,jdbcType=DATE}, 
+      #{leavetime,jdbcType=DATE}, #{visitroomno,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="run.superMonkey.pm.model.entity.SecurityVisitRecord">
+    insert into security_visit_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="visitphoneno != null">
+        visitphoneno,
+      </if>
+      <if test="visitname != null">
+        visitname,
+      </if>
+      <if test="visittime != null">
+        visittime,
+      </if>
+      <if test="leavetime != null">
+        leavetime,
+      </if>
+      <if test="visitroomno != null">
+        visitroomno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="visitphoneno != null">
+        #{visitphoneno,jdbcType=DOUBLE},
+      </if>
+      <if test="visitname != null">
+        #{visitname,jdbcType=VARCHAR},
+      </if>
+      <if test="visittime != null">
+        #{visittime,jdbcType=DATE},
+      </if>
+      <if test="leavetime != null">
+        #{leavetime,jdbcType=DATE},
+      </if>
+      <if test="visitroomno != null">
+        #{visitroomno,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="run.superMonkey.pm.model.entity.SecurityVisitRecord">
+    update security_visit_record
+    <set>
+      <if test="visitname != null">
+        visitname = #{visitname,jdbcType=VARCHAR},
+      </if>
+      <if test="visittime != null">
+        visittime = #{visittime,jdbcType=DATE},
+      </if>
+      <if test="leavetime != null">
+        leavetime = #{leavetime,jdbcType=DATE},
+      </if>
+      <if test="visitroomno != null">
+        visitroomno = #{visitroomno,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where visitphoneno = #{visitphoneno,jdbcType=DOUBLE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="run.superMonkey.pm.model.entity.SecurityVisitRecord">
+    update security_visit_record
+    set visitname = #{visitname,jdbcType=VARCHAR},
+      visittime = #{visittime,jdbcType=DATE},
+      leavetime = #{leavetime,jdbcType=DATE},
+      visitroomno = #{visitroomno,jdbcType=DOUBLE}
+    where visitphoneno = #{visitphoneno,jdbcType=DOUBLE}
+  </update>
+</mapper>

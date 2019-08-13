@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="run.superMonkey.pm.mapper.SecurityDeptMapper">
-  <resultMap id="BaseResultMap" type="run.superMonkey.pm.model.entity.SecurityDept">
-    <id column="securityno" jdbcType="INTEGER" property="securityno" />
-    <result column="securityname" jdbcType="VARCHAR" property="securityname" />
+<mapper namespace="run.superMonkey.pm.mapper.SecurityDutyLogMapper">
+  <resultMap id="BaseResultMap" type="run.superMonkey.pm.model.entity.SecurityDutyLog">
+    <id column="dutyno" jdbcType="DOUBLE" property="dutyno" />
+    <result column="dutyname" jdbcType="VARCHAR" property="dutyname" />
+    <result column="dutyDate" jdbcType="DATE" property="dutydate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,62 +65,70 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    securityno, securityname
+    dutyno, dutyname, dutyDate
   </sql>
-  
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Double" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from security_dept
-    where securityno = #{securityno,jdbcType=INTEGER}
+    from security_duty_log
+    where dutyno = #{dutyno,jdbcType=DOUBLE}
   </select>
-  <select id="selectListByAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from security_dept
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from security_dept
-    where securityno = #{securityno,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Double">
+    delete from security_duty_log
+    where dutyno = #{dutyno,jdbcType=DOUBLE}
   </delete>
 
-  <insert id="insert" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
-    insert into security_dept (securityno, securityname)
-    values (#{securityno,jdbcType=INTEGER}, #{securityname,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="run.superMonkey.pm.model.entity.SecurityDutyLog">
+    insert into security_duty_log (dutyno, dutyname, dutyDate
+      )
+    values (#{dutyno,jdbcType=DOUBLE}, #{dutyname,jdbcType=VARCHAR}, #{dutydate,jdbcType=DATE}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
-    insert into security_dept
+  <insert id="insertSelective" parameterType="run.superMonkey.pm.model.entity.SecurityDutyLog">
+    insert into security_duty_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="securityno != null">
-        securityno,
+      <if test="dutyno != null">
+        dutyno,
       </if>
-      <if test="securityname != null">
-        securityname,
+      <if test="dutyname != null">
+        dutyname,
+      </if>
+      <if test="dutydate != null">
+        dutyDate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="securityno != null">
-        #{securityno,jdbcType=INTEGER},
+      <if test="dutyno != null">
+        #{dutyno,jdbcType=DOUBLE},
       </if>
-      <if test="securityname != null">
-        #{securityname,jdbcType=VARCHAR},
+      <if test="dutyname != null">
+        #{dutyname,jdbcType=VARCHAR},
+      </if>
+      <if test="dutydate != null">
+        #{dutydate,jdbcType=DATE},
       </if>
     </trim>
   </insert>
   
+ 
   
-  <update id="updateByPrimaryKeySelective" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
-    update security_dept
+  <update id="updateByPrimaryKeySelective" parameterType="run.superMonkey.pm.model.entity.SecurityDutyLog">
+    update security_duty_log
     <set>
-      <if test="securityname != null">
-        securityname = #{securityname,jdbcType=VARCHAR},
+      <if test="dutyname != null">
+        dutyname = #{dutyname,jdbcType=VARCHAR},
+      </if>
+      <if test="dutydate != null">
+        dutyDate = #{dutydate,jdbcType=DATE},
       </if>
     </set>
-    where securityno = #{securityno,jdbcType=INTEGER}
+    where dutyno = #{dutyno,jdbcType=DOUBLE}
   </update>
-  <update id="updateByPrimaryKey" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
-    update security_dept
-    set securityname = #{securityname,jdbcType=VARCHAR}
-    where securityno = #{securityno,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="run.superMonkey.pm.model.entity.SecurityDutyLog">
+    update security_duty_log
+    set dutyname = #{dutyname,jdbcType=VARCHAR},
+      dutyDate = #{dutydate,jdbcType=DATE}
+    where dutyno = #{dutyno,jdbcType=DOUBLE}
   </update>
 </mapper>

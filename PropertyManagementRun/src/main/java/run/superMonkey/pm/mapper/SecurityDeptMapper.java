@@ -1,6 +1,7 @@
 package run.superMonkey.pm.mapper;
 
 import run.superMonkey.pm.model.entity.SecurityDept;
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -14,8 +15,11 @@ public interface SecurityDeptMapper {
     int insert(SecurityDept record);
 
     int insertSelective(SecurityDept record);
-
+    
+    List<SecurityDept> selectListByAll();
+    
     SecurityDept selectByPrimaryKey(Integer securityno);
+
 
     int updateByPrimaryKeySelective(SecurityDept record);
 
