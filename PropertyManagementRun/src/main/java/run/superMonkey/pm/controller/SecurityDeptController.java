@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,8 +14,7 @@ import run.superMonkey.pm.model.entity.SecurityDept;
 import run.superMonkey.pm.service.SecurityDeptService;
 
 
-@RestController
-@RequestMapping("/securitydept")
+@Controller
 public class SecurityDeptController {
 	
 	@Autowired
@@ -28,6 +28,11 @@ public class SecurityDeptController {
 		
 		return sd.getByPrimaryKey(1);
 		
+	}
+	
+	@GetMapping("/get1")
+	public String toIndex() {
+		return "index";
 	}
 	
 	
