@@ -13,4 +13,3 @@ mybatis:
    - classpath*:mapper/*.xml
    config-location: classpath:mapper/config/mybatis-config.xml
    type-aliases-package: run.superMonkey.pm.model.entity
-   

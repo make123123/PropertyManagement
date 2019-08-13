@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.superMonkey.pm.mapper.SecurityBoxRecordMapper">
+  <resultMap id="BaseResultMap" type="run.superMonkey.pm.model.entity.SecurityBoxRecord">
+    <id column="boxno" jdbcType="DOUBLE" property="boxno" />
+    <result column="carno" jdbcType="VARCHAR" property="carno" />
+    <result column="boxDate" jdbcType="DATE" property="boxdate" />
+    <result column="dutyno" jdbcType="DOUBLE" property="dutyno" />
+    <result column="visitname" jdbcType="VARCHAR" property="visitname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    boxno, carno, boxDate, dutyno, visitname
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Double" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from security_box_record
+    where boxno = #{boxno,jdbcType=DOUBLE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Double">
+    delete from security_box_record
+    where boxno = #{boxno,jdbcType=DOUBLE}
+  </delete>
+
+  <insert id="insert" parameterType="run.superMonkey.pm.model.entity.SecurityBoxRecord">
+    insert into security_box_record (boxno, carno, boxDate, 
+      dutyno, visitname)
+    values (#{boxno,jdbcType=DOUBLE}, #{carno,jdbcType=VARCHAR}, #{boxdate,jdbcType=DATE}, 
+      #{dutyno,jdbcType=DOUBLE}, #{visitname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="run.superMonkey.pm.model.entity.SecurityBoxRecord">
+    insert into security_box_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="boxno != null">
+        boxno,
+      </if>
+      <if test="carno != null">
+        carno,
+      </if>
+      <if test="boxdate != null">
+        boxDate,
+      </if>
+      <if test="dutyno != null">
+        dutyno,
+      </if>
+      <if test="visitname != null">
+        visitname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="boxno != null">
+        #{boxno,jdbcType=DOUBLE},
+      </if>
+      <if test="carno != null">
+        #{carno,jdbcType=VARCHAR},
+      </if>
+      <if test="boxdate != null">
+        #{boxdate,jdbcType=DATE},
+      </if>
+      <if test="dutyno != null">
+        #{dutyno,jdbcType=DOUBLE},
+      </if>
+      <if test="visitname != null">
+        #{visitname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+
+  <update id="updateByPrimaryKeySelective" parameterType="run.superMonkey.pm.model.entity.SecurityBoxRecord">
+    update security_box_record
+    <set>
+      <if test="carno != null">
+        carno = #{carno,jdbcType=VARCHAR},
+      </if>
+      <if test="boxdate != null">
+        boxDate = #{boxdate,jdbcType=DATE},
+      </if>
+      <if test="dutyno != null">
+        dutyno = #{dutyno,jdbcType=DOUBLE},
+      </if>
+      <if test="visitname != null">
+        visitname = #{visitname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where boxno = #{boxno,jdbcType=DOUBLE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="run.superMonkey.pm.model.entity.SecurityBoxRecord">
+    update security_box_record
+    set carno = #{carno,jdbcType=VARCHAR},
+      boxDate = #{boxdate,jdbcType=DATE},
+      dutyno = #{dutyno,jdbcType=DOUBLE},
+      visitname = #{visitname,jdbcType=VARCHAR}
+    where boxno = #{boxno,jdbcType=DOUBLE}
+  </update>
+</mapper>

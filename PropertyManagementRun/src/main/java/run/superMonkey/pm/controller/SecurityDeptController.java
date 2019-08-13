@@ -20,14 +20,34 @@ public class SecurityDeptController {
 	@Autowired
 	private SecurityDeptService sd;
 	
+	@RequestMapping("/add")
+	public void add(int securityno,String securityname) throws Exception{
+		SecurityDept securityDept = new SecurityDept();
+		securityDept.setSecurityno(securityno);
+		securityDept.setSecurityname(securityname);
+		sd.register(securityDept);
+	}
 	
+	@RequestMapping("/modify")
+	public void modify(int securityno,String securityname) throws Exception{
+		SecurityDept securityDept = sd.getByPrimaryKey(securityno);
+		securityDept.setSecurityname(securityname);
+		sd.update(securityDept);
+	}
 	
+	@RequestMapping("/delete")
+	public void delete(int securityno) throws Exception{
+		sd.delete(securityno);
+	}
+		
 	@RequestMapping("/get")
-	public SecurityDept get() throws Exception{
-		System.out.println("get1111");	
-		
+	public SecurityDept get() throws Exception{	
 		return sd.getByPrimaryKey(1);
-		
+	}
+	
+	@RequestMapping("/getall")
+	public List<SecurityDept> getAll() throws Exception{	
+		return sd.selectListByAll();
 	}
 	
 	@GetMapping("/get1")
