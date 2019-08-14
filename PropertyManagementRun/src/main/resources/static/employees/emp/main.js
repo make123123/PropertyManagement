@@ -2,6 +2,7 @@
  * 员工管理JS
  */
 $(function(){
+	var employeeId=null;
 	//设置系统页面标题
 	$("span#mainpagetille").html("员工管理");
 	$("#EmployeeGrid").jqGrid({
@@ -34,6 +35,8 @@ $(function(){
 		      id: "empid"},       //主键
         pager: "#EmployeeGridPager"  //控件栏
         multiselect:false,   //false只允许选中一条记录(默认) true能选中多条记录
-        
+        onSelectRow:function(empid){
+        	employeeId=empid;
+        }
     });
 });
