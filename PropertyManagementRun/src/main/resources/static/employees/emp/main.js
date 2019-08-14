@@ -6,13 +6,13 @@ $(function(){
 	//设置系统页面标题
 	$("span#mainpagetille").html("员工管理");
 	$("#EmployeeGrid").jqGrid({
-        url: '',
+        url: 'employees/emp/get/list',
         mtype: "GET",
 		styleUI : 'Bootstrap',
         datatype: "jsonp",
         colModel: [
             { label: '工号', name: 'empid', key: true, width: 10 },
-            { label: '部门', name: 'EmployessDeptEntity.deptname', width: 10 },
+            { label: '部门', name: 'deptno', width: 10 },
             { label: '姓名', name: 'empname', width: 10 },
             { label: '性别', name: 'sex', width: 10 },
             { label: '年龄', name: 'age', width: 10 }
