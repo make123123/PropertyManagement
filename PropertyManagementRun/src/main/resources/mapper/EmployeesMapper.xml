@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run/superMonkey/pm/mapper/EmployessMapper">
+  <resultMap id="BaseResultMap" type="EmployessEntity">
+    <id column="EMPID" jdbcType="INTEGER" property="empid" />
+    <result column="DEPTNO" jdbcType="INTEGER" property="deptno" />
+    <result column="EMPNAME" jdbcType="VARCHAR" property="empname" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="AGE" jdbcType="INTEGER" property="age" />
+    <result column="JOINDATE" jdbcType="TIMESTAMP" property="joindate" />
+    <result column="JOB" jdbcType="VARCHAR" property="job" />
+    <result column="Mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="Tel" jdbcType="VARCHAR" property="tel" />
+    <result column="QQ" jdbcType="VARCHAR" property="qq" />
+    <result column="WX" jdbcType="VARCHAR" property="wx" />
+  </resultMap>
+  </mapper>
