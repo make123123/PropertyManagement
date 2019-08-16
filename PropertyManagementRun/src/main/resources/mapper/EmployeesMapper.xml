@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="run/superMonkey/pm/mapper/EmployessMapper">
+<mapper namespace="run.superMonkey.pm.mapper.EmployessMapper">
   <resultMap id="BaseResultMap" type="EmployessEntity">
     <id column="EMPID" jdbcType="INTEGER" property="empid" />
     <result column="DEPTNO" jdbcType="INTEGER" property="deptno" />
@@ -14,4 +14,71 @@
     <result column="QQ" jdbcType="VARCHAR" property="qq" />
     <result column="WX" jdbcType="VARCHAR" property="wx" />
   </resultMap>
+   <resultMap  id="EmployeeWithDepartmentResultMap" type="EmployessEntity" extends="BaseResultMap">
+  	<association property="dept" resultMap="run.superMonkey.pm.mapper.EmployeesDeptMapper.BaseResultMap"></association>
+  </resultMap>
+  <!-- 增 -->
+  <insert id="insertSelective" parameterType="EmployessEntity">
+    insert into Employees (EMPID, DEPTNO, EMPNAME, 
+      SEX, AGE, JOINDATE, 
+      JOB,WX)
+    values (#{empid,jdbcType=INTEGER}, #{deptno,jdbcType=INTEGER}, #{empname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{joindate,jdbcType=TIMESTAMP}, 
+      #{job,jdbcType=VARCHAR},  #{wx,jdbcType=VARCHAR})
+  </insert>
+  <!-- 删 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Employees
+    where EMPID = #{empid,jdbcType=INTEGER}
+  </delete>
+  <!-- 改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="EmployessEntity">
+    update Employees
+    <set>
+      <if test="deptno != null">
+        DEPTNO = #{deptno,jdbcType=INTEGER},
+      </if>
+      <if test="empname != null">
+        EMPNAME = #{empname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        AGE = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="joindate != null">
+        JOINDATE = #{joindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="job != null">
+        JOB = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        Mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        Tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        QQ = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wx != null">
+        WX = #{wx,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EMPID = #{empid,jdbcType=INTEGER}
+  </update>
+  <!-- 查 -->
+  <sql id="Base_Column_List">
+    EMPID, DEPTNO, EMPNAME, SEX, AGE, JOINDATE, JOB, Mobile, Tel, QQ, WX
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="EmployeeWithDepartmentResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Employees
+    where EMPID = #{empid,jdbcType=INTEGER}
+  </select>
+  <select id="selectListByAll" resultMap="EmployeeWithDepartmentResultMap">
+		select Employees.*,Employees_dept.deptName from Employees left join Employees_dept on Employees.deptno=Employees_dept.deptno
+  </select>
   </mapper>

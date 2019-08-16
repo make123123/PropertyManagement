@@ -1,4 +1,4 @@
-<script type="text/javascript" src="employees/emp/main.js"></script>
+<script type="text/javascript" src="securityfirecontrol/dept/main.js"></script>
 <!-- Main row -->
 <div class="row">
     <div class="col-xs-12">
@@ -14,17 +14,18 @@
 				    </select>
 				  </div>
 				  <div class="form-group">
-				    <label  for="name">职位</label>
-				    <select id="JobSelection" class="form-control">
+				    <label  for="name">角色</label>
+				    <select id="RoleSelection" class="form-control">
 				       <option value="0">所有</option>
 				    </select>
 				  </div>
 				  <div class="form-group">
 				    <label  for="name">性别</label>
-				     <input type="radio" name="empsex" value="所有" checked>所有
+				     <input type="radio" name="empsex" value="" checked>所有
 				     <input type="radio" name="empsex" value="男">男
 				     <input type="radio" name="empsex" value="女">女   
 				  </div>
+				  
 				  <div class="form-group">
 				    <label  for="name">入职日期</label>
 				    从<input type="date" class="form-control" id="startJoinDate" size="10" />
@@ -36,29 +37,26 @@
 				</form>
              </div>
              <div class="col-md-3 text-right">
-             	<a href="#" id="AddLink" class="btn btn-info">增加</a> 
-            	<a href="#" id="DelteLink" class="btn btn-info">删除</a>
-             	<a href="#" id="ModifyLink" class="btn btn-info">修改</a>
-             	<a href="#" id="ViewLink" class="btn btn-info">详细</a>
+             	<a href="#" id="EmployeeAddLink" class="btn btn-info">注册</a> 
+             	<a href="#" id="EmployeeModifyLink" class="btn btn-info">修改</a> 
+            	<a href="#" id="EmployeeDeleteLink" class="btn btn-info">删除</a>
+             	<a href="#" id="EmployeeViewLink" class="btn btn-info">详细</a>
               </div>
           </div>
           
         </div>
         <!-- /.box-header -->
       <div class="box-body">
-        <table id="Grid"></table>
-    	<div id="GridPager"></div>
+        <table id="EmployeeGrid"></table>
+    	<div id="EmployeeGridPager"></div>
        
       </div>
       <!-- /.box-body -->
     </div>
     <!-- /.box -->
-    <a href="index.html" class="btn btn-info">返回首页</a>
+    
   </div>
   <!-- /.col -->
 </div>
 <!-- /.row -->
-<div id="DialogArea" title="Basic dialog">
-    
-</div>
-	
+<div id="EmployeeDialog"></div>

@@ -12,7 +12,7 @@ public interface EmployeesDeptService {
 	//修改部门
 	public void update(EmployessDeptEntity record)throws Exception;
 	//查询部门
-	public EmployessDeptEntity getById(Integer deptno)throws Exception;
+	public EmployessDeptEntity getByNo(Integer deptno)throws Exception;
 	public List<EmployessDeptEntity> getListByALL()throws Exception;
 
     

@@ -30,7 +30,7 @@ public class EmployeesDeptServiceImpl implements EmployeesDeptService {
 	}
 
 	@Override
-	public EmployessDeptEntity getById(Integer deptno) throws Exception {
+	public EmployessDeptEntity getByNo(Integer deptno) throws Exception {
 		return edm.selectByPrimaryKey(deptno);
 	}
 

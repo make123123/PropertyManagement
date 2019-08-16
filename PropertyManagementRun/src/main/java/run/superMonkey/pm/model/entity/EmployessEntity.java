@@ -24,5 +24,5 @@ public class EmployessEntity implements Serializable {
     private String qq;
     private String wx;
     //关联部门
-    private EmployessDeptEntity deptEntity=null;
+    private EmployessDeptEntity dept=null;
 }
