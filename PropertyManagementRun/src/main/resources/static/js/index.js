@@ -1,7 +1,7 @@
 /**
  * 系统主管理JS
  */
-
+var host="http://localhost:8800/";
 $(function(){
 	//设置系统页面标题
 	$("span#mainpagetille").html("物业管理系统");
