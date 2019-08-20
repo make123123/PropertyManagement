@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.superMonkey.pm.mapper.RoomMapper">
+  <cache/>
+  <resultMap id="RoomResultMap" type="Room">
+      <id property="roomno" column="ROOMNO"/>
+      <result property="departmentcode" column="DepartmentCode"/>
+      <result property="floor" column="Floor"/>
+      <result property="roomcode" column="RoomCode"/>
+      <result property="buildingarea" column="BuildingArea"/>
+      <result property="feearea" column="FeeArea"/>
+      <result property="roomstatus" column="RoomStatus"/>
+      <result property="roomtype" column="RoomType"/>
+  </resultMap>
+  
+  <insert id="create"  parameterType="Room" flushCache="true">
+   insert into Room (ROOMNO,DepartmentCode,Floor,RoomCode,
+  BuildingArea,FeeArea,RoomStatus,RoomType)
+   values (#{roomno},#{departmentcode},#{floor},#{roomcode},#{buildingarea},
+   #{feearea},#{roomstatus},#{roomtype})
+  
+  </insert>
+  
+   <update id="update" flushCache="true">
+   update Room set DepartmentCode=#{departmentcode},Floor=#{floor},RoomCode=#{roomcode},BuildingArea=#{buildingarea},
+   FeeArea=#{feearea},RoomStatus=#{roomstatus},RoomType=#{roomtype}
+   where ROOMNO=#{roomno}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from Room where ROOMNO=#{roomno}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="RoomResultMap">
+   select * from Room
+  </select>
+  
+   <select id="selectByRoomno" resultMap="RoomResultMap" >
+  select * from Room  where ROOMNO=#{roomno} 
+  </select>
+   
+</mapper>
