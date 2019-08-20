@@ -17,7 +17,11 @@ public interface EmployeesService {
 	public List<EmployessEntity> getListByAll()throws Exception;
 	//根据综合检索条件取得员工列表，取得关联的部门，分页模式
 	public List<EmployessEntity> getListByPage(int deptno,String sex,Date joindate,int page,int rows) throws Exception;
+	//根据综合检索条件取得员工个数
+	public int getCountByCondition(int deptno,String sex,Date joindate)throws Exception;
+	//根据综合检索条件取得总页数
+	public int getPageCountByCondition(int deptno,String sex,Date joindate,int rows)throws Exception;
 	//查ID是否存在
-	public boolean checkIdExist(int id);
+	public boolean checkIdExist(int empid) throws Exception;
 	
 }
