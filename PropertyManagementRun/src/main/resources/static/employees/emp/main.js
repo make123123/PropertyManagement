@@ -190,6 +190,4 @@ $(function(){
 		}
 		reloadEmployeeList();
 	});
-	
-	
 });
