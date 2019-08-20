@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.superMonkey.pm.mapper.AreaMapper">
+  <cache/>
+  <resultMap id="AreaResultMap" type="Area">
+      <id property="areano" column="AREANO"/>
+      <result property="areaname" column="AREANAME"/>
+      <result property="aaddress" column="AAddress"/>
+      <result property="developer" column="Developer"/>
+      <result property="totalbuidingarea" column="TotalBuildingArea"/>
+      <result property="totalusearea" column="TotalUseArea"/>
+      <result property="totalpackarea" column="TotalPackArea"/>
+      <result property="totalhome" column="TotalHome"/>
+      <result property="totalhouse" column="TotalHouse"/>
+      <result property="totalpack" column="TotalPack"/>
+  </resultMap>
+  
+  <!-- 关联的楼宇的ResultMap -->
+  <resultMap  id="AreaWithBuildingResultMap" type="Area" extends="AreaResultMap">
+  	<collection property="buildings" resultMap="run.superMonkey.pm.mapper.BuildingMapper.BuildingResultMap"></collection>
+  </resultMap>
+  
+  <insert id="create"  parameterType="Area" flushCache="true">
+   insert into Area (AREANO,AREANAME,AAddress,Developer,
+   TotalBuidingArea,TotalUseArea,TotalPackArea,TotalHome,TotalHouse,TotalPack)
+   values (#{areano},#{areaname},#{aaddress},#{developer},#{totalbuidingarea},
+   #{totalusearea},#{totalpackarea},#{totalhome},#{totalhouse},#{totalpack})
+  
+  </insert>
+  
+   <update id="update" flushCache="true">
+   update Area set AREANAME=#{areaname},AAddress=#{aaddress},Developer=#{developer},TotalBuidingArea=#{totalbuidingarea},
+   TotalUseArea=#{totalusearea},TotalPackArea=#{totalpackarea},TotalHome=#{totalhome},TotalHouse=#{totalhouse},TotalPack=#{totalpack}
+   where AREANO=#{areano}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from Area where AREANO=#{areano}
+  </delete>
+  
+  <select id="selectByAreanoWithBuilding" resultMap="AreaWithBuildingResultMap" >
+  select a.*,b.* from Area a left outer join Building b on a.AREANO=b.AreaNo
+   where a.AREANO=#{areano}  
+  </select>
+  
+   <!-- 取得列表，不取关联对象，不分页 -->
+  <select id="selectListByAllWithoutPage" resultMap="AreaResultMap">
+   select AREANO,AREANAME,AAddress,Developer,TotalBuidingArea,TotalUseArea,TotalPackArea,TotalHome,TotalHouse from Area
+  </select>
+  
+  <!-- 取得列表，不取关联对象，分页-->
+  <select id="selectListByAllWithPage" resultMap="AreaResultMap">
+   select AREANO,AREANAME,AAddress,Developer,TotalBuidingArea,TotalUseArea,TotalPackArea,TotalHome,TotalHouse from Area
+   limit #{start},#{rows}
+  </select>
+  
+  <!-- 根据综合检索条件取得小区信息列表，分页模式 -->
+  <select id="selectListByConditionWithPage" resultMap="AreaResultMap">
+   select AREANO,AREANAME,AAddress,Developer,TotalBuidingArea,TotalUseArea,TotalPackArea,TotalHome,TotalHouse,TotalPack from Area
+  <where>
+     <if test="areaname!=null and areaname!=''">
+      and AREANAME=#{areaname}
+     </if>
+     <if test="aaddress!=null and aaddress!=''">
+      and AAddress=#{aaddress}
+     </if>
+     <if test="developer!=null and developer!=''">
+      and Developer=#{developer}
+     </if>
+  </where>
+    limit #{start},#{rows}
+  </select>
+  
+  <!-- 根据综合检索条件取得小区个数-->
+  <select id="selectCountByCondition" resultType="int">
+  select IFNULL(count(AREANO), 0) from Area
+  <where>
+  	 <if test="areaname!=null">
+      and AREANAME=#{areaname}
+     </if>
+     <if test="aaddress!=null">
+      and AAddress=#{aaddress}
+     </if>
+     <if test="developer!=null">
+      and Developer=#{developer}
+     </if>
+  </where>
+   
+  </select>
+  
+  <!-- 根据areano取得小区个数 -->
+   <select id="selectCountByAreano" resultType="int">
+    select IFNULL(count(AREANO), 0) from Area
+    <where>
+    	<if test="areano!=null and areano!=''">
+    	and AREANO=#{areano}
+    	</if>
+    </where>
+   </select>
+  
+   
+</mapper>

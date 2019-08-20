@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.superMonkey.pm.mapper.HouseTypeMapper">
+  <cache/>
+  <resultMap id="HousetypeResultMap" type="HouseType">
+       <id property="typeno" column="TYPENO"/>
+      <result property="typename" column="TYPENAME"/>
+  </resultMap>
+  
+  <insert id="create"  parameterType="HouseType" flushCache="true">
+   insert into HouseType (TYPENO,TYPENAME)
+   values (#{typeno},#{typename})
+  
+  </insert>
+  
+   <update id="update" flushCache="true">
+   update HouseType set TYPENAME=#{typename}
+   where TYPENO=#{typeno}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from HouseType where TYPENO=#{typeno}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="HousetypeResultMap">
+   select * from HouseType
+  </select>
+  
+   <select id="selectByTypeno" resultMap="HousetypeResultMap" >
+  select * from HouseType  where TYPENO=#{typeno} 
+  </select>
+  
+   
+</mapper>

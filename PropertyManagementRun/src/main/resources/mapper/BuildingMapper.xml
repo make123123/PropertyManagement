@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.superMonkey.pm.mapper.BuildingMapper">
+  <cache/>
+  <resultMap id="BuildingResultMap" type="Building">
+      <id property="buildingno" column="BuildingNo"/>
+      <result property="bcode" column="BCODE"/>
+      <result property="baddress" column="BAddress"/>
+      <result property="direction" column="Direction"/>
+      <result property="totalhome" column="TotalHome"/>
+      <result property="totalhouse" column="TotalHouse"/>
+  </resultMap>
+  
+  <insert id="create"  parameterType="Building" flushCache="true">
+   insert into Building (BuildingNo,BCODE,BAddress,Direction,
+   TotalHome,TotalHouse)
+   values (#{buildingno},#{bcode},#{baddress},#{direction},#{totalhome},
+   #{totalhouse})
+  
+  </insert>
+  
+   <update id="update" flushCache="true">
+   update Building set BCODE=#{bcode},BAddress=#{baddress},Direction=#{direction},TotalHome=#{totalhome},
+   TotalHouse=#{totalhouse}
+   where BuildingNo=#{buildingno}
+  </update>
+  
+  <delete id="delete" flushCache="true">
+   delete from Building where BuildingNo=#{buildingno}
+  </delete>
+  
+  <select id="selectListByAll" resultMap="BuildingResultMap">
+   select * from Building
+  </select>
+  
+   <select id="selectByBuildingno" resultMap="BuildingResultMap" >
+  select * from Building  where BuildingNo=#{buildingno} 
+  </select>
+</mapper>
