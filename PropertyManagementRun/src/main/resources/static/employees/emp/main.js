@@ -55,7 +55,36 @@ $(function(){
 		$("table#Grid").jqGrid('setGridParam',{postData:{deptno:deptno,sex:sex,joindate:joindate}}).trigger("reloadGrid");
 		
 	}
-	//点击增加按钮弹出增加员工对话框
+	//取得部门列表，并填充部门下拉框
+	$.getJSON(host+"employees/dept/get/list",function(result){
+		if(result){
+			$.each(result.list,function(index,dm){
+				$("select#DepartmentSelection").append("<option value='"+dm.deptno+"'>"+dm.deptname+"</option>");
+			});
+		}
+	});
+	
+	//定义部门下拉框的更新事件的处理
+	$("select#DepartmentSelection").off().on("change",function(){
+		deptno=$("select#DepartmentSelection").val();
+		reloadEmployeeList();
+	});
+	//定义性别单选按钮更改事件
+	$("input[name='empsex']").off().on("change",function(){
+		sex=$("input[name='empsex']:checked").val();
+		reloadEmployeeList();
+	});
+	//点击检索事件处理
+	$("a#EmployeeSearchButton").on("click",function(){
+		deptno=$("select#DepartmentSelection").val();
+		sex=$("input[name='empsex']:checked").val();
+		joindate=$("input#JoinDate").val();
+		if(joindate==""){
+			joindate=null;
+		}
+		reloadEmployeeList();
+	});
+	//点击增加按钮弹出增加员工对话框+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	$("a#AddLink").off().on("click",function(event){
 		$("div#DialogArea").load("employees/emp/add.html",function(){
 			$("div#DialogArea").dialog({
@@ -161,35 +190,46 @@ $(function(){
 			
 		});
 	});
-	//取得部门列表，并填充部门下拉框
-	$.getJSON(host+"department/list/all",function(departmentList){
-		if(departmentList){
-			$.each(departmentList,function(index,dm){
-				$("select[name='department.no']").append("<option value='"+dm.no+"'>"+dm.name+"</option>");
-			});
+	//点击删除按钮，删除员工信息-----------------------------------------------------------------
+	
+	//点击修改按钮，修改员工信息******************************************************************
+	$("a#ModifyLink").off().on("click",function(){
+		if(empid==null){
+			BootstrapDialog.show({
+	            title: '修改员工信息',
+	            message:"请选择要修改的员工",
+	            buttons: [{
+	                label: '确定',
+	                action: function(dialog) {
+	                    dialog.close();
+	                }
+	            }]
+	        });
+		}else{
+			$("div#DialogArea").load("employees/emp/modify.html",function(){
+				//取得指定的员工信息
+				$.getJSON(host+"employees/emp/get/list",{id:empid},function(em){
+					if(em){
+						$("span#employeeId").html(employeeId);
+						$("span#employeeName").html(em.name);
+						$("span#employeeSex").html(em.sex);
+						$("span#empage").html(em.age);
+						$("span#empsalary").html(em.salary);
+						$("span#empbirthday").html(em.birthday);
+						$("span#empjoindate").html(em.joinDate);
+						$("span#departmentName").html(em.department.name);
+						if(em.roles){
+							$.each(em.roles,function(index,roleModel){
+								$("span#emproles").append(roleModel.name+"  ");
+							});
+						}
+						if(em.photoFileName!=null&&em.photoFileName!=""){
+							$("span#empphoto").html("<img src='employee/downphoto?id="+employeeId+"' />");
+						}
+						else{
+							$("span#empphoto").html("无照片");
+						}
 		}
 	});
-	
-	//定义部门下拉框的更新事件的处理
-	$("select#DepartmentSelection").off().on("change",function(){
-		departmentNo=$("select#DepartmentSelection").val();
-		reloadEmployeeList();
-	});
-	//定义性别单选按钮更改事件
-	$("input[name='empsex']").off().on("change",function(){
-		sex=$("input[name='empsex']:checked").val();
-		reloadEmployeeList();
-	});
-	//点击检索事件处理
-	$("a#EmployeeSearchButton").on("click",function(){
-		deptno=$("select#DepartmentSelection").val();
-		sex=$("input[name='empsex']:checked").val();
-		joindate=$("input#JoinDate").val();
-		if(joindate==""){
-			joindate=null;
-		}
-		reloadEmployeeList();
-	});
-	
 	
 });

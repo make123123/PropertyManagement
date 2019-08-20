@@ -52,17 +52,18 @@ public class EmployeesController {
 		    @RequestParam(required = false,defaultValue = "1") int page,
 		    @RequestParam(required = false,defaultValue ="10") int rows)throws Exception{
 		ResultMessage<EmployessEntity> result=new ResultMessage<EmployessEntity>("OK","取得员工列表分页成功");
+		result.setCount(es.getCountByCondition(deptno, sex, joindate));
+		result.setPageCount(es.getPageCountByCondition(deptno, sex, joindate, rows));
 		result.setList(es.getListByPage(deptno,sex,joindate,page,rows));
 		result.setPage(page);
 		result.setRows(rows);
-		result.setPageCount(10);
 		return result;
 	}
 	
 	//验证员工ID是否存在，如果存在则不合法，不存在则合法，用于增加员工时检查ID是否已经存在
 		@GetMapping(value="/checkidexist")
-		public boolean checkIdExist(int id) throws Exception{
-			return !es.checkIdExist(id);
+		public boolean checkIdExist(Integer empid) throws Exception{
+			return !es.checkIdExist(empid);
 		}
 		
 	
