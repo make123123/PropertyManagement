@@ -73,9 +73,7 @@
     EMPID, DEPTNO, EMPNAME, SEX, AGE, JOINDATE, JOB, Mobile, Tel, QQ, WX
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="EmployeeWithDepartmentResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from Employees
+    select a.*,b.DEPTNAME from Employees a left join Employees_dept b on a.deptno=b.deptno
     where EMPID = #{empid,jdbcType=INTEGER}
   </select>
   <select id="selectListByAll" resultMap="EmployeeWithDepartmentResultMap">

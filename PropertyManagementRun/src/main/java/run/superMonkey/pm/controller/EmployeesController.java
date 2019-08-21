@@ -7,7 +7,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +29,7 @@ public class EmployeesController {
 			@RequestParam(required = false)Integer age,
 			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date joindate,
 			@RequestParam(required = false)String job,
-			@RequestParam(required = false)String wx)throws Exception{
+			@RequestParam(required = false)String wx) throws Exception{
 		EmployessEntity em=new EmployessEntity();
 		em.setEmpid(empid);
 		em.setDeptno(deptno);
@@ -44,7 +43,39 @@ public class EmployeesController {
 		return new ResultMessage<EmployessEntity>("OK","增加员工成功");
 	}
 	
-	@PostMapping("/get/list")
+	@RequestMapping("/delete")
+	public ResultMessage<EmployessEntity>delete(Integer empid)throws Exception{
+		es.delete(empid);
+		return new ResultMessage<EmployessEntity>("OK","删除员工成功");
+		}
+	@RequestMapping("/modify")
+	public ResultMessage<EmployessEntity> modify(
+			@RequestParam(required = false)Integer empid,
+			@RequestParam(required = false)Integer deptno,
+			@RequestParam(required = false)String empname,
+			@RequestParam(required = false)String sex,
+			@RequestParam(required = false)Integer age,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date joindate,
+			@RequestParam(required = false)String job,
+			@RequestParam(required = false)String wx) throws Exception{
+		EmployessEntity em=new EmployessEntity();
+		em.setEmpid(empid);
+		em.setDeptno(deptno);
+		em.setEmpname(empname);
+		em.setSex(sex);
+		em.setAge(age);
+		em.setJoindate(joindate);
+		em.setJob(job);
+		em.setWx(wx);
+		es.update(em);
+		return new ResultMessage<EmployessEntity>("OK","修改员工成功");
+		
+	}
+	@RequestMapping("/get")
+	public EmployessEntity getById(Integer empid)throws Exception{
+		return es.selectById(empid);
+	}
+	@RequestMapping("/get/list")
 	public ResultMessage<EmployessEntity> getListByAll(
 			@RequestParam(required = false,defaultValue ="0") int deptno,
 			@RequestParam(required = false,defaultValue ="") String sex,

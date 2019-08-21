@@ -27,12 +27,6 @@
    		 <version>1.3.4</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 --> 
-		<dependency>     
-		  <groupId>org.apache.commons</groupId>     
-		  <artifactId>commons-lang3</artifactId>     
-		  <version>3.5</version> 
-		</dependency>
 		<!-- aspecj -->
 		<dependency>
     		<groupId>org.aspectj</groupId>
@@ -54,7 +48,12 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.48</version>
 		</dependency> -->
-		
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 --> 
+		<dependency>     
+		  <groupId>org.apache.commons</groupId>     
+		  <artifactId>commons-lang3</artifactId>     
+		  <version>3.5</version> 
+		</dependency>
 		<!-- hutool 依赖 -->
 		<dependency>
 		  <groupId>cn.hutool</groupId>
