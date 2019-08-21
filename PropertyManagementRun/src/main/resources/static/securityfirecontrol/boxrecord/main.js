@@ -5,15 +5,16 @@
  * 
  */
 $(function(){
-	var securityId=null;
+	var boxId=null;
 	
-	var securityno=null;
-	var securityname=null;
-	var securitysex=null;
-	var securityage=null;
-	
+	var boxno=null;
+	var carno=null;
+	var boxdate=null;
+	var dutyno=null;
+	var visitname=null;
+	var vname = null;
 	//设置系统页面标题
-	$("span#mainpagetille").html("保安部门管理");
+	$("span#mainpagetille").html("岗亭登记管理");
 	
 	
 	
@@ -21,15 +22,16 @@ $(function(){
 	
 	//显示员工列表
 	$("table#EmployeeGrid").jqGrid({
-		url: 'securitydept/list/condition/page',
+		url: 'securityBoxRecord/list/condition/page',
 		datatype: "json",
 		colModel: [
-			{ label: '编号', name: 'securityno', width: 70 },
-			{ label: '姓名', name: 'securityname', width: 70 },
-			{ label: '性别', name: 'securitysex', width: 70 },
-			{ label: '年龄', name: 'securityage', width: 70 }
+			{ label: '岗亭号码', name: 'boxno', width: 70 },
+			{ label: '车牌号', name: 'carno', width: 70 },
+			{ label: '登记日期', name: 'boxdate', width: 70 },
+			{ label: '保安编号', name: 'dutyno', width: 70 },
+			{ label: '来访人名', name: 'visitname', width: 70 }
 		],
-		caption:"保安部门列表",
+		caption:"岗亭登记列表",
 		viewrecords: true,
 		autowidth: true,
 		height: 750,
@@ -41,11 +43,11 @@ $(function(){
 		      total: "pageCount", 
 		      records: "count", 
 		      repeatitems: true, 
-		      id: "securityno"},
+		      id: "visitname" },
 		pager: "#EmployeeGridPager",
 		multiselect:false,
-		onSelectRow:function(securityno){
-			securityId=securityno;
+		onSelectRow:function(boxno){
+			boxId=boxno;
 		}
 	});
 	
@@ -54,44 +56,38 @@ $(function(){
 	//设置检索参数，更新jQGrid的列表显示
 	function reloadEmployeeList()
 	{
-		$("table#EmployeeGrid").jqGrid('setGridParam',{postData:{securityno:securityno,securityname:securityname,securitysex:securitysex,securityage:securityage}}).trigger("reloadGrid");
+		$("table#EmployeeGrid").jqGrid('setGridParam',{postData:{boxno:boxno,carno:carno,boxdate:boxdate,dutyno:dutyno,visitname:visitname}}).trigger("reloadGrid");
 		
 	};
 	
 	
 	//----------------------------增加-------------------------------
 	$("a#SecurityAddLink").off().on("click",function(){
-		$("div#SecurityDialog").load("securityfirecontrol/dept/add.html",function(){
+		$("div#SecurityDialog").load("securityfirecontrol/boxrecord/add.html",function(){
 			
 			
 			//验证保安提交数据
 			$("form#SecurityAddForm").validate({
 				  rules: {
-				    securityno: {
+				    dutyno: {
 				      required: true,
-				      remote: "securitydept/checkidexist"
 				    },
-				    securityname:{
-				    	required: true
-				    },
-				    securityage:{
-				    	number: true,
-				    	min:18,
-				    	max:70,
-				    	range: [18, 70]
+				    boxno: {
+					  required: true,
+					},
+					visitname:{
+					  required: true
 				    }
 				  },
 				  messages:{
-					securityno: {
-					      required: "编号为空",
-					      remote:"编号已经存在"
-					    },
-					securityname:{
-					    	required:"保安名称为空"
+					dutyno: {
+					  required: "编号为空",
 					},
-					securityage:{
-						number: "年龄必须是数值",
-				    	range:"年龄需要在18和70之间"
+					boxno: {
+					  required: "岗亭号为空",
+					},
+					visitname:{
+					  required:"来访人名称为空"
 					}
 				 }
 			});
@@ -104,7 +100,7 @@ $(function(){
 				//alert(result.message);
 				//BootstrapDialog.alert(result.message);
 				BootstrapDialog.show({
-		            title: '部门操作信息',
+		            title: '岗亭操作信息',
 		            message:result.message
 		        });
 				$("div#SecurityDialog").dialog( "close" );
@@ -131,10 +127,10 @@ $(function(){
 	
 	//===============================修改员工处理===============================================================
 	$("a#SecurityeModifyLink").off().on("click",function(){
-		if(securityId==null){
+		if(boxId==null){
 			BootstrapDialog.show({
-	            title: '保安操作信息',
-	            message:"请选择要修改的保安",
+	            title: '岗亭操作信息',
+	            message:"请选择要修改的岗亭信息",
 	            buttons: [{
 	                label: '确定',
 	                action: function(dialog) {
@@ -144,14 +140,15 @@ $(function(){
 	        });
 		}
 		else{
-			$("div#SecurityDialog").load("securityfirecontrol/dept/modify.html",function(){
+			$("div#SecurityDialog").load("securityfirecontrol/boxrecord/modify.html",function(){
 				//取得指定的员工信息
-				$.getJSON("/securitydept/get",{securityno:securityId},function(em){
+				$.getJSON("/securityBoxRecord/get",{visitname:boxId},function(em){
 					if(em){
-						$("input#no").val(em.securityno);
-						$("input#name").val(em.securityname);
-						$("input#age").val(em.securityage);
-						$("span#sex").html(em.securitysex);
+						$("input#bno").val(em.boxno);
+						$("input#cno").val(em.carno);
+						$("input#date").val(em.boxdate);
+						$("input#dno").val(em.dutyno);
+						$("input#vname").val(em.visitname);
 						
 					}
 				});
@@ -162,7 +159,7 @@ $(function(){
 					//alert(result.message);
 					//BootstrapDialog.alert(result.message);
 					BootstrapDialog.show({
-			            title: '部门操作信息',
+			            title: '岗亭操作信息',
 			            message:result.message
 			        });
 					$("div#SecurityDialog").dialog( "close" );
@@ -171,7 +168,7 @@ $(function(){
 					
 				});
 				$("div#SecurityDialog").dialog({
-					title:"保安修改",
+					title:"岗亭修改",
 					width:400
 				});
 				//点击取消按钮，管理弹出窗口
@@ -189,10 +186,10 @@ $(function(){
 	
 	//===============================删除员工处理===============================================================
 	$("a#SecurityeDeleteLink").off().on("click",function(){
-		if(securityId==null){
+		if(boxId==null){
 			BootstrapDialog.show({
-	            title: '保安操作信息',
-	            message:"请选择要删除的保安",
+	            title: '岗亭操作信息',
+	            message:"请选择要删除的信息",
 	            buttons: [{
 	                label: '确定',
 	                action: function(dialog) {
@@ -202,11 +199,12 @@ $(function(){
 	        });
 		}
 		else{
-			$("div#SecurityDialog").load("securityfirecontrol/dept/delete.html",function(){
-				$.getJSON("/securitydept/get",{securityno:securityId},function(em){
+			$("div#SecurityDialog").load("securityfirecontrol/boxrecord/delete.html",function(){
+				$.getJSON("/securityBoxRecord/get",{visitname:boxId},function(em){
 					if(em){
-						$("input#no").val(em.securityno);
-						$("input#name").val(em.securityname);				
+						$("input#bno").val(em.boxno);
+						$("input#dno").val(em.dutyno);				
+						$("input#vname").val(em.visitname);				
 					}
 				});
 				$("form#SecurityDeleteForm").ajaxForm(function(result){
@@ -216,7 +214,7 @@ $(function(){
 					//alert(result.message);
 					//BootstrapDialog.alert(result.message);
 					BootstrapDialog.show({
-			            title: '部门操作信息',
+			            title: '岗亭操作信息',
 			            message:result.message
 			        });
 					$("div#SecurityDialog").dialog( "close" );
