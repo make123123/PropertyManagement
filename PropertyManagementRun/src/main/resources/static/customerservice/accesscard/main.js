@@ -5,7 +5,7 @@
 $(function(){
 	var cardno="";
 	var grantno="";
-	var vechicletype="";
+	var carno="";
 	var cardtype="";
 	//设置系统页面标题
 	$("span#mainpagetille").html("车辆出入证管理");
@@ -41,18 +41,18 @@ $(function(){
 			      total: "pageCount", //页数的属性
 			      records: "count",   //记录个数属性
 			      repeatitems: true,  //循环记录
-			      id: "empid"},       //主键
+			      id: "cardno"},       //主键
         	pager: "#GridPager",  //控件栏
 	        multiselect:false,   //false只允许选中一条记录(默认) true能选中多条记录
 	        onSelectRow:function(cardno){
-	        	this.cardno=cardno;
+	        	cardno=cardno;
 	        }
 	    });
 	}
 	//设置检索参数，更新jQGrid的列表显示
 	function reloadEmployeeList()
 	{
-		$("table#Grid").jqGrid('setGridParam',{postData:{grantno:grantno,vechicletype:vechicletype,cardtype:cardtype}}).trigger("reloadGrid");
+		$("table#Grid").jqGrid('setGridParam',{postData:{grantno:grantno,cardtype:cardtype,carno:carno}}).trigger("reloadGrid");
 	}
 	//点击增加按钮弹出增加员工对话框
 	$("a#AddLink").off().on("click",function(event){
@@ -74,7 +74,7 @@ $(function(){
 					customerno:{
 						required:true
 					},
-					vechicletype:{
+					cardtype:{
 						required:true,
 						minlength:2,
 						maxlength:4
@@ -86,7 +86,7 @@ $(function(){
 						required:true,
 						date:true
 					},
-					cardtype:{
+					vechicletype:{
 						required:true
 					},
 					overduetime:{
@@ -106,9 +106,7 @@ $(function(){
 							required:"申请人ID不能为空!"
 						},
 						vechicletype:{
-							required:"证件类型不能为空！",
-							minlength: '输入非法，请输入"临时/长期"',
-							maxlength: '输入非法，请输入"临时/长期"'
+							required:"车辆型号不能为空！"
 						},
 						grantno:{
 							required:"发放人ID不能为空！"
@@ -118,7 +116,9 @@ $(function(){
 							date:'输入非法，请输入日期类型"年-月-日"'
 						},
 						cardtype:{
-							required:"职位不能为空，请输入职位"
+							required:"证件类型不能为空！",
+							minlength: '输入非法，请输入"临时/长期"',
+							maxlength: '输入非法，请输入"临时/长期"'
 						},
 						overduetime:{
 							required:"失效日期不能为空！",
@@ -128,9 +128,9 @@ $(function(){
 			});
 			//表单拦截器
 			$("form#AddForm").ajaxForm(function(result){
-				if(result.status=="OK"){
+				/*if(result.status=="OK"){
 					reloadEmployeeList();
-				}
+				}*/
 				//修改默认的alert对话框
 				BootstrapDialog.show({
 		            title: '出入证操作信息',
@@ -149,32 +149,17 @@ $(function(){
 			
 		});
 	});
-	//取得部门列表，并填充部门下拉框
-	/*$.getJSON(host+"department/list/all",function(departmentList){
-		if(departmentList){
-			$.each(departmentList,function(index,dm){
-				$("select[name='department.no']").append("<option value='"+dm.no+"'>"+dm.name+"</option>");
-			});
-		}
-	});
-	
-	//定义部门下拉框的更新事件的处理
-	$("select#DepartmentSelection").off().on("change",function(){
-		departmentNo=$("select#grantnoSelection").val();
-		reloadEmployeeList();
-	});*/
-	//定义性别单选按钮更改事件
-	$("select[name='cardtype']").off().on("change",function(){
-		cardtype=$("input[name='cardtype']:checked").val();
+	//定义证件类型单选按钮更改事件
+	$("select#cardtype").off().on("change",function(){
+		cardtype=$("select#cardtype").val();
 		//reloadEmployeeList();
 	});
 	//点击查找事件处理
 	$("a#AccesscardSearchButton").on("click",function(){
 		grantno=$("input#grantno").val();
-		cardtype=$("input[name='cardtype']:checked").val();
-		vechicletype=$("input#vechicletype").val();
-		if(grantno=="") grantno=null;
-		if(joindate=="") joindate=null;
+		carno=$("input#carno").val();
+		if(grantno==null) grantno='';
+		if(carno==null)carno='';
 		reloadEmployeeList();
 	});
 	

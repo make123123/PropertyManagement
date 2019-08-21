@@ -21,5 +21,9 @@ public interface AccesscardService {
 	//取得所有个数
 	public int getCountByAll()throws Exception;
 	//分页查询
-	public List<AccesscardEntity> getListByPage(String grantno,String carno,String cardtype,int page,int rows) throws Exception;
+	public List<AccesscardEntity> getListByPage(String grantno,String cardtype,String carno,int page,int rows) throws Exception;
+	//根据综合检索条件取得员工个数
+	public int getCountByCondition(String grantno,String cardtype,String carno)throws Exception;
+	
+	public int getPageCountByCondition(String grantno,String cardtype,String carno,int rows)throws Exception;
 }
