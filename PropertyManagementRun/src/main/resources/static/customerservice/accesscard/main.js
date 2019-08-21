@@ -75,9 +75,7 @@ $(function(){
 						required:true
 					},
 					cardtype:{
-						required:true,
-						minlength:2,
-						maxlength:4
+						required:true
 					},
 					grantno:{
 						required:true
@@ -100,7 +98,7 @@ $(function(){
 							//remote: "输入非法，工号已存在"  
 						},
 						carno:{
-							required:"车牌号不能为空"
+							required:"车牌号码不能为空!"
 						},
 						customerno:{
 							required:"申请人ID不能为空!"
@@ -116,9 +114,7 @@ $(function(){
 							date:'输入非法，请输入日期类型"年-月-日"'
 						},
 						cardtype:{
-							required:"证件类型不能为空！",
-							minlength: '输入非法，请输入"临时/长期"',
-							maxlength: '输入非法，请输入"临时/长期"'
+							required:"证件类型不能为空！"
 						},
 						overduetime:{
 							required:"失效日期不能为空！",
@@ -126,7 +122,7 @@ $(function(){
 						}
 			  }
 			});
-			//表单拦截器
+			//添加出入证保单
 			$("form#AddForm").ajaxForm(function(result){
 				/*if(result.status=="OK"){
 					reloadEmployeeList();
