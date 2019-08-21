@@ -9,7 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@Alias("accesscard")
+@Alias("AccesscardEntity")
 public class AccesscardEntity {
 	private String cardno;
 	private String carno;

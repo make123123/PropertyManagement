@@ -12,8 +12,8 @@ public interface AccesscardMapper {
 	public void delete(AccesscardEntity accesscardEntity) throws Exception;
 	//所有客户资料
 	public List<AccesscardEntity> selectListByAll() throws Exception;
-	//根据customerno取得单个客户资料
-	public AccesscardEntity  selectByNo(double no) throws Exception;
+	//根据cardno取得单个客户资料
+	public AccesscardEntity  selectByNo(String no) throws Exception;
 	//取得客户个数
 	public int selectCountByAll() throws Exception;
 }

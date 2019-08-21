@@ -4,46 +4,51 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import run.superMonkey.pm.mapper.AccesscardMapper;
 import run.superMonkey.pm.model.entity.AccesscardEntity;
 import run.superMonkey.pm.service.AccesscardService;
 
 @Service
-//@Transcational
+@Transactional
 public class AccesscardServiceImpl implements AccesscardService {
 	@Autowired
-	AccesscardMapper accesscardmapper=null;
+	private AccesscardMapper accesscardMapper=null;
 	@Override
 	public AccesscardEntity register(AccesscardEntity accesscardEntity) throws Exception {
-		return accesscardmapper.create(accesscardEntity);
+		 return accesscardMapper.create(accesscardEntity);
 	}
 	@Override
 	public void modify(AccesscardEntity accesscardEntity) throws Exception {
-		accesscardmapper.update(accesscardEntity);
+		accesscardMapper.update(accesscardEntity);
 	}
 
 	@Override
 	public void delete(AccesscardEntity accesscardEntity) throws Exception {
-		accesscardmapper.delete(accesscardEntity);
+		accesscardMapper.delete(accesscardEntity);
 	}
 
 	@Override
 	public List<AccesscardEntity> getListByAll() throws Exception {
 		// TODO Auto-generated method stub
-		return accesscardmapper.selectListByAll();
+		System.out.println("--");
+		System.out.println("--");
+		System.out.println("--");
+		System.out.println(accesscardMapper);
+		return accesscardMapper.selectListByAll();
 	}
 
 	@Override
-	public AccesscardEntity getbyNo(double no) throws Exception {
+	public AccesscardEntity getbyNo(String no) throws Exception {
 		// TODO Auto-generated method stub
-		return accesscardmapper.selectByNo(no);
+		return accesscardMapper.selectByNo(no);
 	}
 
 	@Override
 	public int getCountByAll() throws Exception {
 		// TODO Auto-generated method stub
-		return accesscardmapper.selectCountByAll();
+		return accesscardMapper.selectCountByAll();
 	}
 
 }

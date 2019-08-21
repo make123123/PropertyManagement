@@ -1,4 +1,4 @@
-<script type="text/javascript" src="employees/emp/main.js"></script>
+<script type="text/javascript" src="customerservice/accesscard/main.js"></script>
 <!-- Main row -->
 <div class="row">
     <div class="col-xs-12">
@@ -8,31 +8,31 @@
              <div class="col-md-9">
 	             <form class="form-inline" role="form">
 				  <div class="form-group">
-				    <label  for="name">éƒ¨é—¨</label>
-				    <select id="DepartmentSelection" class="form-control">
-				       <option value="0">æ‰€æœ‰</option>
-				    </select>
+				    <div class="form-group">
+				    <label  for="name">·¢·ÅÈËID:</label>
+				    <input id="grantno" class="form-control" value="">
+				  </div>
 				  </div>
 				  <div class="form-group">
-				    <label  for="name">æ€§åˆ«</label>
-				     <input type="radio" name="empsex" value="" checked>æ‰€æœ‰
-				     <input type="radio" name="empsex" value="ç”·">ç”·
-				     <input type="radio" name="empsex" value="å¥³">å¥³   
+				    <label  for="name">Ö¤¼þÀàÐÍ£º</label>
+				     <input type="radio" name="cardtype" value="" checked>ËùÓÐ
+				     <input type="radio" name="cardtype" value="³¤ÆÚ">³¤ÆÚ
+				     <input type="radio" name="cardtype" value="ÁÙÊ±">ÁÙÊ±
 				  </div>
 				  <div class="form-group">
-				    <label  for="name">å…¥èŒæ—¥æœŸ</label>
-				    <input type="date" class="form-control" id="JoinDate" size="10" value="" />
+				    <label  for="name">³µÅÆºÅ:</label>
+				    <input class="form-control" id="carnoSelection" size="10" value="" />
 				  </div>
 				  <div class="form-group">
-				   <a href="#" class="btn btn-default" id="EmployeeSearchButton">æ£€ç´¢</a>
+				   <a href="#" class="btn btn-default" id="AccesscardSearchButton">²éÕÒ</a>
 				  </div>
 				</form>
              </div>
              <div class="col-md-3 text-right">
-             	<a href="#" id="AddLink" class="btn btn-info">å¢žåŠ </a> 
-            	<a href="#" id="DelteLink" class="btn btn-info">åˆ é™¤</a>
-             	<a href="#" id="ModifyLink" class="btn btn-info">ä¿®æ”¹</a>
-             	<a href="#" id="ViewLink" class="btn btn-info">è¯¦ç»†</a>
+             	<a href="#" id="AddLink" class="btn btn-info">Ôö¼Ó</a> 
+            	<a href="#" id="DelteLink" class="btn btn-info">É¾³ý</a>
+             	<a href="#" id="ModifyLink" class="btn btn-info">ÐÞ¸Ä</a>
+             	<a href="#" id="ViewLink" class="btn btn-info">ÏêÏ¸</a>
               </div>
           </div>
           
@@ -40,13 +40,12 @@
         <!-- /.box-header -->
       <div class="box-body">
         <table id="Grid"></table>
-    	<div id="GridPager"></div>
-       
+    	<<!-- div id="GridPager"></div> -->
       </div>
       <!-- /.box-body -->
     </div>
     <!-- /.box -->
-    <a href="index.html" class="btn btn-info">è¿”å›žé¦–é¡µ</a>
+    <a href="index.html" class="btn btn-info">·µ»ØÊ×Ò³</a>
   </div>
   <!-- /.col -->
 </div>

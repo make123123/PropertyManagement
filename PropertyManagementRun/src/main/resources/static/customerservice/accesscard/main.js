@@ -3,37 +3,37 @@
  * 作者：赖伟森
  */
 $(function(){
-	var employeeId=null;
-	var joindate=null;
-	var deptno=0;
-	var sex="";
+	var cardno=null;
+	var grantno=null;
+	var vechicletype=null;
+	var cardtype='';
 	//设置系统页面标题
-	$("span#mainpagetille").html("员工管理");
+	$("span#mainpagetille").html("<h1>车辆出入证管理</h1>");
 	
 	//显示列表
 	getListInfo();
 	//显示列表函数
 	function getListInfo(){
 		$("table#Grid").jqGrid({
-	        url:host+'employees/emp/get/list',
+	        url:host+'customerservice/accesscard/get/list',
 	        mtype: "POST",
 			styleUI : 'Bootstrap',
 	        datatype: "json",
 	        colModel: [
-	            { label: '工号', name: 'empid', key: true, width: 10 },
-	            { label: '部门', name: 'dept.deptname', width: 10 },
-	            { label: '姓名', name: 'empname', width: 10 },
-	            { label: '性别', name: 'sex', width: 10 },
-	            { label: '年龄', name: 'age', width: 10 },
-	            { label: '入职日期', name: 'joindate', width: 10 },
-	            { label: '职位', name: 'job', width: 10 },
-	            { label: '微信', name: 'wx', width: 10 }
+	            { label: '证件号码', name: 'cardno', key: true, width: 10 },
+	            { label: '车牌号', name: 'carno', width: 10 },
+	            { label: '车主名字', name: 'customerno', width: 10 },
+	            { label: '车型', name: 'vechicletype', width: 10 },
+	            { label: '发放人ID', name: 'grantno', width: 10 },
+	            { label: '发放时间', name: 'granttime', width: 10 },
+	            { label: '证件类型', name: 'cardtype', width: 10 },
+	            { label: '过期时间', name: 'overduetime', width: 10 }
 	        ],
-	        caption:"员工列表",     //设置表格标题
+	        caption:"出入证列表",     //设置表格标题
 	        autowidth: true,       //自动宽度
 			viewrecords: true,     //记录总数
 	        height:500,           //高度
-	        rowNum: 10,            //每页显示多少记录
+	        /*rowNum: 10,            //每页显示多少记录
 	        rowList:[10,30,40],    //每页显示多少记录（可选记录）
 	        jsonReader: {         //json解析器
 			      root: "list",    //列表的属性
@@ -42,17 +42,17 @@ $(function(){
 			      records: "count",   //记录个数属性
 			      repeatitems: true,  //循环记录
 			      id: "empid"},       //主键
-	        pager: "#GridPager",  //控件栏
+        	pager: "#GridPager",  //控件栏*/
 	        multiselect:false,   //false只允许选中一条记录(默认) true能选中多条记录
-	        onSelectRow:function(empid){
-	        	employeeId=empid;
+	        onSelectRow:function(cardno){
+	        	this.cardno=cardno;
 	        }
 	    });
 	}
 	//设置检索参数，更新jQGrid的列表显示
 	function reloadEmployeeList()
 	{
-		$("table#Grid").jqGrid('setGridParam',{postData:{deptno:deptno,sex:sex,joindate:joindate}}).trigger("reloadGrid");
+		$("table#Grid").jqGrid('setGridParam',{postData:{grantno:grantno,vechicletype:vechicletype,cardtype:cardtype}}).trigger("reloadGrid");
 		
 	}
 	//点击增加按钮弹出增加员工对话框
@@ -162,7 +162,7 @@ $(function(){
 		});
 	});
 	//取得部门列表，并填充部门下拉框
-	$.getJSON(host+"department/list/all",function(departmentList){
+	/*$.getJSON(host+"department/list/all",function(departmentList){
 		if(departmentList){
 			$.each(departmentList,function(index,dm){
 				$("select[name='department.no']").append("<option value='"+dm.no+"'>"+dm.name+"</option>");
@@ -172,22 +172,21 @@ $(function(){
 	
 	//定义部门下拉框的更新事件的处理
 	$("select#DepartmentSelection").off().on("change",function(){
-		departmentNo=$("select#DepartmentSelection").val();
+		departmentNo=$("select#grantnoSelection").val();
 		reloadEmployeeList();
-	});
+	});*/
 	//定义性别单选按钮更改事件
-	$("input[name='empsex']").off().on("change",function(){
-		sex=$("input[name='empsex']:checked").val();
+	$("input[name='cardtype']").off().on("change",function(){
+		cardtype=$("input[name='cardtype']:checked").val();
 		reloadEmployeeList();
 	});
 	//点击检索事件处理
-	$("a#EmployeeSearchButton").on("click",function(){
-		deptno=$("select#DepartmentSelection").val();
-		sex=$("input[name='empsex']:checked").val();
-		joindate=$("input#JoinDate").val();
-		if(joindate==""){
-			joindate=null;
-		}
+	$("a#AccesscardSearchButton").on("click",function(){
+		grantno=$("input#grantno").val();
+		cardtype=$("input[name='cardtype']:checked").val();
+		vechicletype=$("input#vechicletype").val();
+		if(grantno=="") grantno=null;
+		if(joindate=="") joindate=null;
 		reloadEmployeeList();
 	});
 	
