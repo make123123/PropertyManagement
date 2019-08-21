@@ -17,6 +17,8 @@ public interface EmployeesDeptService {
 	public List<EmployessDeptEntity> getListByPage(int page, int rows)throws Exception;
 	public int getPageCountByCondition(int rows)throws Exception;
 	public int getCountByCondition()throws Exception;
+	public boolean checkIdExist(Integer deptno)throws Exception;
+	public EmployessDeptEntity selectById(Integer deptno)throws Exception;
 
     
 }

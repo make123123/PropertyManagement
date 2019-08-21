@@ -62,4 +62,18 @@ public class EmployeesDeptServiceImpl implements EmployeesDeptService {
 		return edm.selectCountByCondition();
 	}
 
+	@Override
+	public boolean checkIdExist(Integer deptno) throws Exception {
+		boolean result=false;
+		if(edm.selectByPrimaryKey(deptno)!=null){
+			result=true;
+		}
+		return result;
+	}
+
+	@Override
+	public EmployessDeptEntity selectById(Integer deptno) throws Exception {
+		return edm.selectByPrimaryKey(deptno);
+	}
+
 }
