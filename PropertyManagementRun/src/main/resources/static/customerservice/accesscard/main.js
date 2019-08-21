@@ -8,7 +8,7 @@ $(function(){
 	var vechicletype="";
 	var cardtype="";
 	//设置系统页面标题
-	$("span#mainpagetille").html("<h1>车辆出入证管理</h1>");
+	$("span#mainpagetille").html("车辆出入证管理");
 	
 	//显示列表
 	getListInfo();
@@ -33,8 +33,8 @@ $(function(){
 	        autowidth: true,       //自动宽度
 			viewrecords: true,     //记录总数
 	        height:500,           //高度
-	        rowNum: 1,            //每页显示多少记录
-	        rowList:[10,30,40],    //每页显示多少记录（可选记录）
+	        rowNum: 10,            //每页显示多少记录
+	        rowList:[10,20,30],    //每页显示多少记录（可选记录）
 	        jsonReader: {         //json解析器
 			      root: "list",    //列表的属性
 			      page: "page",    //页号的属性

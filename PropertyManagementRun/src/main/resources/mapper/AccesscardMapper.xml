@@ -42,11 +42,11 @@
      <if test="grantno!=''">
       	grantno=#{grantno}
      </if>
-     <if test="sex!=null and sex!=''">
-     	=#{sex}
+     <if test="carno!=''">
+     	carno=#{carno}
      </if>
-     <if test="joindate!=null">
-     and a.JOINDATE=#{joindate}
+     <if test="cardtype!='cardtype'">
+     	cardtype=#{cardtype}
      </if>
   </where>
     limit #{start},#{rows}

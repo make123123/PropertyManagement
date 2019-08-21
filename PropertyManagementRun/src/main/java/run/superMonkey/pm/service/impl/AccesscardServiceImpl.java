@@ -1,5 +1,6 @@
 package run.superMonkey.pm.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,10 @@ public class AccesscardServiceImpl implements AccesscardService {
 	public int getCountByAll() throws Exception {
 		// TODO Auto-generated method stub
 		return accesscardMapper.selectCountByAll();
+	}
+	@Override
+	public List<AccesscardEntity> getListByPage(String grantno,String carno,String cardtype,int page,int rows) throws Exception{
+		return accesscardMapper.selectListByPage(grantno,carno,cardtype,rows*(page-1), rows);
 	}
 
 }

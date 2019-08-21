@@ -20,5 +20,5 @@ public interface AccesscardMapper {
 	//取得客户个数
 	public int selectCountByAll() throws Exception;
 	//分页查找
-	public List<EmployessEntity> selectListByPage(@Param("grantno")String grantno,@Param("cardtype")String cardtype,@Param("carno")String carno,@Param("start") int start,@Param("rows") int rows)throws Exception;
+	public List<AccesscardEntity> selectListByPage(@Param("grantno")String grantno,@Param("cardtype")String cardtype,@Param("carno")String carno,@Param("start") int start,@Param("rows") int rows)throws Exception;
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import run.superMonkey.pm.model.entity.AccesscardEntity;
+import run.superMonkey.pm.model.entity.EmployessEntity;
 import run.superMonkey.pm.service.AccesscardService;
 import run.superMonkey.pm.service.impl.AccesscardServiceImpl;
 import run.superMonkey.pm.utils.ResultMessage;
@@ -44,9 +45,27 @@ public class AccesscardController {
 				accesscardEntity.setVechicletype(vechicletype);
 			return new ResultMessage<AccesscardEntity>("Accpet","增加出入证成功！");
 		}
-		@RequestMapping("/get/list")
+		@RequestMapping("/get/listall")
 		public List<AccesscardEntity> getListByAll()throws Exception{
 			List<AccesscardEntity> result=as.getListByAll();
+			return result;
+		}
+		//分页查找
+		@RequestMapping("/get/list")
+		public ResultMessage<AccesscardEntity> getListByAll(
+				@RequestParam(required = false,defaultValue ="")String grantno,
+				@RequestParam(required = false,defaultValue ="") String carno,
+				@RequestParam(required = false,defaultValue ="") String cardtype,
+			    @RequestParam(required = false,defaultValue = "1") int page,
+			    @RequestParam(required = false,defaultValue ="10") int rows)throws Exception{
+			ResultMessage<AccesscardEntity> result=new ResultMessage<AccesscardEntity>("OK","取得车辆出入证列表分页成功");
+		/*
+		 * result.setCount(es.getCountByCondition(deptno, sex, joindate));
+		 * result.setPageCount(es.getPageCountByCondition(deptno, sex, joindate, rows));
+		 */
+			result.setList(as.getListByPage(grantno,carno,cardtype,page,rows));
+			result.setPage(page);
+			result.setRows(rows);
 			return result;
 		}
 		
