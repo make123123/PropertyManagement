@@ -36,14 +36,14 @@
   		select count(cardno) from Accesscard
   </select>
   <!-- 根据综合检索条件取得员工列表，取得关联的部门,分页模式 -->
-  <!-- <select id="selectListByPage" resultMap="EmployeeWithDepartmentResultMap">
-  select a.*,b.DEPTNAME from Employees a left join Employees_dept b on a.DEPTNO=b.DEPTNO
+  <select id="selectListByPage" resultMap="accesscard">
+  select * from Accesscard
   <where>
-     <if test="deptno!=0">
-      and a.DEPTNO=#{deptno}
+     <if test="grantno!=''">
+      	grantno=#{grantno}
      </if>
      <if test="sex!=null and sex!=''">
-     and a.SEX=#{sex}
+     	=#{sex}
      </if>
      <if test="joindate!=null">
      and a.JOINDATE=#{joindate}
@@ -52,7 +52,7 @@
     limit #{start},#{rows}
   </select>
   
-  根据综合检索条件取得员工个数
+  <!--根据综合检索条件取得员工个数
   <select id="selectCountByCondition" resultType="int">
   select IFNULL(count(EMPID), 0) from Employees a
   <where>

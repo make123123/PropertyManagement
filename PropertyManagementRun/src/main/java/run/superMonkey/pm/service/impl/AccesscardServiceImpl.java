@@ -11,7 +11,7 @@ import run.superMonkey.pm.model.entity.AccesscardEntity;
 import run.superMonkey.pm.service.AccesscardService;
 
 @Service
-@Transactional
+//@Transactional
 public class AccesscardServiceImpl implements AccesscardService {
 	@Autowired
 	private AccesscardMapper accesscardMapper=null;
@@ -32,10 +32,6 @@ public class AccesscardServiceImpl implements AccesscardService {
 	@Override
 	public List<AccesscardEntity> getListByAll() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("--");
-		System.out.println("--");
-		System.out.println("--");
-		System.out.println(accesscardMapper);
 		return accesscardMapper.selectListByAll();
 	}
 

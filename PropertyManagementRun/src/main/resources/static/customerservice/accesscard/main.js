@@ -3,10 +3,10 @@
  * 作者：赖伟森
  */
 $(function(){
-	var cardno=null;
-	var grantno=null;
-	var vechicletype=null;
-	var cardtype='';
+	var cardno="";
+	var grantno="";
+	var vechicletype="";
+	var cardtype="";
 	//设置系统页面标题
 	$("span#mainpagetille").html("<h1>车辆出入证管理</h1>");
 	
@@ -33,7 +33,7 @@ $(function(){
 	        autowidth: true,       //自动宽度
 			viewrecords: true,     //记录总数
 	        height:500,           //高度
-	        /*rowNum: 10,            //每页显示多少记录
+	        rowNum: 1,            //每页显示多少记录
 	        rowList:[10,30,40],    //每页显示多少记录（可选记录）
 	        jsonReader: {         //json解析器
 			      root: "list",    //列表的属性
@@ -42,7 +42,7 @@ $(function(){
 			      records: "count",   //记录个数属性
 			      repeatitems: true,  //循环记录
 			      id: "empid"},       //主键
-        	pager: "#GridPager",  //控件栏*/
+        	pager: "#GridPager",  //控件栏
 	        multiselect:false,   //false只允许选中一条记录(默认) true能选中多条记录
 	        onSelectRow:function(cardno){
 	        	this.cardno=cardno;
@@ -53,88 +53,76 @@ $(function(){
 	function reloadEmployeeList()
 	{
 		$("table#Grid").jqGrid('setGridParam',{postData:{grantno:grantno,vechicletype:vechicletype,cardtype:cardtype}}).trigger("reloadGrid");
-		
 	}
 	//点击增加按钮弹出增加员工对话框
 	$("a#AddLink").off().on("click",function(event){
-		$("div#DialogArea").load("employees/emp/add.html",function(){
+		$("div#DialogArea").load("customerservice/accesscard/add.html",function(){
 			$("div#DialogArea").dialog({
-				title:"增加人员",
+				title:"添加车辆出入证",
 				width:600
 			});
 			//验证员工提交数据
 			$("form#AddForm").validate({
 				rules:{
-					empid:{
-						required:true,
-						number:true,
-						min:1,
-						remote:host+"employees/emp/checkidexist"
+					cardno:{
+						required:true
+						//remote:host+"employees/emp/checkidexist"
 					},
-					deptno:{
-						required:true,
-						number:true,
-						range:[1,10]
-					},
-					empname:{
+					carno:{
 						required:true
 					},
-					sex:{
-						required:true,
-						maxlength: 1
+					customerno:{
+						required:true
 					},
-					age:{
+					vechicletype:{
 						required:true,
-						number:true,
-						min:18,
-						max:35
+						minlength:2,
+						maxlength:4
 					},
-					joindate:{
+					grantno:{
+						required:true
+					},
+					granttime:{
 						required:true,
 						date:true
 					},
-					job:{
+					cardtype:{
 						required:true
 					},
-					wx:{
+					overduetime:{
 						required:true,
-						wx:true
+						date:true
 					}
 				},
 			messages:{
-						empid:{
-							required:"工号不能为空，请输入工号",
-							number:"输入非法，请输入数字",
-							min:"不能为0和负数",
-							remote: "输入非法，工号已存在"  
+						cardno:{
+							required:"证件号码不能为空！"
+							//remote: "输入非法，工号已存在"  
 						},
-						deptno:{
-							required:"部门号不能为空，请输入部门号",
-							number:"输入非法，请输入数字",
-							range:"部门编码为1-10"
+						carno:{
+							required:"车牌号不能为空"
 						},
-						empname:{
-							required:"名字不能为空，请输入名字"
+						customerno:{
+							required:"申请人ID不能为空!"
 						},
-						sex:{
-							required:"性别不能为空，请输入性别",
-							maxlength: "输入非法，请输入男或女"
+						vechicletype:{
+							required:"证件类型不能为空！",
+							minlength: '输入非法，请输入"临时/长期"',
+							maxlength: '输入非法，请输入"临时/长期"'
 						},
-						age:{
-							required:"年龄不能为空，请输入年龄",
-							number:"输入非法，请输入数字",
-							min:"年龄最小为18",
-							max:"年龄最大为35"
+						grantno:{
+							required:"发放人ID不能为空！"
 						},
-						joindate:{
-							required:"入职日期不能为空，请输入入职日期",
-							date:"输入非法，请输入日期类型yyyy-MM-dd"
+						granttime:{
+							required:"发放日期不能为空！",
+							date:'输入非法，请输入日期类型"年-月-日"'
 						},
-						job:{
+						cardtype:{
 							required:"职位不能为空，请输入职位"
 						},
-						wx:{
-							required:"微信号不能为空，请输入微信号"
+						overduetime:{
+							required:"失效日期不能为空！",
+							date:'输入非法，请输入日期类型"年-月-日"'
 						}
 			  }
 			});
@@ -145,7 +133,7 @@ $(function(){
 				}
 				//修改默认的alert对话框
 				BootstrapDialog.show({
-		            title: '员工操作信息',
+		            title: '出入证操作信息',
 		            message:result.message
 		        });
 				$("div#DialogArea").dialog( "close" );
@@ -176,11 +164,11 @@ $(function(){
 		reloadEmployeeList();
 	});*/
 	//定义性别单选按钮更改事件
-	$("input[name='cardtype']").off().on("change",function(){
+	$("select[name='cardtype']").off().on("change",function(){
 		cardtype=$("input[name='cardtype']:checked").val();
-		reloadEmployeeList();
+		//reloadEmployeeList();
 	});
-	//点击检索事件处理
+	//点击查找事件处理
 	$("a#AccesscardSearchButton").on("click",function(){
 		grantno=$("input#grantno").val();
 		cardtype=$("input[name='cardtype']:checked").val();
