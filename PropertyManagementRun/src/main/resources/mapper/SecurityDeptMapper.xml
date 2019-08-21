@@ -2,8 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="run.superMonkey.pm.mapper.SecurityDeptMapper">
   <resultMap id="BaseResultMap" type="run.superMonkey.pm.model.entity.SecurityDept">
-    <id column="securityno" jdbcType="INTEGER" property="securityno" />
+   <id column="securityno" jdbcType="INTEGER" property="securityno" />
     <result column="securityname" jdbcType="VARCHAR" property="securityname" />
+    <result column="securitysex" jdbcType="VARCHAR" property="securitysex" />
+    <result column="securityage" jdbcType="INTEGER" property="securityage" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    securityno, securityname
+    securityno, securityname, securitysex, securityage
   </sql>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -84,8 +86,10 @@
   </delete>
 
   <insert id="insert" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
-    insert into security_dept (securityno, securityname)
-    values (#{securityno,jdbcType=INTEGER}, #{securityname,jdbcType=VARCHAR})
+    insert into security_dept (securityno, securityname, securitysex, 
+      securityage)
+    values (#{securityno,jdbcType=INTEGER}, #{securityname,jdbcType=VARCHAR}, #{securitysex,jdbcType=VARCHAR}, 
+      #{securityage,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
     insert into security_dept
@@ -96,6 +100,12 @@
       <if test="securityname != null">
         securityname,
       </if>
+      <if test="securitysex != null">
+        securitysex,
+      </if>
+      <if test="securityage != null">
+        securityage,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="securityno != null">
@@ -103,6 +113,12 @@
       </if>
       <if test="securityname != null">
         #{securityname,jdbcType=VARCHAR},
+      </if>
+      <if test="securitysex != null">
+        #{securitysex,jdbcType=VARCHAR},
+      </if>
+      <if test="securityage != null">
+        #{securityage,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -114,12 +130,56 @@
       <if test="securityname != null">
         securityname = #{securityname,jdbcType=VARCHAR},
       </if>
+      <if test="securitysex != null">
+        securitysex = #{securitysex,jdbcType=VARCHAR},
+      </if>
+      <if test="securityage != null">
+        securityage = #{securityage,jdbcType=INTEGER},
+      </if>
     </set>
     where securityno = #{securityno,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="run.superMonkey.pm.model.entity.SecurityDept">
     update security_dept
-    set securityname = #{securityname,jdbcType=VARCHAR}
+    set securityname = #{securityname,jdbcType=VARCHAR},
+      securitysex = #{securitysex,jdbcType=VARCHAR},
+      securityage = #{securityage,jdbcType=INTEGER}
     where securityno = #{securityno,jdbcType=INTEGER}
   </update>
+  
+  <!-- 根据综合检索条件取得员工列表，取得关联的部门，不取关联的爱好列表，分页模式 -->
+  <select id="selectListByALLWithSecurityDeptWithPage" resultMap="BaseResultMap">
+   select 
+   <include refid="Base_Column_List" /> 
+   from security_dept
+
+   limit #{start},#{rows}
+  </select>
+  
+  <!-- 根据综合检索条件取得安保个数-->
+  <select id="selectCountByCondition" resultType="int">
+   select IFNULL(count(securityno),0) from security_dept
+   <where>
+    <if test="securitysex!=null">
+     and securitysex=#{securitysex}
+    </if>
+    <if test="securityage!=null">
+     and securityage=#{securityage}
+    </if>
+   </where>
+  </select>
+  
+  
+  <!-- 根据securityno取得保安的人数 -->
+  <select id="selectCountByNo" resultType="int">
+  	select IFNULL(count(securityno),0) from security_dept
+  	<where>
+  		<if test="securityno!=null">
+  		and securityno=#{securityno}
+  		</if>
+  	</where>
+  </select>
+  
+  
+  
 </mapper>

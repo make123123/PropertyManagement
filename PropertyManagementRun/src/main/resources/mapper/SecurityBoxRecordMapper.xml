@@ -8,6 +8,12 @@
     <result column="dutyno" jdbcType="DOUBLE" property="dutyno" />
     <result column="visitname" jdbcType="VARCHAR" property="visitname" />
   </resultMap>
+  
+  <resultMap  id="SecurityBoxRecordWitheptResultMap" type="SecurityBoxRecord" extends="BaseResultMap">
+  	<association property="SecurityDept" resultMap="run.superMonkey.pm.mapper.SecurityBoxRecordMapper.BaseResultMap"></association>
+  </resultMap>
+  
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -76,13 +82,37 @@
     from security_box_record
     where boxno = #{boxno,jdbcType=DOUBLE}
   </select>
+  
+  <select id="selectByVisitName" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from security_box_record
+    where visitname = #{visitname,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+  <select id="selectListByAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from security_box_record
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Double">
     delete from security_box_record
     where boxno = #{boxno,jdbcType=DOUBLE}
   </delete>
+  
+  <delete id="deleteByVisitName" >
+    delete from security_box_record
+    where visitname = #{visitname,jdbcType=VARCHAR}
+  </delete>
+  
+  
 
   <insert id="insert" parameterType="run.superMonkey.pm.model.entity.SecurityBoxRecord">
-    insert into security_box_record (boxno, carno, boxDate, 
+    insert into security_box_record (boxno, carno, boxdate, 
       dutyno, visitname)
     values (#{boxno,jdbcType=DOUBLE}, #{carno,jdbcType=VARCHAR}, #{boxdate,jdbcType=DATE}, 
       #{dutyno,jdbcType=DOUBLE}, #{visitname,jdbcType=VARCHAR})
@@ -152,4 +182,56 @@
       visitname = #{visitname,jdbcType=VARCHAR}
     where boxno = #{boxno,jdbcType=DOUBLE}
   </update>
+  
+  <update id="updateByVisitName" parameterType="run.superMonkey.pm.model.entity.SecurityBoxRecord">
+    update security_box_record
+    set carno = #{carno,jdbcType=VARCHAR},
+      boxDate = #{boxdate,jdbcType=DATE},
+      dutyno = #{dutyno,jdbcType=DOUBLE},
+      boxno = #{boxno,jdbcType=DOUBLE}
+    where visitname = #{visitname,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+  
+  <!-- 根据综合检索条件取得岗亭的列表，取得关联的值班表，不取关联的爱好列表，分页模式 -->
+  <select id="selectListByALLWithBoxAndDutylogWithPage" resultMap="BaseResultMap">
+   select 
+   <include refid="Base_Column_List" />  
+   from security_box_record
+	
+   limit #{start},#{rows}
+  </select>
+  
+  <!-- 根据综合检索条件取得岗亭值班的个数-->
+  <select id="selectCountByCondition" resultType="int">
+   select IFNULL(count(boxno),0) from security_box_record
+   <where>
+    <if test="boxdate!=null">
+     and boxdate=#{boxdate}
+    </if>
+    <if test="dutyno!=null">
+     and dutyno=#{dutyno}
+    </if>
+   </where>
+  </select>
+  
+  
+  <!-- 根据boxno取得岗亭值班的人数 -->
+  <select id="selectCountByBoxNo" resultType="int">
+  	select IFNULL(count(boxno),0) from security_box_record
+  	<where>
+  		<if test="boxno!=null">
+  		and boxno=#{boxno}
+  		</if>
+  	</where>
+  </select>
+  
+  
+  
+  
+  
+  
+  
 </mapper>

@@ -6,7 +6,7 @@
     <result column="visitname" jdbcType="VARCHAR" property="visitname" />
     <result column="visittime" jdbcType="DATE" property="visittime" />
     <result column="leavetime" jdbcType="DATE" property="leavetime" />
-    <result column="visitroomno" jdbcType="DOUBLE" property="visitroomno" />
+    <result column="visitroomno" jdbcType="VARCHAR" property="visitroomno" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -85,7 +85,7 @@
     insert into security_visit_record (visitphoneno, visitname, visittime, 
       leavetime, visitroomno)
     values (#{visitphoneno,jdbcType=DOUBLE}, #{visitname,jdbcType=VARCHAR}, #{visittime,jdbcType=DATE}, 
-      #{leavetime,jdbcType=DATE}, #{visitroomno,jdbcType=DOUBLE})
+      #{leavetime,jdbcType=DATE}, #{visitroomno,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="run.superMonkey.pm.model.entity.SecurityVisitRecord">
     insert into security_visit_record
@@ -120,7 +120,7 @@
         #{leavetime,jdbcType=DATE},
       </if>
       <if test="visitroomno != null">
-        #{visitroomno,jdbcType=DOUBLE},
+        #{visitroomno,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -140,7 +140,7 @@
         leavetime = #{leavetime,jdbcType=DATE},
       </if>
       <if test="visitroomno != null">
-        visitroomno = #{visitroomno,jdbcType=DOUBLE},
+        visitroomno = #{visitroomno,jdbcType=VARCHAR},
       </if>
     </set>
     where visitphoneno = #{visitphoneno,jdbcType=DOUBLE}
@@ -150,7 +150,7 @@
     set visitname = #{visitname,jdbcType=VARCHAR},
       visittime = #{visittime,jdbcType=DATE},
       leavetime = #{leavetime,jdbcType=DATE},
-      visitroomno = #{visitroomno,jdbcType=DOUBLE}
+      visitroomno = #{visitroomno,jdbcType=VARCHAR}
     where visitphoneno = #{visitphoneno,jdbcType=DOUBLE}
   </update>
 </mapper>

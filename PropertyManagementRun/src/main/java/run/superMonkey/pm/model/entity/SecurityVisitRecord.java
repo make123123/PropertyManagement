@@ -17,7 +17,7 @@ public class SecurityVisitRecord {
 
     private Date leavetime;
 
-    private Double visitroomno;
+    private String visitroomno;
 
     
 }

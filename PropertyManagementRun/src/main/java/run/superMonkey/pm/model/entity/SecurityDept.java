@@ -12,5 +12,9 @@ public class SecurityDept implements Serializable{
     private Integer securityno;
 
     private String securityname;
+    
+    
+    private String securitysex;
 
+    private Integer securityage;
 }

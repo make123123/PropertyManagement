@@ -1,0 +1,47 @@
+<!-- Main row -->
+<div class="row">
+    <div class="col-xs-12">
+     
+      <div class="box-body">
+        <!-- 删除保安表单 -->
+       	 <!-- form start -->
+            <form id="SecurityDeleteForm" role="form" action="securityBoxRecord/delete" method="post" enctype="multipart/form-data">
+              <div class="box-body">
+                <div class="rows">
+                	<div class="col-md-6">
+                		
+		                <div class="form-group">
+		                  <label for="exampleInputEmail1">岗亭号码</label>
+		                  <input type="text" id="bno" class="form-control" name="boxno"  placeholder="岗亭号码" readonly="true">
+		                </div>
+		                
+		                <div class="form-group">
+		                  <label for="exampleInputPassword1">保安编号</label>
+		                  <input type="text" id="dno" class="form-control" name="dutyno"  placeholder="保安编号" readonly="true">
+		                </div>
+		                <div class="form-group">
+		                  <label for="exampleInputPassword1">来访人名</label>
+		                  <input type="text" id="vname" class="form-control" name="visitname"  placeholder="来访人名" readonly="true">
+		                </div>
+		                
+						<div class="box-footer">
+                			<button type="submit" class="btn btn-primary">确认</button>
+                 		    <input type="button" class="btn btn-primary" value="取消" />
+              			</div>
+                	</div>
+                	
+                </div>
+                
+              </div>
+              <!-- /.box-body -->
+              
+            </form>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+    
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->
