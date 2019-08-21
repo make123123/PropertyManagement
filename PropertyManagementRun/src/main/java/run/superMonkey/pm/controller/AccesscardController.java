@@ -52,18 +52,22 @@ public class AccesscardController {
 		}
 		//分页查找
 		@RequestMapping("/get/list")
-		public ResultMessage<AccesscardEntity> getListByAll(
+		public ResultMessage<AccesscardEntity> getListByPage(
 				@RequestParam(required = false,defaultValue ="")String grantno,
-				@RequestParam(required = false,defaultValue ="") String carno,
 				@RequestParam(required = false,defaultValue ="") String cardtype,
+				@RequestParam(required = false,defaultValue ="") String carno,
 			    @RequestParam(required = false,defaultValue = "1") int page,
 			    @RequestParam(required = false,defaultValue ="10") int rows)throws Exception{
 			ResultMessage<AccesscardEntity> result=new ResultMessage<AccesscardEntity>("OK","取得车辆出入证列表分页成功");
-		/*
-		 * result.setCount(es.getCountByCondition(deptno, sex, joindate));
-		 * result.setPageCount(es.getPageCountByCondition(deptno, sex, joindate, rows));
-		 */
-			result.setList(as.getListByPage(grantno,carno,cardtype,page,rows));
+		    result.setCount(as.getCountByCondition(grantno,cardtype,carno));
+		    result.setPageCount(as.getPageCountByCondition(grantno,cardtype, carno, rows));
+			System.out.println("-------------------");
+			System.out.println(grantno);
+			System.out.println(cardtype);
+			System.out.println(carno);
+			System.out.println(page);
+			System.out.println(rows);
+			result.setList(as.getListByPage(grantno,cardtype,carno,page,rows));
 			result.setPage(page);
 			result.setRows(rows);
 			return result;
