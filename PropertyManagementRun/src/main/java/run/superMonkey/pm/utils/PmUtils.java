@@ -3,7 +3,7 @@ package run.superMonkey.pm.utils;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.StringUtils;
+//import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 
@@ -28,7 +28,7 @@ public class PmUtils {
 		long hours = totalSeconds / 3600;
 		long minutes = totalSeconds % 3600 / 60;
 		long seconds = totalSeconds % 3600 % 60;
-		
+		/*
 	    if (hours > 0) {
             if (StringUtils.isNotBlank(timeBuilder)) {
                 timeBuilder.append(", ");
@@ -49,6 +49,7 @@ public class PmUtils {
             }
             timeBuilder.append(pluralize(seconds, "second", "seconds"));
         }
+        */
 		
 		return timeBuilder.toString();
 	}

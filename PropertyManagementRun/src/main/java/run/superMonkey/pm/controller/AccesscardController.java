@@ -1,20 +1,23 @@
 package run.superMonkey.pm.controller;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import run.superMonkey.pm.model.entity.AccesscardEntity;
 import run.superMonkey.pm.service.AccesscardService;
+import run.superMonkey.pm.service.impl.AccesscardServiceImpl;
 import run.superMonkey.pm.utils.ResultMessage;
 
 /*客户服务：出入证的增删查改*/
-
+@RestController
 @RequestMapping("/customerservice/accesscard")
 public class AccesscardController {
 		@Autowired
@@ -41,10 +44,9 @@ public class AccesscardController {
 				accesscardEntity.setVechicletype(vechicletype);
 			return new ResultMessage<AccesscardEntity>("Accpet","增加出入证成功！");
 		}
-		@PostMapping("/get/list")
-		public ResultMessage<AccesscardEntity> getListByAll()throws Exception{
-			ResultMessage<AccesscardEntity> result=new ResultMessage<AccesscardEntity>("Accept","获取出入证列表成功！");
-			result.setList(as.getListByAll());
+		@RequestMapping("/get/list")
+		public List<AccesscardEntity> getListByAll()throws Exception{
+			List<AccesscardEntity> result=as.getListByAll();
 			return result;
 		}
 		

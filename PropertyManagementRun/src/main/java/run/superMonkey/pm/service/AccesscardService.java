@@ -18,7 +18,7 @@ public interface AccesscardService {
 	//R方法-查询 取得列表
 	public List<AccesscardEntity> getListByAll()throws Exception;
 	//取得指定的系统功能对象
-	public AccesscardEntity getbyNo(double no)throws Exception;
+	public AccesscardEntity getbyNo(String no)throws Exception;
 	//取得所有功能的个数
 	public int getCountByAll()throws Exception;
 }

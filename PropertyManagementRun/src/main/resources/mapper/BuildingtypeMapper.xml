@@ -22,12 +22,7 @@
    delete from BuildingType where TYPENO=#{typeno}
   </delete>
   
-  <select id="selectListByAll" resultMap="BuildingtypeResultMap">
-   select * from BuildingType
+ <select id="selectListByAllWithoutPage" resultMap="BuildingtypeResultMap">
+   select TYPENO,TYPENAME from BuildingType
   </select>
-  
-   <select id="selectByTypeno" resultMap="BuildingtypeResultMap" >
-  select * from BuildingType  where TYPENO=#{typeno} 
-  </select>
-  
 </mapper>

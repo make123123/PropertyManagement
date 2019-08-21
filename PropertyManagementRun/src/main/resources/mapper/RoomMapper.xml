@@ -31,12 +31,9 @@
    delete from Room where ROOMNO=#{roomno}
   </delete>
   
-  <select id="selectListByAll" resultMap="RoomResultMap">
-   select * from Room
-  </select>
-  
-   <select id="selectByRoomno" resultMap="RoomResultMap" >
-  select * from Room  where ROOMNO=#{roomno} 
+   <select id="selectListByAllWithoutPage" resultMap="RoomResultMap">
+   select ROOMNO,DepartmentCode,Floor,RoomCode,
+  BuildingArea,FeeArea,RoomStatus,RoomType from Room
   </select>
    
 </mapper>

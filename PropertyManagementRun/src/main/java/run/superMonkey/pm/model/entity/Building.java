@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Alias("Building")
@@ -22,6 +24,7 @@ public class Building implements Serializable{
     private Double totalhome;
     //公建数
     private Double totalhouse; 
+    @JsonIgnore
     //关联小区表
     private Area area = null;
     //关联建筑类型表
