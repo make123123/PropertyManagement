@@ -11,6 +11,34 @@
       <result property="totalhouse" column="TotalHouse"/>
   </resultMap>
   
+   <!-- extends是继承，在原有的ResultMap上加上关联 -->
+  <!-- 关联的建筑类型的ResultMap -->
+  <resultMap  id="BuildingWithBuildingtypeResultMap" type="Building" extends="BuildingResultMap">
+  	<!-- property实体类中为关联定义出来的属性，resultMap映射到那个实体类上，引用它对应Mapper.xml里面的ResuleMap -->
+  	<association property="buildingType" resultMap="run.superMonkey.pm.mapper.BuildingTypeMapper.BuildingtypeResultMap"></association>
+  </resultMap>
+    <!-- 关联小区的ResultMap -->
+  <resultMap  id="BuildingWithAreaResultMap" type="Building" extends="BuildingResultMap">
+  	<!-- property实体类中为关联定义出来的属性，resultMap映射到那个实体类上，引用它对应Mapper.xml里面的ResuleMap -->
+  	<association property="buildingType" resultMap="run.superMonkey.pm.mapper.BuildingTypeMapper.AreaResultMap"></association>
+  </resultMap>
+  <!-- 关联的房间的ResultMap -->
+  <resultMap  id="BuildingWithRoomResultMap" type="Building" extends="BuildingResultMap">
+  	<collection property="rooms" resultMap="run.superMonkey.pm.mapper.RoomMapper.RoomResultMap"></collection>
+  </resultMap>
+  <!-- 关联小区，建筑类型 -->
+  <resultMap  id="BuildingWithAreaBuildingtypeResultMap" type="Building" extends="BuildingResultMap">
+  	<association property="area" resultMap="run.superMonkey.pm.mapper.AreaMapper.AreaResultMap"></association>
+	<association property="buildingType" resultMap="run.superMonkey.pm.mapper.BuildingTypeMapper.BuildingtypeResultMap"></association>
+  	
+  </resultMap>
+  <!-- 关联小区，建筑类型和房间 -->
+  <resultMap  id="BuildingWithAreaBuildingtypeRoomsResultMap" type="Building" extends="BuildingResultMap">
+  	<association property="area" resultMap="run.superMonkey.pm.mapper.AreaMapper.AreaResultMap"></association>
+	<association property="buildingType" resultMap="run.superMonkey.pm.mapper.BuildingTypeMapper.BuildingtypeResultMap"></association>
+  	<collection property="rooms" resultMap="run.superMonkey.pm.mapper.RoomMapper.RoomResultMap"></collection>
+  </resultMap>
+  
   <insert id="create"  parameterType="Building" flushCache="true">
    insert into Building (BuildingNo,BCODE,BAddress,Direction,
    TotalHome,TotalHouse)
@@ -29,11 +57,81 @@
    delete from Building where BuildingNo=#{buildingno}
   </delete>
   
-  <select id="selectListByAll" resultMap="BuildingResultMap">
-   select * from Building
+    <select id="selectByBuildingnoWithAreaAndBuildingTypeAndRooms" resultMap="BuildingWithAreaBuildingtypeRoomsResultMap" >
+ 	select a.*,b.*,c.*,d.* from Building a inner join Area b on a.AreaNo=b.AREANO
+ 	inner join BuildingType c on a.BuildingTypeNo=c.TYPENO
+ 	inner join Room d on a.RoomNo = d.ROOMNO
+ 	where a.BuildingNo=#{buildingno} 
   </select>
   
-   <select id="selectByBuildingno" resultMap="BuildingResultMap" >
-  select * from Building  where BuildingNo=#{buildingno} 
+    <select id="selectListByAllWithoutPage" resultMap="BuildingResultMap">
+   select BuildingNo,AreaNo,BCODE,BAddress,BuildingTypeNo,Direction,TotalHome,TotalHouse,RoomNo from Building
   </select>
+  
+   <select id="selectListByAllWithPage" resultMap="BuildingResultMap">
+   select BuildingNo,AreaNo,BCODE,BAddress,BuildingTypeNo,Direction,TotalHome,TotalHouse,RoomNo from Building
+   limit #{start},#{rows}
+     </select>
+     
+  <select id="selectListByAllWithAreaAndBuildingTypeWithoutRooms" resultMap="BuildingWithAreaBuildingtypeResultMap">
+  select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO
+ 	inner join BuildingType c on a.BuildingTypeNo=c.TYPENO
+  </select>
+  
+  <select id="selectListByConditionWithAreaAndBuildingtypeNoAndRoomNoWithPage" resultMap="BuildingWithAreaBuildingtypeResultMap">
+  select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO
+ 	inner join BuildingType c on a.BuildingTypeNo=c.TYPENO
+  <where>
+   <if test="area!=0">
+      and a.AreaNo=#{area}				<!-- and会自动判断需不需要，不需要会自动删除-->
+     </if>
+     <if test="buildingType!=0">
+      and a.BuildingTypeNO=#{buildingType}				<!-- and会自动判断需不需要，不需要会自动删除-->
+     </if>
+     <if test="rooms!=0">
+     and a.BuildingNo in (select BuildingNo from Room where ROOMNO=#{rooms})
+     </if>
+  </where>
+    limit #{start},#{rows}
+  </select>
+  
+  <select id="selectCountByCondition" resultType="int">
+  select IFNULL(count(EMPID), 0) from Building
+  <where>
+  <if test="area!=0">
+      and a.AreaNo=#{area}				<!-- and会自动判断需不需要，不需要会自动删除-->
+     </if>
+    <if test="buildingType!=0">
+      and a.BuildingTypeNO=#{buildingType}				<!-- and会自动判断需不需要，不需要会自动删除-->
+     </if>
+     <if test="rooms!=0">
+     and a.BuildingNo in (select BuildingNo from Room where ROOMNO=#{rooms})
+     </if>
+  </where>
+  </select>
+  
+
+  <insert id="addRooms">
+    insert into Room (ROOMNO,HouseTypeNo,BuildingNo,DepartmentCode,Floor,RoomCode,BuildingArea,FeeArea,RoomStatus,RoomType) values 
+    <foreach  item="room" collection="rooms"   separator="," >
+          (#{roomno},#{housetype},#{building},#{departmentcode},#{floor},#{roomcode},#{buildingarea},#{feearea},#{roomstatus},#{roomtype})
+    </foreach>
+   </insert>
+  
+  
+
+   <delete id="deleteRooms" >
+   delete from Room where BuildingNo=#{building}
+   </delete>
+   
+
+   <select id="selectCountByBuildingno" resultType="int">
+    select IFNULL(count(EMPID), 0) from Building
+    <where>
+    	<if test="buildingno!=0">
+    	and BuildingNo=#{buildingno}
+    	</if>
+    </where>
+   </select>
+  
 </mapper>

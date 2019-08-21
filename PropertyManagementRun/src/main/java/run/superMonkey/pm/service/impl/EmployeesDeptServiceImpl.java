@@ -40,4 +40,26 @@ public class EmployeesDeptServiceImpl implements EmployeesDeptService {
 		
 	}
 
+	@Override
+	public List<EmployessDeptEntity> getListByPage(int page, int rows)throws Exception {
+		return edm.selectListByPage(rows*(page-1),rows);
+	}
+
+	@Override
+	public int getPageCountByCondition(int rows)throws Exception {
+		int pageCount=0;
+		int count=this.getCountByCondition();
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}else{
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+
+	@Override
+	public int getCountByCondition() throws Exception {
+		return edm.selectCountByCondition();
+	}
+
 }

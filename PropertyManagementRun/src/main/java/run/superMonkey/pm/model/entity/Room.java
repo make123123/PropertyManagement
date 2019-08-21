@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 
@@ -26,6 +28,7 @@ public class Room implements Serializable{
     private String roomstatus;
     //房间类型(room 住宅)
     private String roomtype;
+    @JsonIgnore
     //关联户型表对象
     private HouseType housetype = null;
     //关联楼宇表对象
