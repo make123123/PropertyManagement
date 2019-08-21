@@ -53,5 +53,13 @@
   <select id="selectListByAll" resultMap="BaseResultMap">
 		select * from Employees_dept
   </select>
+  <!-- 取得部门列表,分页模式 -->
+  <select id="selectListByPage" resultMap="BaseResultMap">
+  select * from  Employees_dept limit #{start},#{rows}
+  </select>
+  <!-- 取得部门个数-->
+  <select id="selectCountByCondition" resultType="int">
+  select IFNULL(count(DEPTNO), 0) from Employees_dept 
+  </select>
   </mapper>
   

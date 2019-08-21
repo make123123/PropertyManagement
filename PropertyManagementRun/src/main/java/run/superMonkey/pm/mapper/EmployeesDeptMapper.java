@@ -3,6 +3,8 @@ package run.superMonkey.pm.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import run.superMonkey.pm.model.entity.EmployessDeptEntity;
 
 public interface EmployeesDeptMapper {
@@ -15,6 +17,7 @@ public interface EmployeesDeptMapper {
     //查
     public EmployessDeptEntity selectByPrimaryKey(Integer deptno)throws Exception;
     public List<EmployessDeptEntity> selectListByAll()throws Exception;
-
+	public List<EmployessDeptEntity> selectListByPage(@Param("start") int start,@Param("rows") int rows)throws Exception;
+	public int selectCountByCondition()throws Exception;
 
 }

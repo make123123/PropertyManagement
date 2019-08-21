@@ -8,7 +8,7 @@ $(function(){
 	$("span#mainpagetille").html("部门管理");
 	
 	$("table#Grid").jqGrid({
-        url: 'employees/dept/get/list',
+        url: 'employees/dept/get/list1',
         mtype: "GET",
 		styleUI : 'Bootstrap',
         datatype: "json",
@@ -20,7 +20,7 @@ $(function(){
         autowidth: true,       //自动宽度
 		viewrecords: true,     //记录总数
         height: 350,           //高度
-        rowNum: 10,            //每页显示多少记录
+        rowNum: 2,            //每页显示多少记录
         rowList:[10,20,30],    //每页显示多少记录（可选记录）
         jsonReader: {         //json解析器
 		      root: "list",    //列表的属性
