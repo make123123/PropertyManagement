@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.superMonkey.pm.mapper.AccesscardMapper">
+  <resultMap id="accesscard" type="AccesscardEntity">
+    <id column="cardno" property="cardno" />
+    <result column="carno"  property="carno" />
+    <result column="customerno"  property="customerno" />
+    <result column="vechicletype" property="vechicletype" />
+    <result column="grantno"  property="grantno" />
+    <result column="granttime"  property="granttime" />
+    <result column="cardtype"  property="cardtype" />
+    <result column="overduetime"  property="overduetime" />
+  </resultMap>
+  <!-- 增 -->
+  <insert id="create" parameterType="AccesscardEntity">
+    insert into Accesscard values (#{cardno},#{carno},#{customerno}, #{vechicletype}, #{grantno}, #{granttime},#{cardtype},#{overduetime})
+  </insert>
+  <!-- 删 -->
+  <delete id="delete" >
+    delete from Accesscard where cardno=#{cardno} 
+  </delete>
+  <!-- 改 -->
+  <update id="update" >
+    	update Accesscard set carno=#{carno}, customerno=#{customerno},vechicletype= #{vechicletype}, grantno=#{grantno}, granttime=#{granttime}, cardtype=#{cardtype}, overduetime= #{overduetime} where cardno=#{cardno}
+  </update>
+  <!-- 查 -->
+  <select id="selectListByAll" resultMap="accesscard">
+		select * from Accesscard
+  </select>
+  
+  <select id="selectByNo" resultMap="accesscard">
+  		select * from Accesscard where cardno=#{cardno}
+  </select>
+  
+  <select id="selectCountByAll" resultType="int">
+  		select count(cardno) from Accesscard
+  </select>
+  <!-- 根据综合检索条件取得员工列表，取得关联的部门,分页模式 -->
+  <select id="selectListByPage" resultMap="accesscard">
+  select * from Accesscard
+  <where>
+     <if test="grantno!=''">
+      	grantno=#{grantno}
+     </if>
+     <if test="sex!=null and sex!=''">
+     	=#{sex}
+     </if>
+     <if test="joindate!=null">
+     and a.JOINDATE=#{joindate}
+     </if>
+  </where>
+    limit #{start},#{rows}
+  </select>
+  
+  <!--根据综合检索条件取得员工个数
+  <select id="selectCountByCondition" resultType="int">
+  select IFNULL(count(EMPID), 0) from Employees a
+  <where>
+     <if test="deptno!=0">
+      and a.DEPTNO=#{deptno}
+     </if>
+     <if test="sex!=null and sex!=''">
+     and a.SEX=#{sex}
+     </if>
+     <if test="joindate!=null">
+     and a.JOINDATE=#{joindate}
+     </if>
+  </where>
+   
+  </select> -->
+  </mapper>

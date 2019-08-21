@@ -1,52 +1,51 @@
-<script type="text/javascript" src="employees/emp/main.js"></script>
+<script type="text/javascript" src="customerservice/accesscard/main.js"></script>
 <!-- Main row -->
 <div class="row">
     <div class="col-xs-12">
       <div class="box">
+	      <div class="box-body">
+	        <table id="Grid"></table>
+	    	<div id="GridPager"></div>
+	      </div>
         <div class="box-header">
           <div class="row">
              <div class="col-md-9">
 	             <form class="form-inline" role="form">
 				  <div class="form-group">
-				    <label  for="name">部门</label>
-				    <select id="DepartmentSelection" class="form-control">
-				       <option value="0">所有</option>
-				    </select>
+				    <div class="form-group">
+				    <label  for="name">发放人ID:</label>
+				    <input id="grantno" class="form-control" value="">
+				  </div>
 				  </div>
 				  <div class="form-group">
-				    <label  for="name">性别</label>
-				     <input type="radio" name="empsex" value="" checked>所有
-				     <input type="radio" name="empsex" value="男">男
-				     <input type="radio" name="empsex" value="女">女   
+				    <label  for="name">证件类型：</label>
+				     <select type="text" class="form-control" name="cardtype"  placeholder="证明类型">
+				     	<option value ="">所有</option>
+                        <option value ="长期">长期</option>
+                        <option value ="临时">临时</option>
+                     </select>
 				  </div>
 				  <div class="form-group">
-				    <label  for="name">入职日期</label>
-				    <input type="date" class="form-control" id="JoinDate" size="10" value="" />
+				    <label  for="name">车牌号:</label>
+				    <input class="form-control" id="carnoSelection" size="10" value="" />
 				  </div>
 				  <div class="form-group">
-				   <a href="#" class="btn btn-default" id="EmployeeSearchButton">检索</a>
+				   <a href="#" class="btn btn-default" id="AccesscardSearchButton">查找</a>
 				  </div>
 				</form>
              </div>
              <div class="col-md-3 text-right">
+             	<a href="index.html" class="btn btn-info" float="left">返回首页</a>
              	<a href="#" id="AddLink" class="btn btn-info">增加</a> 
             	<a href="#" id="DelteLink" class="btn btn-info">删除</a>
              	<a href="#" id="ModifyLink" class="btn btn-info">修改</a>
              	<a href="#" id="ViewLink" class="btn btn-info">详细</a>
               </div>
           </div>
-          
         </div>
-        <!-- /.box-header -->
-      <div class="box-body">
-        <table id="Grid"></table>
-    	<div id="GridPager"></div>
-       
-      </div>
       <!-- /.box-body -->
     </div>
     <!-- /.box -->
-    <a href="index.html" class="btn btn-info">返回首页</a>
   </div>
   <!-- /.col -->
 </div>

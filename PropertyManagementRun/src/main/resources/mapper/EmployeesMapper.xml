@@ -73,9 +73,7 @@
     EMPID, DEPTNO, EMPNAME, SEX, AGE, JOINDATE, JOB, Mobile, Tel, QQ, WX
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="EmployeeWithDepartmentResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from Employees
+    select a.*,b.DEPTNAME from Employees a left join Employees_dept b on a.deptno=b.deptno
     where EMPID = #{empid,jdbcType=INTEGER}
   </select>
   <select id="selectListByAll" resultMap="EmployeeWithDepartmentResultMap">
@@ -96,5 +94,22 @@
      </if>
   </where>
     limit #{start},#{rows}
+  </select>
+  
+  <!-- 根据综合检索条件取得员工个数-->
+  <select id="selectCountByCondition" resultType="int">
+  select IFNULL(count(EMPID), 0) from Employees a
+  <where>
+     <if test="deptno!=0">
+      and a.DEPTNO=#{deptno}
+     </if>
+     <if test="sex!=null and sex!=''">
+     and a.SEX=#{sex}
+     </if>
+     <if test="joindate!=null">
+     and a.JOINDATE=#{joindate}
+     </if>
+  </where>
+   
   </select>
   </mapper>

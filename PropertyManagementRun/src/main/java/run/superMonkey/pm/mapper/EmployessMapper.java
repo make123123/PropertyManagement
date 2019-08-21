@@ -20,4 +20,5 @@ public interface EmployessMapper {
     public EmployessEntity selectByPrimaryKey(int empid)throws Exception;
 	public List<EmployessEntity> selectListByAll()throws Exception; 
 	public List<EmployessEntity> selectListByPage(@Param("deptno")int deptno,@Param("sex")String sex,@Param("joindate")Date joindate,@Param("start") int start,@Param("rows") int rows)throws Exception;
+	public int selectCountByCondition(@Param("deptno")int deptno,@Param("sex")String sex,@Param("joindate")Date joindate)throws Exception;
 }
