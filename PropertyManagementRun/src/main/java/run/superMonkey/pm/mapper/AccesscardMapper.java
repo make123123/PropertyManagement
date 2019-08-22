@@ -10,7 +10,7 @@ import run.superMonkey.pm.model.entity.AccesscardEntity;
 import run.superMonkey.pm.model.entity.EmployessEntity;
 @Mapper
 public interface AccesscardMapper {
-	public AccesscardEntity create(AccesscardEntity accesscardEntity) throws Exception;
+	public void create(AccesscardEntity accesscardEntity) throws Exception;
 	public void update(AccesscardEntity accesscardEntity) throws Exception;
 	public void delete(AccesscardEntity accesscardEntity) throws Exception;
 	//所有客户资料

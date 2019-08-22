@@ -75,13 +75,13 @@
   <select id="selectCountByCondition" resultType="int">
   select IFNULL(count(AREANO), 0) from Area
   <where>
-  	 <if test="areaname!=null">
+  	 <if test="areaname!=null and areaname!=''">
       and AREANAME=#{areaname}
      </if>
-     <if test="aaddress!=null">
+     <if test="aaddress!=null and areaname!=''">
       and AAddress=#{aaddress}
      </if>
-     <if test="developer!=null">
+     <if test="developer!=null and areaname!=''">
       and Developer=#{developer}
      </if>
   </where>

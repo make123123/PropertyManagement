@@ -11,7 +11,7 @@ import run.superMonkey.pm.model.entity.AccesscardEntity;
 
 
 public interface AccesscardService {
-	public AccesscardEntity register(AccesscardEntity accesscardEntity) throws Exception;
+	public void register(AccesscardEntity accesscardEntity) throws Exception;
 	public void modify(AccesscardEntity accesscardEntity) throws Exception;
 	public void delete(AccesscardEntity accesscardEntity) throws Exception;
 	//R方法-查询 取得列表
@@ -26,4 +26,7 @@ public interface AccesscardService {
 	public int getCountByCondition(String grantno,String cardtype,String carno)throws Exception;
 	
 	public int getPageCountByCondition(String grantno,String cardtype,String carno,int rows)throws Exception;
+	
+	//查看员工是否存在
+	public boolean checkIdExist(String cardno) throws Exception;
 }

@@ -55,21 +55,21 @@ public class BuildingServiceImpl implements IBuildingService{
 	}
 
 	@Override
-	public List<Building> getListByConditionWithAreaAndBuildingtypeAndRoomNoWithPage(Double areaNo,Double buildingtypeNo, Double roomNo,
+	public List<Building> getListByConditionWithAreaAndBuildingtypeAndRoomNoWithPage(Double areaNo,Double buildingtypeNo,
 			int rows,int page) throws Exception {
-		return buildingMapper.selectListByConditionWithAreaAndBuildingtypeNoAndRoomNoWithPage(areaNo,buildingtypeNo, roomNo,  rows*(page-1), rows);
+		return buildingMapper.selectListByConditionWithAreaAndBuildingtypeNoAndRoomNoWithPage(areaNo,buildingtypeNo,  rows*(page-1), rows);
 	}
 
 	@Override
-	public int getCountByConditionWithPage(Double areaNo,Double buildingtypeNo, Double roomNo) throws Exception {
-		return buildingMapper.selectCountByCondition(areaNo,buildingtypeNo,roomNo);
+	public int getCountByConditionWithPage(Double areaNo,Double buildingtypeNo) throws Exception {
+		return buildingMapper.selectCountByCondition(areaNo,buildingtypeNo);
 	}
 
 	@Override
-	public int getPageCountByConditionWithAreaAndBuildingTypeAndRoomWithPage(Double areaNo,Double buildingtypeNo,Double roomNo,int rows)
+	public int getPageCountByConditionWithAreaAndBuildingTypeAndRoomWithPage(Double areaNo,Double buildingtypeNo,int rows)
 			throws Exception {
 		int pageCount=0;
-		int count=this.getCountByConditionWithPage(areaNo,buildingtypeNo,roomNo);
+		int count=this.getCountByConditionWithPage(areaNo,buildingtypeNo);
 		if(count%rows==0) {
 			pageCount=count/rows;
 		}
@@ -79,17 +79,9 @@ public class BuildingServiceImpl implements IBuildingService{
 		return pageCount;
 	}
 
-	@Override
-	public void addRooms(Double buildingno, Double[] rooms) throws Exception {
-		buildingMapper.addRooms(buildingno, rooms);
-		
-	}
+	
 
-	@Override
-	public void deleteRooms(Double buildingno) throws Exception {
-		buildingMapper.deleteRooms(buildingno);
-		
-	}
+
 
 	@Override
 	public boolean checkBuildingnoExist(Double buildingno) throws Exception {
@@ -99,5 +91,7 @@ public class BuildingServiceImpl implements IBuildingService{
 		}
 		return result;
 	}
+
+	
 
 }

@@ -6,7 +6,7 @@
  * 
  */
 $(function(){
-	var buildingno=0;
+	var buildingNo=0;
 	var bcode=null;
 	var baddress=null;
 	var direction=null;
@@ -14,7 +14,6 @@ $(function(){
 	var totalhouse=0;
 	var areano=0;
 	var buildingTypeno=0;
-	var roomno=0;
 	//设置系统页面标题
 	$("span#mainpagetille").html("楼宇管理");
 	//设置日期的格式和选择
@@ -47,7 +46,7 @@ $(function(){
 		pager: "#EmployeeGridPager",
 		multiselect:false,
 		onSelectRow:function(no){
-			buildingno=no;
+			buildingNo=no;
 		}
 		
 	});
@@ -56,85 +55,99 @@ $(function(){
 	$.getJSON(host+"area/get/list",function(departmentList){
 		if(departmentList){
 			$.each(departmentList,function(index,dm){
-				$("select#ArSelection").append("<option value='"+dm.areaname+"'>"+dm.areaname+"</option>");
+				$("select#ArSelection").append("<option value='"+dm.areano+"'>"+dm.areano+"</option>");
 			});
 		}
 	});
-	//取得小区地址列表，填充小区地址下拉框
+	//取得楼宇类型地址列表，填充小区地址下拉框
 	$.getJSON(host+"buildingtype/get/list",function(roleList){
+		
 		if(roleList){
 			$.each(roleList,function(index,rm){
-				$("select#AdSelection").append("<option value='"+rm.typename+"'>"+rm.typename+"</option>");
+				$("select#ArSelection1").append("<option value='"+rm.typeno+"'>"+rm.typeno+"</option>");
 			});
 		}
 	});
-	//取得小区地址列表，填充小区地址下拉框
-	$.getJSON(host+"room/get/list",function(roleList){
-		if(roleList){
-			$.each(roleList,function(index,rm){
-				$("select#AdSelection").append("<option value='"+rm.departmentcode+"'>"+rm.departmentcode+"</option>");
-			});
-		}
-	});
+	
 //	设置检索参数，更新jQGrid的列表显示
-	function reloadAreaList()
+	function reloadBuildingList()
 	{
-		$("table#EmployeeGrid").jqGrid('setGridParam',{postData:{areaname:areaname,typename:typename,departmentcode:departmentcode}}).trigger("reloadGrid");
+		$("table#EmployeeGrid").jqGrid('setGridParam',{postData:{areaNo:areano,buildingtypeNo:buildingTypeno}}).trigger("reloadGrid");
 		//对于控制层显示列表的条件
 	}
 	//点击检索事件处理
 	$("a#EmployeeSearchButton").on("click",function(){
-		areaname=$("select#ArSelection").val();
-		typename=$("select#AdSelection").val();
-		departmentcode=$("select#DeSelection").val();
-		reloadAreaList();
+		areano=$("select#ArSelection").val();
+		buildingTypeno=$("select#ArSelection1").val();
+		reloadBuildingList();
+
 	});
 	//===========================增加小区信息处理================================================
 	$("a#EmployeeAddLink").off().on("click",function(){
 		$("div#EmployeeDialog").load("building/add.html",function(){
+			//取得小区列表
+			$.getJSON(host+"area/get/list",function(departmentList){
+				if(departmentList){
+					$.each(departmentList,function(index,dm){
+						$("select[name='area.areano']").append("<option value='"+dm.areano+"'>"+dm.areano+"</option>");
+					});
+				}
+			});
+			//取得建筑类型列表
+			$.getJSON(host+"buildingtype/get/list",function(departmentList){
+				if(departmentList){
+					$.each(departmentList,function(index,dm){
+						$("select[name='buildingType.typeno']").append("<option value='"+dm.typeno+"'>"+dm.typeno+"</option>");
+					});
+				}
+			});
+			
+			
+			
+			
 			//验证员工提交数据
 			$("form#EmployeeAddForm").validate({
 				  rules: {
-					areano: {
+					buildingno: {
 				      required: true,
-				      remote: host+"area/checkareanoexist"
+				      remote: host+"building/checkbuildingnoexist"
 				      
 				    },
-				    areaname:{
+				    bcode:{
 				    	required: true
 				    },
-				    aaddress:{
+				    baddress:{
 				    	required: true
 				    },
-				    developer:{
+				    direction:{
 				    	required:true,
 				    }
 				  },
 				  messages:{
-					areano: {
-					     required: "小区编号为空",
-					     remote:"小区编号已经存在"
+					buildingno: {
+					     required: "楼宇编号为空",
+					     remote:"楼宇编号已经存在"
 					    },
-					areaname:{
-					     required:"小区名称为空"
+					bcode:{
+					     required:"楼号为空"
 					},
-					aaddress:{
-						 required:"小区地址为空"
+					baddress:{
+						 required:"楼宇地址为空"
 					},
-					developer:{
-				    	required:"开发商为空",
+					direction:{
+				    	required:"楼宇朝向开发商为空",
 				    }
 				 }
 			});
 			//拦截增加提交表单
 			$("form#EmployeeAddForm").ajaxForm(function(result){
 				if(result.status=="OK"){
-					reloadAreaList();//更新员工列表
+					reloadBuildingList();//更新员工列表
 				}
 				//alert(result.message);
 				//BootstrapDialog.alert(result.message);
 				BootstrapDialog.show({
-		            title: '小区操作信息',
+		            title: '楼宇操作信息',
 		            message:result.message
 		        });
 				$("div#EmployeeDialog").dialog( "close" );
@@ -144,7 +157,7 @@ $(function(){
 			});
 			
 			$("div#EmployeeDialog").dialog({
-				title:"小区增加",
+				title:"楼宇增加",
 				width:950
 			});
 			//点击取消按钮，管理弹出窗口
@@ -161,10 +174,10 @@ $(function(){
 	
 	//===============================修改小区处理===============================================================
 	$("a#EmployeeModifyLink").off().on("click",function(){
-		if(areaNo==0){
+		if(buildingNo==0){
 			BootstrapDialog.show({
-	            title: '小区操作信息',
-	            message:"请选择要修改的小区",
+	            title: '楼宇操作信息',
+	            message:"请选择要修改的楼宇",
 	            buttons: [{
 	                label: '确定',
 	                action: function(dialog) {
@@ -174,34 +187,48 @@ $(function(){
 	        });
 		}
 		else{
-			$("div#EmployeeDialog").load("area/modify.html",function(){
+			$("div#EmployeeDialog").load("building/modify.html",function(){
 				
+				//取得小区列表
+				$.getJSON(host+"area/get/list",function(departmentList){
+					if(departmentList){
+						$.each(departmentList,function(index,dm){
+							$("select[name='area.areano']").append("<option value='"+dm.areano+"'>"+dm.areano+"</option>");
+						});
+					}
+				});
+				//取得建筑类型列表
+				$.getJSON(host+"buildingtype/get/list",function(departmentList){
+					if(departmentList){
+						$.each(departmentList,function(index,dm){
+							$("select[name='buildingType.typeno']").append("<option value='"+dm.typeno+"'>"+dm.typeno+"</option>");
+						});
+					}
+				});
 				//取得指定的员工信息
-				$.getJSON(host+"/area/get",{areano:areaNo},function(am){
+				$.getJSON(host+"/building/get",{buildingno:buildingNo},function(am){
+					
 					if(am){
-						$("input[name='areano']").val(areaNo);
-						$("input[name='areaname']").val(am.areaname);
-						$("input[name='aaddress']").val(am.aaddress);
-						$("input[name='developer']").val(am.developer);
-						$("input[name='totalbuidingarea']").val(am.totalbuidingarea);
-						$("input[name='totalusearea']").val(am.totalusearea);
-						$("input[name='totalpackarea']").val(am.totalpackarea);
+						$("input[name='buildingno']").val(am.buildingno);
+						$("input[name='bcode']").val(am.bcode);
+						$("input[name='baddress']").val(am.baddress);
+						$("input[name='direction']").val(am.direction);
 						$("input[name='totalhome']").val(am.totalhome);
 						$("input[name='totalhouse']").val(am.totalhouse);
-						$("input[name='totalpack']").val(am.totalpack);
-						
+						$("select[name='area.areano']").val(am.areano);
+						$("select[name='buildingType.typeno']").val(am.buildingTypeno);
 					}
 				});
 				
 				//拦截增加提交表单
-				$("form#EmployeeModifyForm").ajaxForm(function(result){
+				$("form#BuildingEmployeeModifyForm").ajaxForm(function(result){
 					if(result.status=="OK"){
-						reloadAreaList();//更新员工列表
+						reloadBuildingList();//更新员工列表
 					}
 					//alert(result.message);
 					//BootstrapDialog.alert(result.message);
 					BootstrapDialog.show({
-			            title: '小区操作信息',
+			            title: '楼宇操作信息',
 			            message:result.message
 			        });
 					$("div#EmployeeDialog").dialog( "close" );
@@ -212,7 +239,7 @@ $(function(){
 			
 				
 				$("div#EmployeeDialog").dialog({
-					title:"小区修改",
+					title:"楼宇修改",
 					width:800
 				});
 
@@ -231,10 +258,10 @@ $(function(){
 	//===============================小区删除处理===============================================================
 	
 	$("a#EmployeeDeleteLink").off().on("click",function(){
-		if(areaNo==0){
+		if(buildingNo==0){
 			BootstrapDialog.show({
-	            title: '小区操作信息',
-	            message:"请选择要删除的小区",
+	            title: '楼宇操作信息',
+	            message:"请选择要删除的楼宇",
 	            buttons: [{
 	                label: '确定',
 	                action: function(dialog) {
@@ -244,14 +271,14 @@ $(function(){
 	        });
 		}
 		else{
-			 BootstrapDialog.confirm('确认删除此客户?', function(result){
+			 BootstrapDialog.confirm('确认删除此楼宇?', function(result){
 	             if(result) {
-	              $.post("area/delete",{areano:areaNo},function(result){
+	              $.post("building/delete",{buildingno:buildingNo},function(result){
 	               if(result.status=="OK"){
-	                reloadAreaList(); 
+	                reloadBuildingList(); 
 	      }
 	      BootstrapDialog.show({
-	                title: '客户操作信息',
+	                title: '楼宇操作信息',
 	                message:result.message,
 	                buttons: [{
 	                    label: '确定',
@@ -270,10 +297,10 @@ $(function(){
 	});
 	//===============================小区详细处理===============================================================
 	$("a#EmployeeViewLink").off().on("click",function(){
-		if(areaNo==0){
+		if(buildingNo==0){
 			BootstrapDialog.show({
-	            title: '小区操作信息',
-	            message:"请选择要查看的小区",
+	            title: '楼宇操作信息',
+	            message:"请选择要查看的楼宇",
 	            buttons: [{
 	                label: '确定',
 	                action: function(dialog) {
@@ -283,22 +310,19 @@ $(function(){
 	        });
 		}
 		else{
-			$("div#EmployeeDialog").load("area/view.html",function(){
+			$("div#EmployeeDialog").load("building/view.html",function(){
 				
 				//取得指定的员工信息
-				$.getJSON(host+"/area/get",{areano:areaNo},function(em){
-					if(em){
-						$("span#areaNo").html(areaNo);
-						$("span#areaName").html(em.areaname);
-						$("span#aaddress").html(em.aaddress);
-						$("span#developer").html(em.developer);
-						$("span#totalBuidingArea").html(em.totalbuidingarea);
-						$("span#totalUsearea").html(em.totalusearea);
-						$("span#totalPackarea").html(em.totalpackarea);
-						$("span#totalHome").html(em.totalhome);
-						$("span#totalHouse").html(em.totalhouse);
-						$("span#totalPack").html(em.totalpack);
-						
+				$.getJSON(host+"/building/get",{buildingno:buildingNo},function(am){
+					if(am){
+						$("span#buildingNo").html(am.buildingno);
+						$("span#bcode").html(am.bcode);
+						$("span#baddress").html(am.baddress);
+						$("span#direction").html(am.direction);
+						$("span#totalhome").html(am.totalhome);
+						$("span#totalhouse").html(am.totalhouse);
+						$("span#areano").html(am.areano);
+						$("span#buildingNo").html(am.buildingTypeno);
 					}
 				});
 				

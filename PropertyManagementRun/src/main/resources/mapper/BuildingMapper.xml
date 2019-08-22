@@ -32,19 +32,12 @@
 	<association property="buildingType" resultMap="run.superMonkey.pm.mapper.BuildingTypeMapper.BuildingtypeResultMap"></association>
   	
   </resultMap>
-  <!-- 关联小区，建筑类型和房间 -->
-  <resultMap  id="BuildingWithAreaBuildingtypeRoomsResultMap" type="Building" extends="BuildingResultMap">
-  	<association property="area" resultMap="run.superMonkey.pm.mapper.AreaMapper.AreaResultMap"></association>
-	<association property="buildingType" resultMap="run.superMonkey.pm.mapper.BuildingTypeMapper.BuildingtypeResultMap"></association>
-  	<collection property="rooms" resultMap="run.superMonkey.pm.mapper.RoomMapper.RoomResultMap"></collection>
-  </resultMap>
   
   <insert id="create"  parameterType="Building" flushCache="true">
-   insert into Building (BuildingNo,BCODE,BAddress,Direction,
+   insert into Building (BuildingNo,AreaNo,BCODE,BAddress,BuildingTypeNo,Direction,
    TotalHome,TotalHouse)
-   values (#{buildingno},#{bcode},#{baddress},#{direction},#{totalhome},
+   values (#{buildingno},#{area.areano},#{bcode},#{baddress},#{buildingType.typeno},#{direction},#{totalhome},
    #{totalhouse})
-  
   </insert>
   
    <update id="update" flushCache="true">
@@ -57,19 +50,18 @@
    delete from Building where BuildingNo=#{buildingno}
   </delete>
   
-    <select id="selectByBuildingnoWithAreaAndBuildingTypeAndRooms" resultMap="BuildingWithAreaBuildingtypeRoomsResultMap" >
- 	select a.*,b.*,c.*,d.* from Building a inner join Area b on a.AreaNo=b.AREANO
+    <select id="selectByBuildingnoWithAreaAndBuildingTypeAndRooms" resultMap="BuildingWithAreaBuildingtypeResultMap" >
+ 	select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO
  	inner join BuildingType c on a.BuildingTypeNo=c.TYPENO
- 	inner join Room d on a.RoomNo = d.ROOMNO
  	where a.BuildingNo=#{buildingno} 
   </select>
   
     <select id="selectListByAllWithoutPage" resultMap="BuildingResultMap">
-   select BuildingNo,AreaNo,BCODE,BAddress,BuildingTypeNo,Direction,TotalHome,TotalHouse,RoomNo from Building
+   select BuildingNo,AreaNo,BCODE,BAddress,BuildingTypeNo,Direction,TotalHome,TotalHouse from Building
   </select>
   
    <select id="selectListByAllWithPage" resultMap="BuildingResultMap">
-   select BuildingNo,AreaNo,BCODE,BAddress,BuildingTypeNo,Direction,TotalHome,TotalHouse,RoomNo from Building
+   select BuildingNo,AreaNo,BCODE,BAddress,BuildingTypeNo,Direction,TotalHome,TotalHouse from Building
    limit #{start},#{rows}
      </select>
      
@@ -82,51 +74,38 @@
   select a.*,b.*,c.* from Building a inner join Area b on a.AreaNo=b.AREANO
  	inner join BuildingType c on a.BuildingTypeNo=c.TYPENO
   <where>
-   <if test="area!=0">
-      and a.AreaNo=#{area}				<!-- and会自动判断需不需要，不需要会自动删除-->
+   <if test="areaNo!=0">
+      and a.AreaNo=#{areaNo}				<!-- and会自动判断需不需要，不需要会自动删除-->
      </if>
-     <if test="buildingType!=0">
-      and a.BuildingTypeNO=#{buildingType}				<!-- and会自动判断需不需要，不需要会自动删除-->
-     </if>
-     <if test="rooms!=0">
-     and a.BuildingNo in (select BuildingNo from Room where ROOMNO=#{rooms})
+     <if test="buildingtypeNo!=0">
+      and a.BuildingTypeNO=#{buildingtypeNo}				<!-- and会自动判断需不需要，不需要会自动删除-->
      </if>
   </where>
     limit #{start},#{rows}
   </select>
   
   <select id="selectCountByCondition" resultType="int">
-  select IFNULL(count(EMPID), 0) from Building
+  select IFNULL(count(BuildingNo), 0) from Building
   <where>
-  <if test="area!=0">
-      and a.AreaNo=#{area}				<!-- and会自动判断需不需要，不需要会自动删除-->
+  <if test="areaNo!=0">
+      and AREANO=#{areaNo}				<!-- and会自动判断需不需要，不需要会自动删除-->
      </if>
-    <if test="buildingType!=0">
-      and a.BuildingTypeNO=#{buildingType}				<!-- and会自动判断需不需要，不需要会自动删除-->
-     </if>
-     <if test="rooms!=0">
-     and a.BuildingNo in (select BuildingNo from Room where ROOMNO=#{rooms})
+    <if test="buildingtypeNo!=0">
+      and BuildingTypeNO=#{buildingtypeNo}				<!-- and会自动判断需不需要，不需要会自动删除-->
      </if>
   </where>
   </select>
   
 
-  <insert id="addRooms">
-    insert into Room (ROOMNO,HouseTypeNo,BuildingNo,DepartmentCode,Floor,RoomCode,BuildingArea,FeeArea,RoomStatus,RoomType) values 
-    <foreach  item="room" collection="rooms"   separator="," >
-          (#{roomno},#{housetype},#{building},#{departmentcode},#{floor},#{roomcode},#{buildingarea},#{feearea},#{roomstatus},#{roomtype})
-    </foreach>
-   </insert>
+  
   
   
 
-   <delete id="deleteRooms" >
-   delete from Room where BuildingNo=#{building}
-   </delete>
+ 
    
 
    <select id="selectCountByBuildingno" resultType="int">
-    select IFNULL(count(EMPID), 0) from Building
+    select IFNULL(count(BuildingNo), 0) from Building
     <where>
     	<if test="buildingno!=0">
     	and BuildingNo=#{buildingno}

@@ -1,12 +1,11 @@
 package run.superMonkey.pm.model.entity;
 
-import java.sql.Date;
-
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Alias("AccesscardEntity")
