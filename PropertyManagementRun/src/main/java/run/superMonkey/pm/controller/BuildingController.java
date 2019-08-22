@@ -25,6 +25,8 @@ public class BuildingController {
 		@RequestMapping("/add")
 		public ResultMessage<Building> add(Building building) throws Exception {
 			buildingService.register(building);
+			//为楼宇配房间
+			
 			return new ResultMessage<Building>("OK","增加楼宇成功");
 		}
 		//修改小区
@@ -54,11 +56,11 @@ public class BuildingController {
 		
 		//按检索条件取得员工列表
 		@GetMapping(value="/list/condition/page")
-		public ResultMessage<Building> getListByConditionWitPage(@RequestParam(required = false,defaultValue ="") Double areaNo,@RequestParam(required = false,defaultValue ="") Double buildingtypeNo,@RequestParam(required = false,defaultValue ="") Double roomNo,@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
+		public ResultMessage<Building> getListByConditionWitPage(@RequestParam(required = false,defaultValue ="0") Double areaNo,@RequestParam(required = false,defaultValue ="0") Double buildingtypeNo,@RequestParam(required = false,defaultValue ="10") int rows,@RequestParam(required = false,defaultValue = "1") int page) throws Exception{
 			ResultMessage<Building> result=new ResultMessage<Building>("OK","取得楼宇列表分页成功");
-			result.setCount(buildingService.getCountByConditionWithPage(areaNo,buildingtypeNo,roomNo));
-			result.setPageCount(buildingService.getPageCountByConditionWithAreaAndBuildingTypeAndRoomWithPage(areaNo,buildingtypeNo,roomNo, rows));
-			result.setList(buildingService.getListByConditionWithAreaAndBuildingtypeAndRoomNoWithPage(areaNo,buildingtypeNo,roomNo, rows, page));
+			result.setCount(buildingService.getCountByConditionWithPage(areaNo,buildingtypeNo));
+			result.setPageCount(buildingService.getPageCountByConditionWithAreaAndBuildingTypeAndRoomWithPage(areaNo,buildingtypeNo, rows));
+			result.setList(buildingService.getListByConditionWithAreaAndBuildingtypeAndRoomNoWithPage(areaNo,buildingtypeNo, rows, page));
 			result.setPage(page);
 			result.setRows(rows);
 			

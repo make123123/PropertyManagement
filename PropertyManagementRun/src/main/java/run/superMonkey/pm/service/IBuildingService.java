@@ -25,15 +25,13 @@ public interface IBuildingService {
 		
 		public  List<Building> getListByAllWithAreaAndBuildingTypeWithoutRooms() throws Exception;
 	
-		public List<Building> getListByConditionWithAreaAndBuildingtypeAndRoomNoWithPage(Double areaNo,Double buildingtypeNo,Double roomNo,int rows,int page) throws Exception;
+		public List<Building> getListByConditionWithAreaAndBuildingtypeAndRoomNoWithPage(Double areaNo,Double buildingtypeNo,int rows,int page) throws Exception;
 	
-		public int getCountByConditionWithPage(Double areaNo,Double buildingtypeNo,Double roomNo) throws Exception;
+		public int getCountByConditionWithPage(Double areaNo,Double buildingtypeNo) throws Exception;
 		
-		public int getPageCountByConditionWithAreaAndBuildingTypeAndRoomWithPage(Double areaNo,Double buildingtypeNo,Double roomNo,int rows) throws Exception;
+		public int getPageCountByConditionWithAreaAndBuildingTypeAndRoomWithPage(Double areaNo,Double buildingtypeNo,int rows) throws Exception;
 		
-		public void addRooms(Double buildingno,Double[] rooms) throws Exception;
 		
-		public void deleteRooms(Double buildingno) throws Exception;
 		
 		public  boolean checkBuildingnoExist(Double buildingno) throws Exception;
 		
