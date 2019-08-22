@@ -210,9 +210,106 @@ $(function(){
 			}
 	});
 //修改出入证信息**********************************************************************改
-	$.("a#ModifyLink").off.on("click",function(){
-		if(cardno!=''&&cardno!=null){
-			
+	$("a#ModifyLink").off.on("click",function(){
+		if(cardnpo!=''&&cardnpo!=null){
+			$("div#DialogArea").load("customerservice/accesscard/modify.html",function(){
+				//先查看该出入证的信息
+				$.getJSON(host+"customerservice/accesscard/get",{cardno:cardnpo},function(as){
+					$("input#cardno").val(as.cardno);
+					$("input#carno").val(as.carno);
+					$("input#customerno").val(as.customerno);
+					$("select#cardtype").append("<option value='"+as.cardtype+"'>"+as.cardtype+"</option>");
+					$("input#grantno").val(as.grantno);
+					$("input#vechicletype").val(as.vechicletype);
+					$("input#granttime").val(as.granttime);
+					$("input#overduetime").val(as.overduetime);
+				});
+				$("div#DialogArea").dialog({
+					title:"修改车辆出入证",
+					width:300
+				});
+				//验证员工提交数据
+				$("form#AddForm").validate({
+					rules:{
+						cardno:{
+							required:true
+						},
+						carno:{
+							required:true
+						},
+						customerno:{
+							required:true
+						},
+						cardtype:{
+							required:true
+						},
+						grantno:{
+							required:true
+						},
+						vechicletype:{
+							required:true
+						},
+						granttime:{
+							required:true,
+							date:true
+						},
+						
+						overduetime:{
+							required:true,
+							date:true
+						}
+					},
+				messages:{
+							cardno:{
+								required:"证件号码不能为空！"
+							},
+							carno:{
+								required:"车牌号码不能为空!"
+							},
+							customerno:{
+								required:"申请人ID不能为空!"
+							},
+							vechicletype:{
+								required:"车辆型号不能为空！"
+							},
+							grantno:{
+								required:"发放人ID不能为空！"
+							},
+							cardtype:{
+								required:"证件类型不能为空！"
+							},
+							granttime:{
+								required:"发放日期不能为空！",
+								date:'输入非法，请输入日期类型"年-月-日"'
+							},
+							
+							overduetime:{
+								required:"失效日期不能为空！",
+								date:'输入非法，请输入日期类型"年-月-日"'
+							}
+				  }
+				});
+				//表单拦截器
+				$("form#ModifyForm").ajaxForm(function(result){
+					if(result.status=="OK"){
+						reloadEmployeeList();
+					}
+					//修改默认的alert对话框
+					BootstrapDialog.show({
+			            title: '员工操作信息',
+			            message:result.message
+			        });
+					$("div#DialogArea").dialog( "close" );
+					$("div#DialogArea").dialog( "destroy" );
+					$("div#DialogArea").html("");
+				});
+				//点击取消按钮处理
+				$("input[value='取消']").on("click",function(){
+					$("div#DialogArea").dialog( "close" );
+					$("div#DialogArea").dialog( "destroy" );
+					$("div#DialogArea").html("");
+				});
+			});
 		}
-	})
+	});
 });
