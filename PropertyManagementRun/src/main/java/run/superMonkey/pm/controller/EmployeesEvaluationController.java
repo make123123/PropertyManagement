@@ -23,13 +23,13 @@ public class EmployeesEvaluationController {
 	@RequestMapping("/add")
 	public ResultMessage<EmployessEvaluationEntity> add(
 			@RequestParam(required = false)Integer evaluationno,
-			@RequestParam(required = false)Integer empid,
-			@RequestParam(required = false)String evaluationgrade,
+			@RequestParam(required = false)Integer empname,
+			@RequestParam(required = false)String grade,
 			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false) Date evaluationdate) throws Exception{
 		EmployessEvaluationEntity em=new EmployessEvaluationEntity();
 		em.setEvaluationno(evaluationno);
-		em.setEmpid(empid);
-		em.setEvaluationgrade(evaluationgrade);
+		em.setEmpid(empname);
+		em.setEvaluationgrade(grade);
 		em.setEvaluationdate(evaluationdate);
 		ees.insert(em);
 		return new ResultMessage<EmployessEvaluationEntity>("OK","增加员工考评记录成功");

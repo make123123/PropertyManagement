@@ -12,7 +12,7 @@
   </resultMap>
   <!-- 增 -->
   <insert id="insertSelective" parameterType="EmployessEvaluationEntity">
-    insert into "Employess_evaluation"
+    insert into Employess_evaluation
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="evaluationno != null">
         EVALUATIONNO,
@@ -44,12 +44,12 @@
   </insert>
   <!-- 删 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from "Employess_evaluation"
+    delete from Employess_evaluation
     where EVALUATIONNO = #{evaluationno,jdbcType=INTEGER}
   </delete>
   <!-- 改 -->
   <update id="updateByPrimaryKeySelective" parameterType="EmployessEvaluationEntity">
-    update "Employess_evaluation"
+    update Employess_evaluation
     <set>
       <if test="empid != null">
         EMPID = #{empid,jdbcType=INTEGER},
@@ -64,14 +64,11 @@
     where EVALUATIONNO = #{evaluationno,jdbcType=INTEGER}
   </update>
   <!-- 查 -->
-  <sql id="Base_Column_List">
-    EVALUATIONNO, EMPID, EVALUATIONGRADE, EVALUATIONDATE
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from "Employess_evaluation"
-    where EVALUATIONNO = #{evaluationno,jdbcType=INTEGER}
+ 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="EmployeeWithEmpidResultMap">
+    select a.*,b.empname from Employess_evaluation a left join Employees b on a.EMPID=b.EMPID
+    
+    where a.EVALUATIONNO = #{evaluationno,jdbcType=INTEGER}
   </select>
   
   <select id="selectListByAll" resultMap="EmployeeWithEmpidResultMap">

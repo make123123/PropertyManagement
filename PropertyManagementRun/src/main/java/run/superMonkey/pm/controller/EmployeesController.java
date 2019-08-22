@@ -75,6 +75,13 @@ public class EmployeesController {
 	public EmployessEntity getById(Integer empid)throws Exception{
 		return es.selectById(empid);
 	}
+	@RequestMapping("/get/listall")
+	public ResultMessage<EmployessEntity> getListAll()throws Exception{
+		ResultMessage<EmployessEntity> result=new ResultMessage<EmployessEntity>("OK","取得员工列表成功");
+		result.setList(es.getListByAll());
+		return result;
+	}
+	
 	@RequestMapping("/get/list")
 	public ResultMessage<EmployessEntity> getListByAll(
 			@RequestParam(required = false,defaultValue ="0") int deptno,

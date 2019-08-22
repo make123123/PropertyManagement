@@ -2,52 +2,35 @@
 <div class="row">
     <div class="col-xs-12">
       <div class="box-body">
-        <!-- 增加人员 -->
+        <!-- 增加员工考评记录 -->
        	 <!-- form start -->
-            <form id="AddForm" role="form" action="employees/emp/add" method="post">
+            <form id="AddForm" role="form" action="employees/evaluation/add" method="post">
               <div class="box-body">
                 <div class="rows">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">工号</label>
-                      <input type="number" class="form-control" name="empid"  placeholder="工号">
+                      <label for="exampleInputEmail1">考评编号</label>
+                      <input type="number" class="form-control" name="evaluationno"  placeholder="考评编号">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">部门</label>
-                       <select id="DeptSelection" name="deptno" class="form-control" placeholder="部门">
+                      <label for="exampleInputEmail1">员工姓名</label>
+                       <select id="EmpnameSelection" name="empname" class="form-control" placeholder="员工姓名">
 				       </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">姓名</label>
-                      <input type="text" class="form-control" name="empname"  placeholder="姓名">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">性别</label>
-                      <input type="radio"  name="sex" value="男" checked />男
-		              <input type="radio"  name="sex" value="女" />女
                     </div>
                  </div>
                  <div class="col-md-6">
                    <div class="form-group">
-                     <label for="exampleInputEmail1">年龄</label>
-                     <input type="number" class="form-control" name="age"  placeholder="年龄">
-                   </div>
-                   <div class="form-group">
-                     <label for="exampleInputEmail1">入职日期</label>
-                     <input type="date" class="form-control" name="joindate"  placeholder="入职日期">
-                   </div>
-                   <div class="form-group">
-                     <label for="exampleInputEmail1">职位</label>
-                     <select type="text" class="form-control" name="job"  placeholder="职位">
-                        <option value ="java实习生">java实习生</option>
-                        <option value ="python实习生">python实习生</option>
-                        <option value ="c实习生">c实习生</option>
-                        <option value ="销售员">销售员</option>
+                     <label for="exampleInputEmail1">等级</label>
+                     <select type="text" class="form-control" name="grade"  placeholder="等级">
+                        <option value ="A">A</option>
+                        <option value ="B">B</option>
+                        <option value ="C">C</option>
+                        <option value ="D">D</option>
                      </select>
                    </div>
                    <div class="form-group">
-                     <label for="exampleInputEmail1">微信</label>
-                     <input type="text" class="form-control" name="wx"  placeholder="微信">
+                     <label for="exampleInputEmail1">考评日期</label>
+                     <input type="date" class="form-control" name="evaluationdate"  placeholder="考评日期">
                    </div>
                 </div>
               </div>
