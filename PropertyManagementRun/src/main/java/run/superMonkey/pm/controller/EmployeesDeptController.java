@@ -48,7 +48,13 @@ public class EmployeesDeptController {
 	@RequestMapping("/get")
 	public EmployessDeptEntity getById(Integer deptno)throws Exception{
 		return eds.selectById(deptno);
-	}		
+	}
+	@RequestMapping("/get/listall")
+	public ResultMessage<EmployessDeptEntity> getListAll()throws Exception{
+		ResultMessage<EmployessDeptEntity> result=new ResultMessage<EmployessDeptEntity>("OK","取得员工列表分页成功");
+        result.setList(eds.getListByALL());
+		return result;
+	}
 	@RequestMapping("/get/list")
 	public ResultMessage<EmployessDeptEntity> getListByAll(
 		    @RequestParam(required = false,defaultValue = "1") int page,

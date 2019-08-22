@@ -39,11 +39,13 @@ public class EmployeesServiceImpl implements EmployeesService{
 		return em.selectListByAll();
 	}
 	@Override
+	@Transactional(readOnly = true)
 	public List<EmployessEntity> getListByPage(int deptno, String sex, Date joindate, int page, int rows)
 			throws Exception {
 		return em.selectListByPage(deptno,sex,joindate,rows*(page-1), rows);
 	}
 	@Override
+	@Transactional(readOnly = true)
 	public boolean checkIdExist(int empid)throws Exception{
 		boolean result=false;
 		
@@ -54,10 +56,12 @@ public class EmployeesServiceImpl implements EmployeesService{
 		return result;
 	}
 	@Override
+	@Transactional(readOnly = true)
 	public int getCountByCondition(int deptno, String sex, Date joindate) throws Exception {
 		return em.selectCountByCondition(deptno, sex, joindate);
 	}
 	@Override
+	@Transactional(readOnly = true)
 	public int getPageCountByCondition(int deptno, String sex, Date joindate, int rows) throws Exception {
 		int pageCount=0;
 		int count=this.getCountByCondition(deptno, sex, joindate);
