@@ -260,6 +260,8 @@ $(function(){
 									});
 								}
 							});
+							//$("select#DeptSelection option[value='"em.dept.deptname"']").prop("selected",true);
+							////呼叫海王滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴
 							$("input#empname").val(em.empname);
 							$("input[name='sex'][value="+em.sex+"]").attr("checked",true);
 							$("input#empage").val(em.age);
