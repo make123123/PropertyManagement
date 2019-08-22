@@ -29,15 +29,10 @@ public interface BuildingMapper {
 				
 				
 		//根据综合检索条件取得楼宇列表，取得关联的建筑类型,小区，不取关联的房间集合，分页模式
-		public List<Building> selectListByConditionWithAreaAndBuildingtypeNoAndRoomNoWithPage(@Param("areaNo") Double areaNo,@Param("buildingtypeNo") Double buildingtypeNo,@Param("roomNo") Double roomNo, @Param("start") int start,@Param("rows") int rows) throws Exception;
+		public List<Building> selectListByConditionWithAreaAndBuildingtypeNoAndRoomNoWithPage(@Param("areaNo") Double areaNo,@Param("buildingtypeNo") Double buildingtypeNo, @Param("start") int start,@Param("rows") int rows) throws Exception;
 		//根据综合检索条件取得员工个数
-		public int selectCountByCondition(@Param("areaNo") Double areaNo,@Param("buildingtypeNo") Double buildingtypeNo,@Param("roomNo") Double roomNo) throws Exception;
+		public int selectCountByCondition(@Param("areaNo") Double areaNo,@Param("buildingtypeNo") Double buildingtypeNo) throws Exception;
 		
-		//为楼宇增加房间
-		public void addRooms(@Param("buildingno") Double buildingno,@Param("rooms") Double[] rooms) throws Exception;
-		
-		//删除指定楼宇的所有房间
-		public void deleteRooms(Double buildingno) throws Exception;
 		
 		//检查指定的ID的员工个数，用于验证员工ID是否存在
 		public int selectCountByBuildingno(@Param("buildingno") Double buildingno) throws Exception;
