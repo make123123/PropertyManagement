@@ -16,8 +16,8 @@ public class AccesscardServiceImpl implements AccesscardService {
 	@Autowired
 	private AccesscardMapper accesscardMapper=null;
 	@Override
-	public AccesscardEntity register(AccesscardEntity accesscardEntity) throws Exception {
-		 return accesscardMapper.create(accesscardEntity);
+	public void register(AccesscardEntity accesscardEntity) throws Exception {
+		accesscardMapper.create(accesscardEntity);
 	}
 	@Override
 	public void modify(AccesscardEntity accesscardEntity) throws Exception {
@@ -64,5 +64,11 @@ public class AccesscardServiceImpl implements AccesscardService {
 			pageCount=count/rows+1;
 		}
 		return pageCount;
+	}
+	@Override
+	public boolean checkIdExist(String cardno) throws Exception {
+		boolean res=false;
+		if(accesscardMapper.selectByNo(cardno)!=null) res=true;
+		return res;
 	}
 }

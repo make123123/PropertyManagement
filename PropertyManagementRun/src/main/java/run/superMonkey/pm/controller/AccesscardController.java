@@ -1,10 +1,11 @@
 package run.superMonkey.pm.controller;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,9 +32,9 @@ public class AccesscardController {
 				@RequestParam(required = false)double customerno,
 				@RequestParam(required = false)String vechicletype,
 				@RequestParam(required = false)String grantno,
-				@DateTimeFormat(pattern = "YYYY-MM-DD") @RequestParam(required = false)Date granttime,
 				@RequestParam(required = false)String cardtype,
-				@DateTimeFormat(pattern = "YYYY-MM-DD") @RequestParam(required = false)Date overduetime)throws Exception{
+				@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false)Date granttime,
+				@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false)Date overduetime)throws Exception{
 				AccesscardEntity accesscardEntity=new AccesscardEntity();
 				accesscardEntity.setCardno(cardno);
 				accesscardEntity.setCardtype(cardtype);
@@ -44,14 +45,33 @@ public class AccesscardController {
 				accesscardEntity.setOverduetime(overduetime);
 				accesscardEntity.setVechicletype(vechicletype);
 				as.register(accesscardEntity);
+				System.out.println(cardno);
+				System.out.println(cardno);
+				System.out.println(cardno);
+				System.out.println(cardno);
+				System.out.println(cardno);
+				System.out.println(cardno);
+				System.out.println(cardno);
+				System.out.println(cardno);
 			return new ResultMessage<AccesscardEntity>("Accpet","增加出入证成功！");
 		}
-		
+		//查看该证件是否已经存在
+				@GetMapping("/checkidexist")
+				public boolean checkIdExist(String cardno) throws Exception{
+					System.out.println(cardno);
+					System.out.println( !as.checkIdExist(cardno));
+					return !as.checkIdExist(cardno);
+				}
 		
 		@RequestMapping("/get/listall")
 		public List<AccesscardEntity> getListByAll()throws Exception{
 			List<AccesscardEntity> result=as.getListByAll();
 			return result;
+		}
+		@RequestMapping("/get")
+		public AccesscardEntity getListByNo(
+				@RequestParam(required = false)String cardno)throws Exception{
+				return as.getbyNo(cardno);
 		}
 		//分页查找
 		@RequestMapping("/get/list")
@@ -70,5 +90,13 @@ public class AccesscardController {
 			return result;
 		}
 		
-		
+		@RequestMapping("/delete")
+		public ResultMessage<AccesscardEntity> delete(@RequestParam(required = false)String cardno) throws Exception{
+			AccesscardEntity access=as.getbyNo(cardno);
+			
+			System.out.println(cardno);
+			as.delete(access);
+			ResultMessage<AccesscardEntity> result=new ResultMessage<AccesscardEntity>("Accept","删除车辆出入证成功");
+			return result;
+		}
 }
