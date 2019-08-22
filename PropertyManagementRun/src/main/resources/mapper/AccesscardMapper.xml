@@ -35,37 +35,36 @@
   <select id="selectCountByAll" resultType="int">
   		select count(cardno) from Accesscard
   </select>
-  <!-- 根据综合检索条件取得员工列表，取得关联的部门,分页模式 -->
+  <!-- 根据条件分页查找 -->
   <select id="selectListByPage" resultMap="accesscard">
-  select * from Accesscard
-  <where>
+   	select * from Accesscard
+   <where>
      <if test="grantno!=''">
-      	grantno=#{grantno}
+      	and grantno=#{grantno}
      </if>
-     <if test="sex!=null and sex!=''">
-     	=#{sex}
+     <if test="cardtype!=''">
+     	and cardtype=#{cardtype}
      </if>
-     <if test="joindate!=null">
-     and a.JOINDATE=#{joindate}
-     </if>
+     <if test="carno!=''">
+     	and carno=#{carno}
+     </if> 
   </where>
     limit #{start},#{rows}
   </select>
   
-  <!--根据综合检索条件取得员工个数
+  <!--根据查找条件取得出入证个数 -->
   <select id="selectCountByCondition" resultType="int">
-  select IFNULL(count(EMPID), 0) from Employees a
-  <where>
-     <if test="deptno!=0">
-      and a.DEPTNO=#{deptno}
-     </if>
-     <if test="sex!=null and sex!=''">
-     and a.SEX=#{sex}
-     </if>
-     <if test="joindate!=null">
-     and a.JOINDATE=#{joindate}
-     </if>
-  </where>
-   
-  </select> -->
+  		select IFNULL(count(cardno), 0) from Accesscard
+	  <where>
+	     <if test="grantno!=''">
+	      and grantno=#{grantno}
+	     </if>
+	     <if test="cardtype!=''">
+	     and cardtype=#{cardtype}
+	     </if>
+	     <if test="carno!=''">
+	     and carno=#{carno}
+	     </if>
+	  </where>
+  </select> 
   </mapper>

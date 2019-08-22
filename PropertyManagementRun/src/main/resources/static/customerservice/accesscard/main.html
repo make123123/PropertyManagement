@@ -4,6 +4,7 @@
     <div class="col-xs-12">
       <div class="box">
 	      <div class="box-body">
+	      		<a href="index.html" class="btn btn-info">返回首页</a>
 	        <table id="Grid"></table>
 	    	<div id="GridPager"></div>
 	      </div>
@@ -17,27 +18,32 @@
 				    <input id="grantno" class="form-control" value="">
 				  </div>
 				  </div>
+				  <br>
+				  <br>
 				  <div class="form-group">
-				    <label  for="name">证件类型：</label>
-				     <select type="text" class="form-control" name="cardtype"  placeholder="证明类型">
+				    <label  for="name">车牌号码:</label>
+				    <input class="form-control" id="carno" value="" />
+				  </div>
+				  <br>
+				  <br>
+				  <div class="form-group">
+				    <label  for="name">证件类型:</label>
+				     <select type="text" class="form-control" id="cardtype"  placeholder="证明类型">
 				     	<option value ="">所有</option>
                         <option value ="长期">长期</option>
                         <option value ="临时">临时</option>
                      </select>
 				  </div>
-				  <div class="form-group">
-				    <label  for="name">车牌号:</label>
-				    <input class="form-control" id="carnoSelection" size="10" value="" />
-				  </div>
+				  <br>
+				  <br>
 				  <div class="form-group">
 				   <a href="#" class="btn btn-default" id="AccesscardSearchButton">查找</a>
 				  </div>
 				</form>
              </div>
              <div class="col-md-3 text-right">
-             	<a href="index.html" class="btn btn-info" float="left">返回首页</a>
              	<a href="#" id="AddLink" class="btn btn-info">增加</a> 
-            	<a href="#" id="DelteLink" class="btn btn-info">删除</a>
+            	<a href="#" id="DeleteLink" class="btn btn-info">删除</a>
              	<a href="#" id="ModifyLink" class="btn btn-info">修改</a>
              	<a href="#" id="ViewLink" class="btn btn-info">详细</a>
               </div>

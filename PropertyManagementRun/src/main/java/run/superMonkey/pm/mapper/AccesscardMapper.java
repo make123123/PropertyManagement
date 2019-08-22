@@ -10,7 +10,7 @@ import run.superMonkey.pm.model.entity.AccesscardEntity;
 import run.superMonkey.pm.model.entity.EmployessEntity;
 @Mapper
 public interface AccesscardMapper {
-	public AccesscardEntity create(AccesscardEntity accesscardEntity) throws Exception;
+	public void create(AccesscardEntity accesscardEntity) throws Exception;
 	public void update(AccesscardEntity accesscardEntity) throws Exception;
 	public void delete(AccesscardEntity accesscardEntity) throws Exception;
 	//所有客户资料
@@ -20,5 +20,8 @@ public interface AccesscardMapper {
 	//取得客户个数
 	public int selectCountByAll() throws Exception;
 	//分页查找
-	public List<EmployessEntity> selectListByPage(@Param("grantno")String grantno,@Param("cardtype")String cardtype,@Param("carno")String carno,@Param("start") int start,@Param("rows") int rows)throws Exception;
+	public List<AccesscardEntity> selectListByPage(@Param("grantno")String grantno,@Param("cardtype")String cardtype,@Param("carno")String carno,@Param("start") int start,@Param("rows") int rows)throws Exception;
+	//条件查找得到的数量
+	public int selectCountByCondition(@Param("grantno")String grantno,@Param("cardtype")String cardtype,@Param("carno")String carno)throws Exception;
+
 }
