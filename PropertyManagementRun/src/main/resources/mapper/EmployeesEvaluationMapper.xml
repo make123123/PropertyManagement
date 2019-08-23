@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.superMonkey.pm.mapper.EmployessEvaluationMapper">
+  <resultMap id="BaseResultMap" type="EmployessEvaluationEntity">
+    <id column="EVALUATIONNO" jdbcType="INTEGER" property="evaluationno" />
+    <result column="EMPID" jdbcType="INTEGER" property="empid" />
+    <result column="EVALUATIONGRADE" jdbcType="VARCHAR" property="evaluationgrade" />
+    <result column="EVALUATIONDATE" jdbcType="TIMESTAMP" property="evaluationdate" />
+  </resultMap>
+   <resultMap  id="EmployeeWithEmpidResultMap" type="EmployessEvaluationEntity" extends="BaseResultMap">
+  	<association property="ee" resultMap="run.superMonkey.pm.mapper.EmployessMapper.BaseResultMap"></association>
+  </resultMap>
+  <!-- 增 -->
+  <insert id="insertSelective" parameterType="EmployessEvaluationEntity">
+    insert into Employess_evaluation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="evaluationno != null">
+        EVALUATIONNO,
+      </if>
+      <if test="empid != null">
+        EMPID,
+      </if>
+      <if test="evaluationgrade != null">
+        EVALUATIONGRADE,
+      </if>
+      <if test="evaluationdate != null">
+        EVALUATIONDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="evaluationno != null">
+        #{evaluationno,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="evaluationgrade != null">
+        #{evaluationgrade,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluationdate != null">
+        #{evaluationdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <!-- 删 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Employess_evaluation
+    where EVALUATIONNO = #{evaluationno,jdbcType=INTEGER}
+  </delete>
+  <!-- 改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="EmployessEvaluationEntity">
+    update Employess_evaluation
+    <set>
+      <if test="empid != null">
+        EMPID = #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="evaluationgrade != null">
+        EVALUATIONGRADE = #{evaluationgrade,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluationdate != null">
+        EVALUATIONDATE = #{evaluationdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where EVALUATIONNO = #{evaluationno,jdbcType=INTEGER}
+  </update>
+  <!-- 查 -->
+ 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="EmployeeWithEmpidResultMap">
+    select a.*,b.empname from Employess_evaluation a left join Employees b on a.EMPID=b.EMPID
+    
+    where a.EVALUATIONNO = #{evaluationno,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectListByAll" resultMap="EmployeeWithEmpidResultMap">
+	 select a.*,b.empname from Employess_evaluation a left join Employees b on a.EMPID=b.EMPID
+  </select>
+  <!-- 根据综合检索条件取得员工考评列表，取得关联的员工工号,分页模式 -->
+  <select id="selectListByPage" resultMap="EmployeeWithEmpidResultMap">
+    select a.*,b.empname from Employess_evaluation a left join Employees b on a.EMPID=b.EMPID
+  <where>
+      <if test="empid!=0">
+      and a.empid=#{empid}
+     </if>
+     <if test="evaluationgrade!=null and evaluationgrade!=''">
+     and a.evaluationgrade=#{evaluationgrade}
+     </if>
+     <if test="evaluationdate!=null">
+     and a.evaluationdate=#{evaluationdate}
+     </if>
+  </where>
+    limit #{start},#{rows}
+  </select>
+  
+  <!-- 根据综合检索条件取得员工个数-->
+  <select id="selectCountByCondition" resultType="int">
+  select IFNULL(count(evaluationno), 0) from Employess_evaluation a
+  <where>
+     <if test="empid!=0">
+      and a.empid=#{empid}
+     </if>
+     <if test="evaluationgrade!=null and evaluationgrade!=''">
+     and a.evaluationgrade=#{evaluationgrade}
+     </if>
+     <if test="evaluationdate!=null">
+     and a.evaluationdate=#{evaluationdate}
+     </if>
+  </where>
+   
+  </select>
+  </mapper>

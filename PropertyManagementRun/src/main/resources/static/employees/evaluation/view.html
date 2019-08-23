@@ -1,0 +1,48 @@
+<!-- Main row -->
+<div class="row">
+    <div class="col-xs-12">
+      <div class="box-body">
+        <!-- 查看员工考评记录 -->
+       	 <!-- form start -->
+            <form id="ModifyForm" role="form" action="employees/evaluation/get" method="post">
+              <div class="box-body">
+                <div class="rows">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">考评编号</label>
+                      <input type="number" class="form-control" id="evaluationno" name="evaluationno"  placeholder="考评编号" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">员工姓名</label>
+                       <input type="text" id="EmpnameSelection" name="empname" class="form-control" placeholder="员工姓名" readonly />
+                    </div>
+                 </div>
+                 <div class="col-md-6">
+                   <div class="form-group">
+                     <label for="exampleInputEmail1">等级</label>
+                     <select type="text" class="form-control" id="grade" name="grade"   placeholder="等级" disabled>
+                        <option value ="A">A</option>
+                        <option value ="B">B</option>
+                        <option value ="C">C</option>
+                        <option value ="D">D</option>
+                     </select>
+                   </div>
+                   <div class="form-group">
+                     <label for="exampleInputEmail1">考评日期</label>
+                     <input type="date" class="form-control" id="evaluationdate" name="evaluationdate"  placeholder="考评日期" readonly />
+                   </div>
+                </div>
+              </div>
+            </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <input type="button" class="btn btn-primary" value="关闭">
+              </div>
+            </form>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+    
+  </div>
+  <!-- /.col -->

@@ -56,7 +56,7 @@ $(function(){
 		
 	}
 	//取得部门列表，并填充部门下拉框
-	$.getJSON(host+"employees/dept/get/list",function(result){
+	$.getJSON(host+"employees/dept/get/listall",function(result){
 		if(result){
 			$.each(result.list,function(index,dm){
 				$("select#DepartmentSelection").append("<option value='"+dm.deptno+"'>"+dm.deptname+"</option>");
@@ -91,7 +91,7 @@ $(function(){
 				title:"增加人员",
 				width:600
 			});
-			$.getJSON(host+"employees/dept/get/list",function(result){
+			$.getJSON(host+"employees/dept/get/listall",function(result){
 				if(result){
 					$.each(result.list,function(index,dm){
 						$("select#DeptSelection").append("<option value='"+dm.deptno+"'>"+dm.deptname+"</option>");
@@ -253,13 +253,15 @@ $(function(){
 				//取得指定的员工信息
 				$.getJSON(host+"employees/emp/get",{empid:employeeId},function(em){
 							$("input#empid").val(em.empid);
-							$.getJSON(host+"employees/dept/get/list",function(result){
+							$.getJSON(host+"employees/dept/get/listall",function(result){
 								if(result){
 									$.each(result.list,function(index,dm){
 										$("select#DeptSelection").append("<option value='"+dm.deptno+"'>"+dm.deptname+"</option>");
 									});
 								}
 							});
+							//$("select#DeptSelection option[value='"em.dept.deptname"']").prop("selected",true);
+							////呼叫海王滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴
 							$("input#empname").val(em.empname);
 							$("input[name='sex'][value="+em.sex+"]").attr("checked",true);
 							$("input#empage").val(em.age);

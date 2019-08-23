@@ -1,0 +1,59 @@
+<script type="text/javascript" src="employees/evaluation/main.js"></script>
+<!-- Main row -->
+<div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <div class="row">
+             <div class="col-md-9">
+	             <form class="form-inline" role="form">
+	             <div class="form-group">
+				    <label  for="name">工号</label>
+				    <input type="text" class="form-control" id="EmpidSelection" value="0" />
+				  </div>
+				  <div class="form-group">
+				    <label  for="name">等级</label>
+				    <select id="EvaluationGradeSelection" class="form-control">
+				       <option value="">所有</option>
+				       <option value="A">A</option>
+				       <option value="B">B</option>
+				       <option value="C">C</option>
+				       <option value="D">D</option>
+				    </select>
+				  </div>
+				  <div class="form-group">
+				    <label  for="name">考评日期</label>
+				    <input type="date" class="form-control" id="EvaluationDate" size="10" value=""/>
+				  </div>
+				  <div class="form-group">
+				   <a href="#" class="btn btn-default" id="SearchButton">检索</a>
+				  </div>
+				</form>
+             </div>
+             <div class="col-md-3 text-right">
+             	<a href="#" id="AddLink" class="btn btn-info">增加</a> 
+            	<a href="#" id="DeleteLink" class="btn btn-info">删除</a>
+             	<a href="#" id="ModifyLink" class="btn btn-info">修改</a>
+             	<a href="#" id="ViewLink" class="btn btn-info">详细</a>
+              </div>
+          </div>
+          
+        </div>
+        <!-- /.box-header -->
+      <div class="box-body">
+        <table id="Grid"></table>
+    	<div id="GridPager"></div>
+       
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+    <a href="index.html" class="btn btn-info">返回首页</a>
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->
+<div id="DialogArea" title="Basic dialog">
+    
+</div>
+	

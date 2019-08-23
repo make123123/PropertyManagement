@@ -21,5 +21,7 @@ public class EmployessEvaluationEntity implements Serializable{
 	private String evaluationgrade;
 
 	private Date evaluationdate;
+	//关联员工工号
+	private EmployessEntity ee;
 
 }

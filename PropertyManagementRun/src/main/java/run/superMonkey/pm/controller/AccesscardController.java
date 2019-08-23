@@ -3,6 +3,7 @@ package run.superMonkey.pm.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.mapping.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,10 +94,32 @@ public class AccesscardController {
 		@RequestMapping("/delete")
 		public ResultMessage<AccesscardEntity> delete(@RequestParam(required = false)String cardno) throws Exception{
 			AccesscardEntity access=as.getbyNo(cardno);
-			
-			System.out.println(cardno);
+
 			as.delete(access);
 			ResultMessage<AccesscardEntity> result=new ResultMessage<AccesscardEntity>("Accept","删除车辆出入证成功");
 			return result;
+		}
+		
+		@RequestMapping("/modify")
+		public ResultMessage<AccesscardEntity> modify(
+				@RequestParam(required=false)String cardnoInput,//RequestParam 设置各值不能为空
+				@RequestParam(required = false)String carnoInput,
+				@RequestParam(required = false)double customernoInput,
+				@RequestParam(required = false)String vechicletypeInput,
+				@RequestParam(required = false)String grantnoInput,
+				@RequestParam(required = false)String cardtypeInput,
+				@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false)Date granttimeInput,
+				@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false)Date overduetimeInput)throws Exception{
+			AccesscardEntity ae=new AccesscardEntity();
+			ae.setCardno(cardnoInput);
+			ae.setCarno(carnoInput);
+			ae.setCustomerno(customernoInput);
+			ae.setVechicletype(vechicletypeInput);
+			ae.setGrantno(grantnoInput);
+			ae.setCardtype(cardtypeInput);
+			ae.setGranttime(granttimeInput);
+			ae.setOverduetime(overduetimeInput);
+			as.modify(ae);
+			return new ResultMessage<AccesscardEntity>("Accept","修改车辆出入证成功");
 		}
 }
