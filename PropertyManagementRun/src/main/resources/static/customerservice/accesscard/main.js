@@ -220,6 +220,7 @@ $(function(){
 					$("input#customernoInput").val(as.customerno);
 					$("select#cardtypeInput").append("<option value='"+as.cardtype+"'>"+as.cardtype+"</option>");
 					$("input#grantnoInput").val(as.grantno);
+					$("select#cardtypeInput").val(as.cardtype);
 					$("input#vechicletypeInput").val(as.vechicletype);
 					$("input#granttimeInput").val(as.granttime);
 					$("input#overduetimeInput").val(as.overduetime);
@@ -320,75 +321,75 @@ $(function(){
 			$("div#DialogArea").load("customerservice/accesscard/detail.html",function(){
 				//先查看该出入证的信息
 				$.getJSON(host+"customerservice/accesscard/get",{cardno:cardnpo},function(as){
-					$("input#cardnoInput").val(as.cardno);
-					$("input#carnoInput").val(as.carno);
-					$("input#customernoInput").val(as.customerno);
-					$("select#cardtypeInput").append("<option value='"+as.cardtype+"'>"+as.cardtype+"</option>");
-					$("input#grantnoInput").val(as.grantno);
-					$("input#vechicletypeInput").val(as.vechicletype);
-					$("input#granttimeInput").val(as.granttime);
-					$("input#overduetimeInput").val(as.overduetime);
+					$("input#cardnoSee").val(as.cardno);
+					$("input#carnoSee").val(as.carno);
+					$("input#customernoSee").val(as.customerno);
+					$("select#cardtypeSee").append("<option value='"+as.cardtype+"'>"+as.cardtype+"</option>");
+					$("input#grantnoSee").val(as.grantno);
+					$("input#vechicletypeSee").val(as.vechicletype);
+					$("input#granttimeSee").val(as.granttime);
+					$("input#overduetimeSee").val(as.overduetime);
 				});
 				$("div#DialogArea").dialog({
-					title:"修改车辆出入证",
+					title:"查看修改车辆出入证",
 					width:300
 				});
 				//验证员工提交数据
 				$("form#AddForm").validate({
 					rules:{
-						cardnoInput:{
+						cardnoSee:{
 							required:true
 						},
-						carnoInput:{
+						carnoSee:{
 							required:true
 						},
-						customernoInput:{
+						customernoSee:{
 							required:true
 						},
-						cardtypeInput:{
+						cardtypeSee:{
 							required:true
 						},
-						grantnoInput:{
+						grantnoSee:{
 							required:true
 						},
-						vechicletypeInput:{
+						vechicletypeSee:{
 							required:true
 						},
-						granttimeInput:{
+						granttimeSee:{
 							required:true,
 							date:true
 						},
 						
-						overduetimeInput:{
+						overduetimeSee:{
 							required:true,
 							date:true
 						}
 					},
 				messages:{
-							cardnoInput:{
+							cardnoSee:{
 								required:"证件号码不能为空！"
 							},
-							carnoInput:{
+							carnoSee:{
 								required:"车牌号码不能为空!"
 							},
-							customernoInput:{
+							customernoSee:{
 								required:"申请人ID不能为空!"
 							},
-							vechicletypeInput:{
+							vechicletypeSee:{
 								required:"车辆型号不能为空！"
 							},
-							grantnoInput:{
+							grantnoSee:{
 								required:"发放人ID不能为空！"
 							},
-							cardtypeInput:{
+							cardtypeSee:{
 								required:"证件类型不能为空！"
 							},
-							granttimeInput:{
+							granttimeSee:{
 								required:"发放日期不能为空！",
 								date:'输入非法，请输入日期类型"年-月-日"'
 							},
 							
-							overduetimeInput:{
+							overduetimeSee:{
 								required:"失效日期不能为空！",
 								date:'输入非法，请输入日期类型"年-月-日"'
 							}
@@ -402,7 +403,7 @@ $(function(){
 					}
 					//修改默认的alert对话框
 					BootstrapDialog.show({
-			            title: '员工操作信息',
+			            title: '车辆出入证操作操作信息',
 			            message:result.message
 			        });
 					$("div#DialogArea").dialog( "close" );
