@@ -11,7 +11,7 @@ $(function(){
 //分页显示总列表*******************************************************************
 	function getListInfo(){
 		$("table#Grid").jqGrid({
-	        url:host+'customerservice/accesscard/get/list',
+	        url:'customerservice/accesscard/get/list',
 	        mtype: "POST",
 			styleUI : 'Bootstrap',
 	        datatype: "json",
@@ -47,7 +47,7 @@ $(function(){
 //设置检索参数，更新jQGrid的列表显示，增加新出入证***********************************************************************************************增
 	function reloadAccesscardList()
 	{
-		$("table#Grid").jqGrid('setGridParam',{postData:{grantno:grantno,cardtype:cardtype,carno:carno}}).trigger("reloadGrid");
+		$("table#Grid").jqGrid('setGridParam',{postData:{grantno:grantno,cardtype:cardtype,carno:carno,page:1}}).trigger("reloadGrid");
 	}
 	//点击增加按钮弹出增加员工对话框
 	$("a#AddLink").off().on("click",function(event){
@@ -61,7 +61,7 @@ $(function(){
 				rules:{
 					cardno:{
 						required:true,
-						remote:host+"customerservice/accesscard/checkidexist"
+						remote:"customerservice/accesscard/checkidexist"
 					},
 					carno:{
 						required:true
@@ -320,7 +320,7 @@ $(function(){
 	$("a#DetailLink").off().on("click",function(){
 			$("div#DialogArea").load("customerservice/accesscard/detail.html",function(){
 				//先查看该出入证的信息
-				$.getJSON(host+"customerservice/accesscard/get",{cardno:cardnpo},function(as){
+				$.getJSON("customerservice/accesscard/get",{cardno:cardnpo},function(as){
 					$("input#cardnoSee").val(as.cardno);
 					$("input#carnoSee").val(as.carno);
 					$("input#customernoSee").val(as.customerno);

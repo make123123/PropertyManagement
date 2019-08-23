@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.superMonkey.pm.mapper.VehicletimeMapper">
+	<resultMap id="vehicletime" type="VehicletimeEntity">
+		<id cloumn="carno" property="carno" />
+		<result cloumn="customerno" property="customerno" />
+		<result cloumn="vechicletype" property="vechicletype" />
+		<result cloumn="parkinglot" property="parkinglot" />
+		<result cloumn="state" property="state" />
+	</resultMap>
+	<inert id="create" >
+		insert into Vehiclearchive values(#{carn0},#{customerno},#{vechicletype},#{parkinglot},#{state})
+	</inert>
+	<update id="update">
+		update Vehiclearchive
+		<set>
+			<if text="customerno!='' and customerno!=null">customerno=#{customerno},</if>
+			<if text="vechicletype!='' and vechicletype!=null">vechicletype=#{vechicletype},</if>
+			<if text="customerno!='' and customerno!=null">parkinglot=#{parkinglot},</if>
+			<if text="customerno!='' and customerno!=null">state=#{state}</if>
+			<where>carn0=#{carn0}</where>
+	</update>
+	
+	<delete id="delete">
+		delete from Vehiclearchive where carn0=#{carn0}
+	</delete>
+	
+	<select id="selectListByAll" resultMap="vehicletime">
+		select * from  Vehiclearchive
+	</select>
+	
+	<select id="selectByNo" resultMap="vehicletime">
+		select * from  Vehiclearchive where carn0=#{carn0}
+	</select>
+	
+	
+</mapper>
