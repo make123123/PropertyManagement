@@ -7,7 +7,7 @@
       <result property="areaname" column="AREANAME"/>
       <result property="aaddress" column="AAddress"/>
       <result property="developer" column="Developer"/>
-      <result property="totalbuidingarea" column="TotalBuildingArea"/>
+      <result property="totalbuidingarea" column="TotalBuidingArea"/>
       <result property="totalusearea" column="TotalUseArea"/>
       <result property="totalpackarea" column="TotalPackArea"/>
       <result property="totalhome" column="TotalHome"/>
