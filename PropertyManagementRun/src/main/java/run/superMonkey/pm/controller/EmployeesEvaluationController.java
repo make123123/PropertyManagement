@@ -75,11 +75,17 @@ public class EmployeesEvaluationController {
 		return result;
 	}
 	
-	//验证员工ID是否存在，如果存在则不合法，不存在则合法，用于增加员工时检查ID是否已经存在
+	//验证员工考评编号ID是否存在，如果存在则不合法，不存在则合法，用于增加员工时检查ID是否已经存在
 		@GetMapping(value="/checkidexist")
 		public boolean checkIdExist(Integer evaluationno) throws Exception{
 			return !ees.checkIdExist(evaluationno);
 		}
-		
+	
+    //验证员工考评日期是不是大于入职员工的入职日期，如果大于则合法，如果小于则不合法
+		@GetMapping(value="/checkdate")
+		public boolean checkDate(@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false)Date evaluationdate)throws Exception {
+			return !ees.checkDate(evaluationdate);
+		}
+
 	
 }

@@ -105,6 +105,14 @@
      and a.evaluationdate=#{evaluationdate}
      </if>
   </where>
-   
+  </select>
+  <!-- 检查员工考评日期是否大于员工的入职日期 -->
+  <select id="checkDate" resultMap="EmployeeWithEmpidResultMap">
+    select * from Employees a left join Employess_evaluation b on a.EMPID=b.EMPID 
+   <where>
+     <if test="evaluationdate!=null">
+       and a.joindate &lt;=#{evaluationdate}
+     </if>
+   </where>
   </select>
   </mapper>

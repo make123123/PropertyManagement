@@ -23,5 +23,6 @@ public interface EmployeesEvaluationService {
 	public int getPageCountByCondition(int empid,String evaluationgrade,Date evaluationdate,int rows)throws Exception;
 	//查ID是否存在
 	public boolean checkIdExist(int evaluationno) throws Exception;
+	public boolean checkDate(Date evaluationdate) throws Exception;
 	
 }

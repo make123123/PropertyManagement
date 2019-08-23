@@ -8,7 +8,7 @@ $(function(){
 	$("span#mainpagetille").html("部门管理");
 	
 	$("table#Grid").jqGrid({
-        url: 'employees/dept/get/list',
+        url: host+'employees/dept/get/list',
         mtype: "GET",
 		styleUI : 'Bootstrap',
         datatype: "json",
@@ -42,7 +42,7 @@ $(function(){
 	}
 //增加部门+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	$("a#AddLink").off().on("click",function(event){
-		$("div#DialogArea").load("employees/dept/add.html",function(){
+		$("div#DialogArea").load(host+"employees/dept/add.html",function(){
 			//弹出对话框
 			$("div#DialogArea").dialog({
 				title:"增加部门",
@@ -152,7 +152,7 @@ $(function(){
 	            }]
 	        });
 		}else{
-			$("div#DialogArea").load("employees/dept/modify.html",function(){
+			$("div#DialogArea").load(host+"employees/dept/modify.html",function(){
 				//取得指定的部门信息
 				$.getJSON(host+"employees/dept/get",{deptno:deptId},function(em){
 							$("input#deptno").val(em.deptno);
@@ -221,7 +221,7 @@ $(function(){
 	            }]
 	        });
 		}else{
-			$("div#DialogArea").load("employees/dept/view.html",function(){
+			$("div#DialogArea").load(host+"employees/dept/view.html",function(){
 				//取得指定的员工信息
 				$.getJSON(host+"employees/dept/get",{deptno:deptId},function(em){
 							$("input#deptno").val(em.deptno);

@@ -73,15 +73,22 @@ public class EmployeesEvaluationServiceImpl implements EmployeesEvaluationServic
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public boolean checkIdExist(int evaluationno) throws Exception {
 		boolean result=false;
 		
 		if(em.selectByPrimaryKey(evaluationno)!=null){
 			result=true;
 		}
-		
 	return result;
+	}
+
+	@Override
+	public boolean checkDate(Date evaluationdate) throws Exception {
+		boolean result =false;
+		if(em.checkDate(evaluationdate)!=null) {
+			return true;
+		}
+		return result;
 	}
 
 }
