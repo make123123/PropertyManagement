@@ -43,11 +43,11 @@ $(function(){
 //设置检索参数，更新jQGrid的列表显示，增加新出入证***********************************************************************************************增
 	function reloadAccesscardList()
 	{
-		$("table#Grid").jqGrid('setGridParam',{postData:{grantno:grantno,cardtype:cardtype,carno:carno,page:1}}).trigger("reloadGrid");
+		$("table#Grid").jqGrid('setGridParam',{postData:{carno:carnpo,customerno:customerno,state:state,page:1}}).trigger("reloadGrid");
 	}
 	//点击增加按钮弹出增加员工对话框
 	$("a#AddLink").off().on("click",function(event){
-		$("div#DialogArea").load("customerservice/accesscard/add.html",function(){
+		$("div#DialogArea").load("customerservice/vehiclearchive/add.html",function(){
 			$("div#DialogArea").dialog({
 				title:"添加车辆出入证",
 				width:300
@@ -55,41 +55,29 @@ $(function(){
 			//验证员工提交数据
 			$("form#AddForm").validate({
 				rules:{
-					cardno:{
-						required:true,
-						remote:"customerservice/accesscard/checkidexist"
-					},
 					carno:{
-						required:true
+						required:true,
+						remote:"customerservice/vehiclearchive/checkidexist"
 					},
 					customerno:{
 						required:true
 					},
-					cardtype:{
+					vechiclearchiveno:{
 						required:true
 					},
-					grantno:{
+					parkinglot:{
 						required:true
 					},
-					vechicletype:{
+					state:{
 						required:true
-					},
-					granttime:{
-						required:true,
-						date:true
-					},
-					
-					overduetime:{
-						required:true,
-						date:true
 					}
 				},
 			messages:{
-						cardno:{
+						carno:{
 							required:"证件号码不能为空！",
 							remote: "输入非法，工号已存在"  
 						},
-						carno:{
+						customerno:{
 							required:"车牌号码不能为空!"
 						},
 						customerno:{
