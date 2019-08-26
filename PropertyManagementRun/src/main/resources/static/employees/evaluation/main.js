@@ -7,6 +7,7 @@ $(function(){
 	var empid=0;
 	var evaluationgrade=null;
 	var evaluationdate=null;
+	var evaluationdate1="2018-01-01";
 	//设置系统页面标题
 	$("span#mainpagetille").html("员工考评登记");
 	
@@ -110,7 +111,14 @@ $(function(){
 					evaluationdate:{
 						required:true,
 						date:true,
-						remote:host+"employees/evaluation/checkdate"
+						remote:{
+							url:host+"employees/evaluation/checkdate",
+							data:{
+							  "empid":function(){return $("select#EmpnameSelection").val();},
+						
+							  "evaluationdate":function(){return $("input#evaluationdate").val();}
+							}
+						}
 					}
 				},
 			messages:{

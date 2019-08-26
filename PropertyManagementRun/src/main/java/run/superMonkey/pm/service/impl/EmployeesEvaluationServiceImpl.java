@@ -83,10 +83,10 @@ public class EmployeesEvaluationServiceImpl implements EmployeesEvaluationServic
 	}
 
 	@Override
-	public boolean checkDate(Date evaluationdate) throws Exception {
+	public boolean checkDate(int empid,Date evaluationdate) throws Exception {
 		boolean result =false;
-		if(em.checkDate(evaluationdate)!=null) {
-			return true;
+		if(em.checkDate(empid,evaluationdate)!=0) {
+			result=true;
 		}
 		return result;
 	}

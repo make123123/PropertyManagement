@@ -83,8 +83,10 @@ public class EmployeesEvaluationController {
 	
     //验证员工考评日期是不是大于入职员工的入职日期，如果大于则合法，如果小于则不合法
 		@GetMapping(value="/checkdate")
-		public boolean checkDate(@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false)Date evaluationdate)throws Exception {
-			return !ees.checkDate(evaluationdate);
+		public boolean checkDate(
+				@RequestParam(required = false) Integer empid,
+				@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam(required = false)Date evaluationdate)throws Exception {
+			return ees.checkDate(empid,evaluationdate);
 		}
 
 	

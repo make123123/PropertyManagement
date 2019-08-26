@@ -22,5 +22,5 @@ public interface EmployessEvaluationMapper {
 	public List<EmployessEvaluationEntity> selectListByAll()throws Exception; 
 	public List<EmployessEvaluationEntity> selectListByPage(@Param("empid")int empid,@Param("evaluationgrade")String evaluationgrade,@Param("evaluationdate")Date evaluationdate,@Param("start") int start,@Param("rows") int rows)throws Exception;
 	public int selectCountByCondition(@Param("empid")int empid,@Param("evaluationgrade")String evaluationgrade,@Param("evaluationdate")Date evaluationdate)throws Exception;
-	public List<EmployessEvaluationEntity> checkDate(@Param("evaluationdate")Date evaluationdate)throws Exception;
+	public int checkDate(@Param("empid")int empid,@Param("evaluationdate")Date evaluationdate)throws Exception;
 }
