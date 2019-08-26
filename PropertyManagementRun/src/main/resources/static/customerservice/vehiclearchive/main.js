@@ -10,7 +10,7 @@ $(function(){
 //分页显示总列表*******************************************************************
 	function getListInfo(){
 		$("table#Grid").jqGrid({
-	        url:'customerservice/accesscard/get/list',
+	        url:'customerservice/vehichearchive/listpage',
 	        mtype: "POST",
 			styleUI : 'Bootstrap',
 	        datatype: "json",
