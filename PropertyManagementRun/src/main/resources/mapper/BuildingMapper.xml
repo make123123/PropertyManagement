@@ -20,7 +20,7 @@
     <!-- 关联小区的ResultMap -->
   <resultMap  id="BuildingWithAreaResultMap" type="Building" extends="BuildingResultMap">
   	<!-- property实体类中为关联定义出来的属性，resultMap映射到那个实体类上，引用它对应Mapper.xml里面的ResuleMap -->
-  	<association property="buildingType" resultMap="run.superMonkey.pm.mapper.BuildingTypeMapper.AreaResultMap"></association>
+  	<association property="buildingType" resultMap="run.superMonkey.pm.mapper.AreaMapper.AreaResultMap"></association>
   </resultMap>
   <!-- 关联的房间的ResultMap -->
   <resultMap  id="BuildingWithRoomResultMap" type="Building" extends="BuildingResultMap">

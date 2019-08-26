@@ -109,7 +109,8 @@ $(function(){
 					},
 					evaluationdate:{
 						required:true,
-						date:true
+						date:true,
+						remote:host+"employees/evaluation/checkdate"
 					}
 				},
 			messages:{
@@ -127,7 +128,8 @@ $(function(){
 						},
 						evaluationdate:{
 							required:"考评日期不能为空，请输入考评日期",
-							date:"输入非法，请输入日期类型yyyy-MM-dd"
+							date:"输入非法，请输入日期类型yyyy-MM-dd",
+							remote:"此员工当前日期还未入职"
 						}	
 			  }
 			});
@@ -215,9 +217,14 @@ $(function(){
 				$.getJSON(host+"employees/evaluation/get",{evaluationno:no},function(em){
 							$("input#evaluationno").val(em.evaluationno);
 							$("select#grade").val(em.evaluationgrade);
-					        $("select#EmpnameSelection").val(em.ee.empname);  //呼叫海王滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴滴
-							//$("select#EmpnameSelection option[value='"+em.ee.empname+"']").attr("selected","selected");
-							//$("#param").find("option[value="+param+"]").attr('selected','selected');
+							$.getJSON(host+"employees/emp/get/listall",function(result){
+								if(result){
+									$.each(result.list,function(index,dm){
+										$("select#EmpnameSelection").append("<option value='"+dm.empid+"'>"+dm.empname+"</option>");
+									});
+								}
+								$("select#EmpnameSelection").val(em.ee.empid);
+							});
 							$("input#evaluationdate").val(em.evaluationdate);
 	           });
 				$("div#DialogArea").dialog({
