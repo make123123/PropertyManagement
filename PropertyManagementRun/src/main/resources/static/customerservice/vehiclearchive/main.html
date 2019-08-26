@@ -1,0 +1,62 @@
+<script type="text/javascript" src="customerservice/vehiclearchive/main.js"></script>
+<!-- Main row -->
+<div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+	      <div class="box-body">
+	      		<a href="index.html" class="btn btn-info">返回首页</a>
+	        <table id="Grid"></table>
+	    	<div id="GridPager"></div>
+	      </div>
+        <div class="box-header">
+          <div class="row">
+             <div class="col-md-9">
+	             <form class="form-inline" role="form">
+				  <div class="form-group">
+				    <div class="form-group">
+				    <label  for="name">发放人ID:</label>
+				    <input id="grantno" class="form-control" value="">
+				  </div>
+				  </div>
+				  <br>
+				  <br>
+				  <div class="form-group">
+				    <label  for="name">车牌号码:</label>
+				    <input class="form-control" id="carno" value="" />
+				  </div>
+				  <br>
+				  <br>
+				  <div class="form-group">
+				    <label  for="name">证件类型:</label>
+				     <select type="text" class="form-control" id="cardtype"  placeholder="证明类型">
+				     	<option value ="">所有</option>
+                        <option value ="长期">长期</option>
+                        <option value ="临时">临时</option>
+                     </select>
+				  </div>
+				  <br>
+				  <br>
+				  <div class="form-group">
+				   <a href="#" class="btn btn-default" id="AccesscardSearchButton">查找</a>
+				  </div>
+				</form>
+             </div>
+             <div class="col-md-3 text-right">
+             	<a href="#" id="AddLink" class="btn btn-info">增加</a> 
+            	<a href="#" id="DeleteLink" class="btn btn-info">删除</a>
+             	<a href="#" id="ModifyLink" class="btn btn-info">修改</a>
+             	<a href="#" id="DetailLink" class="btn btn-info">详细</a>
+              </div>
+          </div>
+        </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->
+<div id="DialogArea" title="Basic dialog">
+    
+</div>
+	

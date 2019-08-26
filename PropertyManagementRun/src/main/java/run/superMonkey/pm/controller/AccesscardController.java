@@ -46,14 +46,6 @@ public class AccesscardController {
 				accesscardEntity.setOverduetime(overduetime);
 				accesscardEntity.setVechicletype(vechicletype);
 				as.register(accesscardEntity);
-				System.out.println(cardno);
-				System.out.println(cardno);
-				System.out.println(cardno);
-				System.out.println(cardno);
-				System.out.println(cardno);
-				System.out.println(cardno);
-				System.out.println(cardno);
-				System.out.println(cardno);
 			return new ResultMessage<AccesscardEntity>("Accpet","增加出入证成功！");
 		}
 		//查看该证件是否已经存在

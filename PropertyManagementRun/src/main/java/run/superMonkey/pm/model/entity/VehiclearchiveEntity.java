@@ -5,8 +5,8 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("VehicletimeEntity")
-public class VehicletimeEntity {
+@Alias("VehiclearchiveEntity")
+public class VehiclearchiveEntity {
 	private String carno;
 	private double customerno;
 	private String vechicletype;
