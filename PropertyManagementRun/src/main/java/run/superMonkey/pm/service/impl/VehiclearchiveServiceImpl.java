@@ -41,16 +41,24 @@ public class VehiclearchiveServiceImpl implements VehiclearchiveService {
 	@Override
 	public List<VehiclearchiveEntity> getListByPage(String carno, double customerno, String state, int page, int rows)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return vehiclearchiveMapper.selectListByPage(carno, customerno, state, (page-1)*rows, rows);
 	}
 
 	@Override
-	public int getPageCountByCondition(String carno, double customerno, String state)
+	public int getCountByCondition(String carno, double customerno, String state)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return vehiclearchiveMapper.selectCountByCondition(carno,customerno,state);
 	}
+	
+	@Override
+	public int getPageCountByCondition(String carno, double customerno, String state,int rows)
+			throws Exception{
+		int sum=getCountByCondition(carno, customerno, state);
+		if(sum%rows!=0)sum=sum/rows+1;
+		else sum=sum/rows;
+		return sum;
+	}
+	
 	@Override
 	public boolean checkIdExist(String carno) throws Exception {
 		boolean res=false;

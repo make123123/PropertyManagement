@@ -12,7 +12,7 @@
     <result column="overduetime"  property="overduetime" />
   </resultMap>
   <!-- 增 -->
-  <insert id="create" parameterType="AccesscardEntity">
+  <insert id="create" >
     insert into Accesscard values (#{cardno},#{carno},#{customerno}, #{vechicletype}, #{grantno}, #{granttime},#{cardtype},#{overduetime})
   </insert>
   <!-- 删 -->

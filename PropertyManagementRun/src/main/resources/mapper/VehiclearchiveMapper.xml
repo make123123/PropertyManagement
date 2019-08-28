@@ -9,7 +9,7 @@
 		<result column="state" property="state" />
 	</resultMap>
 	<insert id="create" >
-		insert into Vehiclearchive values(#{carn0},#{customerno},#{vechicletype},#{parkinglot},#{state})
+		insert into Vehiclearchive values(#{carno},#{customerno},#{vechicletype},#{parkinglot},#{state})
 	</insert>
 	<update id="update">
 		update Vehiclearchive
@@ -22,7 +22,7 @@
 	</update>
 	
 	<delete id="delete">
-		delete from Vehiclearchive where carn0=#{carn0}
+		delete from Vehiclearchive where carno=#{carno}
 	</delete>
 	
 	<select id="selectListByAll" resultMap="vehiclearchive">
@@ -30,37 +30,37 @@
 	</select>
 	
 	<select id="selectByNo" resultMap="vehiclearchive">
-		select * from  Vehiclearchive where carn0=#{carn0}
+		select * from  Vehiclearchive where carno=#{carno}
 	</select>
 	
 	<select id="selectListByPage" resultMap="vehiclearchive">
-		select *from Vehiclearchive
+		select * from Vehiclearchive
 		<where>
 			<if test="carno != '' and carno!=null">
-				carno=#{carno},
+				and carno=#{carno}
 			</if>
-			<if test="customerno !=0 and customerno!=null">
-				customerno=#{customerno},
+			<if test="customerno != 0 and customerno!=null">
+				and customerno=#{customerno}
 			</if>
-			<if test="state !='' and state!=NULL">
-				state=#{state},
+			<if test="state !='' and state!=null">
+				and state=#{state}
 			</if>
-			limit #{start},#{rows}
 		</where>
+		limit #{start},#{rows}
 	</select>
 	
 	
 	<select id="selectCountByCondition" resultType="int">
-		select IFNULL(count(carno,0))from Vehiclearchive
+		select IFNULL(count(carno), 0) from Vehiclearchive
 		<where>
-			<if test="carno!='' and carno!=NULL">
-				carno=#{carno},
+			<if test="carno!='' and carno!=null">
+				and carno=#{carno}
 			</if>
-			<if test="customerno!=0 and customerno!=NULL">
-				customerno=#{customerno},
+			<if test="customerno !=0 and customerno!=null">
+				and customerno=#{customerno}
 			</if>
-			<if test="state!='' and state!=NULL">
-				state=#{state}
+			<if test="state!='' and state!=null">
+				and state=#{state}
 			</if>
 		</where>
 	</select>

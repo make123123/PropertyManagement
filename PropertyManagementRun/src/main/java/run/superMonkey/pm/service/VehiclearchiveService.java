@@ -17,8 +17,9 @@ public interface VehiclearchiveService {
 	//分页查询
 	public List<VehiclearchiveEntity> getListByPage(String carno,double customerno,String state,int page,int rows) throws Exception;
 	//根据综合检索条件取得员工个数	
-	public int getPageCountByCondition(String carno,double customerno,String state)throws Exception;
+	public int getCountByCondition(String carno,double customerno,String state)throws Exception;
 	
+	public int getPageCountByCondition(String carno, double customerno, String state,int rows)throws Exception;
 	//查看员工是否存在
 	public boolean checkIdExist(String carno) throws Exception;
 }

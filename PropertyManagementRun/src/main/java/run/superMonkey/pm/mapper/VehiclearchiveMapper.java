@@ -20,6 +20,7 @@ public interface VehiclearchiveMapper {
 	public VehiclearchiveEntity  selectByNo(String no) throws Exception;
 	//按条件 （车主，车牌，在库状态）分页查找
 	public List<VehiclearchiveEntity> selectListByPage(@Param("carno")String carno,@Param("customerno")double customerno,@Param("state")String state,@Param("start")int start,@Param("rows")int rows)throws Exception;
+
+	public int selectCountByCondition(@Param("carno")String carno,@Param("customerno")double customerno,@Param("state")String state)throws Exception;
 	
-	public int selectCountByCondition(String carno,double customerno,String state)throws Exception;
 }

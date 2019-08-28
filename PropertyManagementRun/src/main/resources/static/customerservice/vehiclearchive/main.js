@@ -1,16 +1,15 @@
 $(function(){
 	var carnpo="";
-	var customerno='0';
+	var customerno=0;
 	var state="";
 	//设置系统页面标题
-	$("span#mainpagetille").html("车辆出入证管理");
-	
-	//显示列表
+	$("span#mainpagetille").html("车辆档案管理");
+
 	getListInfo();
 //分页显示总列表*******************************************************************
 	function getListInfo(){
 		$("table#Grid").jqGrid({
-	        url:'customerservice/vehichearchive/listpage',
+	        url:'/customerservice/vehiclearchive/listpage',
 	        mtype: "POST",
 			styleUI : 'Bootstrap',
 	        datatype: "json",
@@ -40,16 +39,16 @@ $(function(){
 	        }
 	    });
 	}
-//设置检索参数，更新jQGrid的列表显示，增加新出入证***********************************************************************************************增
-	function reloadAccesscardList()
+	function reloadVehiclearchiveList()
 	{
 		$("table#Grid").jqGrid('setGridParam',{postData:{carno:carnpo,customerno:customerno,state:state,page:1}}).trigger("reloadGrid");
 	}
-	//点击增加按钮弹出增加员工对话框
+	//设置检索参数，更新jQGrid的列表显示，增加新出入证***********************************************************************************************增
+	//点击增加按钮弹出增加车辆档案对话框
 	$("a#AddLink").off().on("click",function(event){
 		$("div#DialogArea").load("customerservice/vehiclearchive/add.html",function(){
 			$("div#DialogArea").dialog({
-				title:"添加车辆出入证",
+				title:"添加车辆档案",
 				width:300
 			});
 			//验证员工提交数据
@@ -57,12 +56,12 @@ $(function(){
 				rules:{
 					carno:{
 						required:true,
-						remote:"customerservice/vehiclearchive/checkidexist"
+						remote:"customerservice/vehiclearchive/checknoexist"
 					},
 					customerno:{
 						required:true
 					},
-					vechiclearchiveno:{
+					vechicletype:{
 						required:true
 					},
 					parkinglot:{
@@ -74,43 +73,31 @@ $(function(){
 				},
 			messages:{
 						carno:{
-							required:"证件号码不能为空！",
-							remote: "输入非法，工号已存在"  
+							required:"车辆号码不能为空！",
+							remote: "输入非法，车牌号码已存在"  
 						},
 						customerno:{
-							required:"车牌号码不能为空!"
-						},
-						customerno:{
-							required:"申请人ID不能为空!"
+							required:"车主ID不能为空!"
 						},
 						vechicletype:{
 							required:"车辆型号不能为空！"
 						},
-						grantno:{
-							required:"发放人ID不能为空！"
+						parkinglot:{
+							required:"停车位不能为空！"
 						},
-						cardtype:{
-							required:"证件类型不能为空！"
-						},
-						granttime:{
-							required:"发放日期不能为空！",
-							date:'输入非法，请输入日期类型"年-月-日"'
-						},
-						
-						overduetime:{
-							required:"失效日期不能为空！",
-							date:'输入非法，请输入日期类型"年-月-日"'
+						state:{
+							required:"车辆状态不能为空！"
 						}
 			  }
 			});
 			//添加出入证保单
 			$("form#AddForm").ajaxForm(function(result){
 				if(result.status=="Accpet"){
-					reloadAccesscardList();
+					reloadVehiclearchiveList();
 				}
 				//修改默认的alert对话框
 				BootstrapDialog.show({
-		            title: '出入证操作信息',
+		            title: '车辆档案操作信息',
 		            message:result.message
 		        });
 				$("div#DialogArea").dialog( "close" );
@@ -128,16 +115,16 @@ $(function(){
 	});
 //下方按类型查找模块功能***********************************************************************************查
 	
-	$("select#cardtype").off().on("change",function(){
-		cardtype=$("select#cardtype").val();
+	$("select#state").off().on("change",function(){
+		state=$("select#state").val();
 	});
 	//点击查找事件处理
-	$("a#AccesscardSearchButton").on("click",function(){
-		grantno=$("input#grantno").val();
-		carno=$("input#carno").val();
-		if(grantno==null) grantno='';
-		if(carno==null)carno='';
-		reloadAccesscardList();
+	$("a#VehiclearchiveSearchButton").on("click",function(){
+		carnpo=$("input#carno").val();
+		customerno=parseInt($("input#customerno").val());
+		if(carnpo==null) carnpo='';
+		if(customerno=='')customerno=0;
+		reloadVehiclearchiveList();
 	});
 //根据选中栏按cardno删除资料******************************************************************************************************************************************************删
 	$("a#DeleteLink").off().on("click",function(){
