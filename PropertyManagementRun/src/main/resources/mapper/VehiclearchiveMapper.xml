@@ -39,7 +39,7 @@
 			<if test="carno != '' and carno!=null">
 				and carno=#{carno}
 			</if>
-			<if test="customerno != 0 and customerno!=null">
+			<if test="customerno != 0 ">
 				and customerno=#{customerno}
 			</if>
 			<if test="state !='' and state!=null">
@@ -56,7 +56,7 @@
 			<if test="carno!='' and carno!=null">
 				and carno=#{carno}
 			</if>
-			<if test="customerno !=0 and customerno!=null">
+			<if test="customerno !=0">
 				and customerno=#{customerno}
 			</if>
 			<if test="state!='' and state!=null">

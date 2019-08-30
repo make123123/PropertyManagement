@@ -67,16 +67,15 @@ public class VehiclearchiveController {
 	@RequestMapping("/listpage")
 	public ResultMessage<VehiclearchiveEntity> getListByPage(
 			@RequestParam(required = false,defaultValue ="")String carno,
-			@RequestParam(required = false,defaultValue = "0")String customerno,
+			@RequestParam(required = false,defaultValue = "0")double customerno,
 			@RequestParam(required = false,defaultValue = "")String state,
 			@RequestParam(required = false,defaultValue = "1")int page,
 			@RequestParam(required = false,defaultValue = "10")int rows
 			)throws Exception{
 		ResultMessage<VehiclearchiveEntity> result=new ResultMessage<VehiclearchiveEntity>("Accept","取得车辆出入证列表分页成功");
-		double Coustomerno=Double.parseDouble(customerno);
-		result.setCount(vs.getCountByCondition(carno,Coustomerno,state));
-	    result.setPageCount(vs.getPageCountByCondition(carno,Coustomerno,state,rows));
-		result.setList(vs.getListByPage(carno,Coustomerno,state,page,rows));
+		result.setCount(vs.getCountByCondition(carno,customerno,state));
+	    result.setPageCount(vs.getPageCountByCondition(carno,customerno,state,rows));
+		result.setList(vs.getListByPage(carno,customerno,state,page,rows));
 		result.setPage(page);
 		result.setRows(rows);
 		return result;

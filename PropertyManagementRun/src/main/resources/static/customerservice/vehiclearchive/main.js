@@ -121,9 +121,8 @@ $(function(){
 	//点击查找事件处理
 	$("a#VehiclearchiveSearchButton").on("click",function(){
 		carnpo=$("input#carno").val();
-		customerno=parseInt($("input#customerno").val());
+		customerno=$("input#customerno").val();
 		if(carnpo==null) carnpo='';
-		if(customerno=='')customerno=0;
 		reloadVehiclearchiveList();
 	});
 //根据选中栏按cardno删除资料******************************************************************************************************************************************************删
